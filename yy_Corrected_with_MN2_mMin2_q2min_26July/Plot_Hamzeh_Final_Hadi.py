@@ -93,7 +93,7 @@ font2 = {'family':'serif','color':'black','size':24}
 plt.xlabel("W$_0$ [GeV]",  fontdict = font2)
 plt.ylabel("Integrated S$_{\gamma \gamma}$ (W > W$_0$)", fontdict = font2)
 
-plt.savefig("syy_int_with_MN2_mMin2_Final.pdf")
+plt.savefig("yy_int_with_MN2_mMin2_q2min_Final.pdf")
 
 
 plt.show()
