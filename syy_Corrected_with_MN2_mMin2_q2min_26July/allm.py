@@ -1,3 +1,6 @@
+
+# Final Version -- October 2023 -- Hamzeh
+
 import math
 import scipy.integrate as integ
 
@@ -6,20 +9,22 @@ import scipy.integrate as integ
 pmass = 0.938272081
 pi0mass = 0.1349768
 
-# ALLM parameters
+# ALLM parameters -- arXiv:hep-ph/9712415
+
 Mass2_0 = 0.31985
 Mass2_P = 49.457
 Mass2_R = 0.15052
-Q2_0 = 0.52544
+Q2_0    = 0.52544
 Lambda2 = 0.06527
 
-Ccp = (0.28067, 0.22291, 2.1979)
+Ccp = (0.28067, 0.22291,  2.1979)
 Cap = (-0.0808, -0.44812, 1.1709)
-Cbp = (0.36292, 1.8917, 1.8439)
+Cbp = (0.36292, 1.8917,   1.8439)
 
 Ccr = (0.80107, 0.97307, 3.4942)
 Car = (0.58400, 0.37888, 2.6063)
-Cbr = (0.01147, 3.7582, 0.49338)
+Cbr = (0.01147, 3.7582,  0.49338)
+
 
 def tvalue(Q2):
     return math.log \

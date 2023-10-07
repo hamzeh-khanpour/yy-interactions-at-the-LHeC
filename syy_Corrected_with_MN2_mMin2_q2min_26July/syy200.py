@@ -1,8 +1,12 @@
+
+# Final Version -- October 2023 -- Hamzeh
+
 import matplotlib.pyplot as plt
 import math
 import numpy as np
 import scipy.integrate as integ
 import allm
+
 
 # units in GeV
 
