@@ -106,8 +106,10 @@ font2 = {'family':'serif','color':'black','size':24}
 plt.xlabel("W$_0$ [GeV]",  fontdict = font2)
 plt.ylabel("$\sigma_{\tau \tau}$ (W > W$_0$) [pb]", fontdict = font2)
 
-plt.savefig("cs_tautau_MN2_mMin2_Final.pdf")
 
+
+plt.savefig("cs_tautau_MN2_mMin2_q2min_Final.pdf")
+plt.savefig("cs_tautau_MN2_mMin2_q2min_Final.jpg")
 
 
 
