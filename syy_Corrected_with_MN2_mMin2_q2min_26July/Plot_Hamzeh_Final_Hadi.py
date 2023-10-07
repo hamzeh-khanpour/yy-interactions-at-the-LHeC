@@ -1,3 +1,6 @@
+
+# Final Version -- October 2023 -- Hamzeh Khanpour
+
 import numpy as np
 import matplotlib.pyplot as plt
 import sys
@@ -64,6 +67,8 @@ font2 = {'family':'serif','color':'black','size':24}
 plt.xlabel("W [GeV]",  fontdict = font2)
 plt.ylabel("S$_{\gamma \gamma}$ [GeV$^{-1}$]", fontdict = font2)
 
+
 plt.savefig("syy_with_MN2_mMin2_q2min_Final.pdf")
+plt.savefig("syy_with_MN2_mMin2_q2min_Final.jpg")
 
 plt.show()

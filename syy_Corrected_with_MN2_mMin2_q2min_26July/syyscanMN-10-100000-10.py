@@ -1,8 +1,8 @@
 
-# Final Version -- October 2023 -- Hamzeh
+# Final Version -- October 2023 -- Hamzeh Khanpour
 
-import syy200
-import allm
+import Syy
+import ALLM
 import numpy as np
 
 # last two arguments: mNmax (not squared), Q2max (squared)
@@ -30,7 +30,7 @@ inelastic = True
 for wv in wlist:
     print('w, nMmax, q2emax, q2pmax:', wv, mNmax, q2emax, q2pmax)
     if inelastic:
-        flux_inel_w = syy200.flux_inel_yy_atW(wv, 50., 7000., q2emax, mNmax, q2pmax)
+        flux_inel_w = Syy.flux_inel_yy_atW(wv, 50., 7000., q2emax, mNmax, q2pmax)
         # print(flux_inel_w)
         syy = 2 * flux_inel_w[0] / wv
         res_inel[3].append(syy)
@@ -38,7 +38,7 @@ for wv in wlist:
               .format(wv, syy, flux_inel_w[0], flux_inel_w[1]))
 
 
-    flux_el = syy200.flux_el_yy_atW(wv, 50., 7000., q2emax, q2pmax)
+    flux_el = Syy.flux_el_yy_atW(wv, 50., 7000., q2emax, q2pmax)
     # print(flux_el)
     syy = 2 * flux_el[0] / wv
     res_el[3].append(syy)
@@ -47,7 +47,7 @@ for wv in wlist:
 
 
 
-with open('10-100000-10-ALPHA2PI-MN-Q2-Q2-mMin2-q2min.dat', 'w') as f:
+with open('10_100000_10_ALPHA2PI_MN_Q2_Q2_mMin2_q2min.dat', 'w') as f:
     print(res_param, file = f)     
     print(res_inel, file = f)
     print(res_el, file = f)

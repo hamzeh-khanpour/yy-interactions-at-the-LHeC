@@ -1,25 +1,33 @@
 
-# Final Version -- October 2023 -- Hamzeh
+# Final Version -- October 2023 -- Hamzeh Khanpour
 
 import matplotlib.pyplot as plt
 import math
 import numpy as np
 import scipy.integrate as integ
-import allm
+import ALLM
 
 
 # units in GeV
 
 # v3->newest: integration in dQ^2/Q^2 -> dlnQ^2
 
-ALPHA2PI = 7.2973525693e-3 / math.pi  #  * 0.5                                # Hamzeh
 
-emass = 5.1099895e-4
-pmass = 0.938272081
-pi0mass = 0.1349768
+ALPHA2PI =  7.2973525693e-3 / math.pi  #  * 0.5                                # Hamzeh
+
+emass    =  5.1099895e-4
+pmass    =  0.938272081
+pi0mass  =  0.1349768
+
+
 
 def qmin2(mass, y):
     return mass * mass * y * y / (1 - y)
+
+
+
+# --------------------------------------------------------------
+
 
 # flux at given y with q2max point-like form factor
 # Q2 integration was done analytically
@@ -37,6 +45,12 @@ def flux_y_pl(y, mass, qmax2):
         # print(flux1, flux2)
         return ALPHA2PI * (flux1 - flux2)
 
+
+
+# --------------------------------------------------------------
+
+
+
 # flux at given y with q2max with dipole form factor
 def flux_y_dipole(y, mass, qmax2): 
     if (y <= 0 or y >= 1):
@@ -53,12 +67,16 @@ def flux_y_dipole(y, mass, qmax2):
 
 
 
+# --------------------------------------------------------------
+
+
+
 def flux_y_inel(y, mMin2, qmax2, mNmax, pout=False): 
     if (y <= 0 or y >= 1):
         print('invalid y value: ', y)
         return -1.0
     else:
-        qmin2v = (mMin2*mMin2 / (1 - y) - pmass * pmass) * y                   # Hamzeh mMin2-> mMin2*mMin2
+        qmin2v = (mMin2*mMin2 / (1 - y) - pmass * pmass) * y                 # Hamzeh mMin2-> mMin2*mMin2
         if pout:
             print('qmin2, qmax2:', qmin2v, qmax2)
 	# integration from qmin2 to qmax2
@@ -74,6 +92,10 @@ def flux_y_inel(y, mMin2, qmax2, mNmax, pout=False):
         if pout:
             print('y, flux: {:8.5e} {:8.5e}'.format(y, flux_y_tmp[0]))
         return flux_y_tmp[0]
+
+
+
+# --------------------------------------------------------------
 
 
 
@@ -93,32 +115,7 @@ def flux_y_q2_dipole(lnq2, y, mass, qmin2v):
 
 
 
-def flux_y_q2_inel(lnq2, yp, mMin2, nMmax, qmin2v, pout=False):
-        # integration variable: q2
-	#
-        # print('minmax: ', mMin2, nMmax)
-        formE = allm.allm_formE2(math.exp(lnq2), yp, mMin2, nMmax)[0]
-	# 27 Jun: M2->M3, divide by xQ2 and integrate over mN^2
-	# 27 Jun: put back to M3 -> M2 but try with /x^2 instead of /x^3
-	# 1 Jul: trying M4: x**(-3) = z
-        formM = allm.allm_formM4(math.exp(lnq2), yp, mMin2, nMmax)[0]
-#        formM = allm.allm_formM2(q2, yp, mMin2, nMmax)[0]
-        flux_tmp = (1 - yp) * (1 - qmin2v / math.exp(lnq2)) * formE \
-                               + yp * yp * 0.5 * formM
-        flux_tmp *= ALPHA2PI / yp
-        if pout:
-            print('inel q2, y, E M flux: {:.4e} {:.4e} {:.4e} {:.4e} {:.4e}'
-                  .format(q2, yp, formE, formM, flux_tmp))
-        return flux_tmp
-
-
-
-
-
-
-
-
-
+# --------------------------------------------------------------
 
 
 
@@ -126,31 +123,27 @@ def flux_y_q2_inel_mN2(lnq2, yp, mMin2, nMmax, qmin2v, pout=False):
         # integration variable: q2
 	#
 
-        qmin2 = (mMin2*mMin2 / (1 - yp) - pmass * pmass) * yp                   # Hamzeh
-        
-        formE = allm.allm_formE_qmin2(math.exp(lnq2), yp, mMin2, nMmax)[0]
-        formMq2 = allm.allm_formM_mN2(math.exp(lnq2), yp, mMin2, nMmax)[0]
-        
-        # YY 30.07.2021: formM was divided by q2*q2 -> should be q2        
-        formMNew = formMq2 / ( math.exp(lnq2) * math.exp(lnq2) )  #        # Hamzeh
-        formENew = formE * ( 1.0 - qmin2 / math.exp(lnq2) )       #  / ( math.exp(lnq2) )      # Hamzeh    
-        
+        qmin2 = (mMin2*mMin2 / (1 - yp) - pmass * pmass) * yp                                  # Hamzeh
+
+        formE = ALLM.allm_formE_qmin2(math.exp(lnq2), yp, mMin2, nMmax)[0]
+        formMq2 = ALLM.allm_formM_mN2(math.exp(lnq2), yp, mMin2, nMmax)[0]
+
+        # formM was divided by q2*q2 -> should be q2?? Why?
+        formMNew = formMq2 / ( math.exp(lnq2) * math.exp(lnq2) )  #                            # Hamzeh
+        formENew = formE * ( 1.0 - qmin2 / math.exp(lnq2) )       #  / ( math.exp(lnq2) )      # Hamzeh
+
         flux_tmp = (1 - yp) * formENew \
                     + yp * yp * 0.5 * formMNew
         flux_tmp *= ALPHA2PI / yp
         if pout:
             print('inel q2, y, E M flux: {:.4e} {:.4e} {:.4e} {:.4e} {:.4e}'
-#                  .format(q2, yp, formE, formM / math.exp(lnq2), flux_tmp))    
-                  .format(q2, yp, formENew, formMNew, flux_tmp))                          # Hamzeh        
+#                  .format(q2, yp, formE, formM / math.exp(lnq2), flux_tmp))
+                  .format(q2, yp, formENew, formMNew, flux_tmp))                               # Hamzeh
         return flux_tmp
 
 
 
-
-
-
-
-
+# --------------------------------------------------------------
 
 
 
@@ -165,11 +158,14 @@ def flux_yy_atye(ye, w, qmax2e, qmax2p, s_cms, pout=False):
 
 
 
+# --------------------------------------------------------------
+
+
 
 # inelastic flux at given ye and W
 def flux_yyinel_atye(ye, w, qmax2e, qmax2p, mNmax, s_cms, pout=False):
     yp = w * w / s_cms / ye
-    minM2 = (pmass + pi0mass)# * (pmass + pi0mass)                                       # Hamzeh
+    minM2 = (pmass + pi0mass)# * (pmass + pi0mass)                                           # Hamzeh
 
     # given: ye, w, qmax2e, qmax2p, cms energy
     # calculated inside here: gamma **Monochrome** energy on proton side (yp)
@@ -185,6 +181,7 @@ def flux_yyinel_atye(ye, w, qmax2e, qmax2p, mNmax, s_cms, pout=False):
 
 
 
+# --------------------------------------------------------------
 
 
 
@@ -196,6 +193,9 @@ def flux_el_yy_atW(w, eEbeam, pEbeam, qmax2e, qmax2p):
     fyyatw = integ.quad(flux_yy_atye, ymin, 1.,
                         args=(w, qmax2e, qmax2p, s_cms))
     return fyyatw
+
+
+# --------------------------------------------------------------
 
 
 
@@ -214,39 +214,6 @@ def flux_inel_yy_atW(w, eEbeam, pEbeam, qmax2e, mNmax, qmax2p):
     return fyyatw
 
 
-
-# testing parameter for ZEUS 35m tagger
-# ymin = 0.42
-# ymax = 0.56
-# q2maxv = 0.02
-
-# result_e = integ.quad(flux_y_pl, ymin, ymax, args=(emass, q2maxv))
-
-# print(result_e)
-
-# flux_01_2 = flux_y_dipole(0.1, pmass, 2.)
-# print(flux_01_2)
-# flux_01_25 = flux_y_dipole(0.1, pmass, 25.)
-# print(flux_01_25)
-# flux_001_25 = flux_y_dipole(0.01, pmass, 25.)
-# print(flux_001_25)
-
-
-# flux_inel_w200 = flux_inel_yy_atW(200., 50., 7000., 25., 1000., 1000.)
-# print(flux_inel_w200)
-# syy = 2 * flux_inel_w200[0] / 200.
-# print(syy)
-
-# last two arguments: mNmax (not squared), Q2max (squared)
-# wvalue = 20.
-# flux_inel_w = flux_inel_yy_atW(wvalue, 50., 7000., 25., 1000., 1000.)
-# print(flux_inel_w)
-# syy = 2 * flux_inel_w[0] / wvalue
-# print(syy)
-
-# flux_w200 = flux_el_yy_atW(wvalue, 50., 7000., 25., 1000.)
-# print(flux_w200)
-# syy = 2 * flux_w200[0] / wvalue
-# print(syy)
+# --------------------------------------------------------------
 
 
