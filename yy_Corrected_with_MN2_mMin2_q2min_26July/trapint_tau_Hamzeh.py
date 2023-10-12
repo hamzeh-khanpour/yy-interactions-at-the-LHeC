@@ -65,7 +65,7 @@ wv2, int_el = trap_integ(wv, el)
 
 fig, ax = plt.subplots(figsize = (9., 8.))
 ax.set_xlim(10., 1000.)
-ax.set_ylim(1.e-3, 1.e2)
+ax.set_ylim(1.e-3, 10.e2)
 
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
@@ -75,8 +75,6 @@ plt.loglog(wv1[:101], int_inel[:101], linestyle = 'dotted',  linewidth=2, label 
 
 #plt.grid()
 
-
-
 plt.legend(title = title_label)
 
 #plt.grid()
@@ -85,7 +83,25 @@ plt.legend(title = title_label)
 
 
 
-"""
+from wgrid_2_4_4_0908 import *
+
+wv = np.array(wvalues[3])
+ie = np.array(inel[3])
+wv1, int_inel = trap_integ(wv, ie)
+
+inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$)').format(10,np.log10(inel[2]))
+plt.loglog(wv2[:101], int_inel[:101], linestyle = 'dashdot',  linewidth=2, label = inel_label)
+plt.legend(title = title_label)
+
+
+
+
+
+
+
+
+
+
 from wgrid_3_4_4_0908 import *
 
 wv = np.array(wvalues[3])
@@ -95,7 +111,9 @@ wv1, int_inel = trap_integ(wv, ie)
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$)').format(10,np.log10(inel[2]))
 plt.loglog(wv2[:101], int_inel[:101], linestyle = 'dashdot',  linewidth=2, label = inel_label)
 plt.legend(title = title_label)
-"""
+
+
+
 
 
 
@@ -114,6 +132,10 @@ plt.savefig("cs_tautau_MN2_mMin2_q2min_Final.jpg")
 
 
 plt.show()
+
+
+
+
 
 """
 from wgrid_2_4_4_0908 import *

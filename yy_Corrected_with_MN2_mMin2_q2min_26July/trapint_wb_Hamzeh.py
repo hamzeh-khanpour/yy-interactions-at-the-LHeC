@@ -76,6 +76,8 @@ def trap_integ(wv, fluxv):
 
 sys.path.append('./values')
 
+
+
 from wgrid_1_4_4_0908 import *
 
 wv = np.array(wvalues[3])
@@ -113,6 +115,26 @@ wv1, int_inel = trap_integ(wv, ie)
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$)').format(10,np.log10(inel[2]))
 plt.loglog(wv2[:101], int_inel[:101], linestyle = 'dashdot',  linewidth=2, label = inel_label)
 plt.legend(title = title_label)
+
+
+
+
+
+
+
+
+from wgrid_3_4_4_0908 import *
+
+wv = np.array(wvalues[3])
+ie = np.array(inel[3])
+wv1, int_inel = trap_integ(wv, ie)
+
+inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$)').format(10,np.log10(inel[2]))
+plt.loglog(wv2[:101], int_inel[:101], linestyle = 'dashdot',  linewidth=2, label = inel_label)
+plt.legend(title = title_label)
+
+
+
 
 
 
