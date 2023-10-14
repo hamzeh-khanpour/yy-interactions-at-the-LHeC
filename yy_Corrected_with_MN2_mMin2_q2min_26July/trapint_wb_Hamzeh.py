@@ -24,30 +24,32 @@ plt.rcParams['legend.title_fontsize'] = 'x-large'
 
 
 def cs_tautau_w(wvalue):
-    re = 2.8179403262e-15 * 137. / 128.
+    re = 2.8179403262e-15 * 137.0 / 128.0
     me = 0.510998950e-3
     mtau = 1.77686
 
-    cs = 4. * np.pi * re * re * me * me / wvalue / wvalue \
-         * (np.log(wvalue * wvalue / mtau / mtau) - 1)
+    cs = 4.0 * np.pi * re * re * me * me / wvalue / wvalue \
+         * ((1.0+4.0*mtau*mtau/wvalue/wvalue)*np.log(wvalue * wvalue / mtau / mtau) - 1.0 - 2.0*mtau*mtau/wvalue/wvalue)
 
     return cs
+
 
 
 def cs_ww_w(wvalue):
-    re = 2.8179403262e-15 * 137. / 128.
+    re = 2.8179403262e-15 * 137.0 / 128.0
     me = 0.510998950e-3
     mw = 80.379
 
-    if wvalue > 2. * mw:
-        cs = 9. * np.pi * re * re * me * me / mw / mw \
-             * np.sqrt(wvalue * wvalue - 4. * mw * mw) / wvalue
-    elif wvalue > 300.:
-        cs = 8. * np.pi * re * re * me * me / mw / mw
+    if wvalue > 2.0 * mw:
+        cs = (19.0/2.0) * np.pi * re * re * me * me / mw / mw \
+             * np.sqrt(wvalue * wvalue - 4.0 * mw * mw) / wvalue
+    elif wvalue > 300.0:
+        cs = 8.0 * np.pi * re * re * me * me / mw / mw
     else:
-        cs = 0.
+        cs = 0.0
 
     return cs
+
     
 
 def trap_integ(wv, fluxv):

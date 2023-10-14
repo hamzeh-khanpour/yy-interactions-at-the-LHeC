@@ -26,11 +26,13 @@ def cs_tautau_w(wvalue):
     me = 0.510998950e-3
     mtau = 1.77686
 
-    cs = 4. * np.pi * re * re * me * me / wvalue / wvalue \
-         * (np.log(wvalue * wvalue / mtau / mtau) - 1)
+    cs = 4.0 * np.pi * re * re * me * me / wvalue / wvalue \
+         * ((1.0+4.0*mtau*mtau/wvalue/wvalue)*np.log(wvalue * wvalue / mtau / mtau) - 1.0 - 2.0*mtau*mtau/wvalue/wvalue)
 
     return cs
     
+
+
 
 def trap_integ(wv, fluxv):
     wmin = np.zeros(len(wv) - 1)
