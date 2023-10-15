@@ -27,10 +27,10 @@ def cs_zz_w(wvalue):
     me = 0.510998950e-3
     mZ = 91.186
 
-    Alpha = 1./137.
+    alpha = 1./137.
     hbarc =  197.327
     hbarc2 =  0.389
-    convert = hbarc2 * Alpha * Alpha * 1000000000.0
+    convert = hbarc2 * alpha * alpha * 1000000000.0
 
     if wvalue > 2.0 * mZ:
  #       cs = re * re * me * me * 0.279061 * ( 1.0 - 8315.07/(wvalue*wvalue) )**12.9722
