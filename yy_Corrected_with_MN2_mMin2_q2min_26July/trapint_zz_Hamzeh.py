@@ -30,7 +30,7 @@ def cs_zz_w(wvalue):
     alpha = 1./137.
     hbarc =  197.327
     hbarc2 =  0.389
-    convert = hbarc2 * alpha * alpha * 1000000000.0
+    convert =  1.0 # hbarc2 * alpha * alpha * 1000000000.0
 
     if wvalue > 2.0 * mZ:
  #       cs = re * re * me * me * 0.279061 * ( 1.0 - 8315.07/(wvalue*wvalue) )**12.9722
@@ -76,7 +76,7 @@ wv2, int_el = trap_integ(wv, el)
 
 fig, ax = plt.subplots(figsize = (9., 8.))
 ax.set_xlim(200., 1000.)
-ax.set_ylim(1.e-2, 10.e2)
+ax.set_ylim(1.e-6, 1.e-2)
 
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
