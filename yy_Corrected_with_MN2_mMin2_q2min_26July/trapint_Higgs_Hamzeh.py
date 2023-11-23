@@ -20,37 +20,53 @@ plt.rcParams["legend.fontsize"] = 15
 plt.rcParams['legend.title_fontsize'] = 'x-large'
 
 
+####################################################################
 
+def cs_higgs_w_condition(wvalue):
+    re = 2.8179403262e-15 * 137.0 / 128.0
+    me = 0.510998950e-3
+    MH = 125.0
+    G = 4.2e-3
+    Gyy = (2.27e-3)*(4.2e-3)
+    hbarc2 =  0.389
+    alpha2 = (1.0/137.0)*(1.0/137.0)
 
+    # Use np.greater for element-wise comparison
+    condition = np.greater(wvalue, MH)
+    cs = np.where(condition, (8. * np.pi * np.pi * hbarc2) * (Gyy / MH) * (1. / np.pi) *
+                  ((MH * G) / ((MH * MH - wvalue * wvalue)*(MH * MH - wvalue * wvalue) + MH * MH * G * G)) * 1e9, 0.0)
+
+    return cs
+
+####################################################################
 
 def cs_higgs_w(wvalue):
     re = 2.8179403262e-15 * 137.0 / 128.0
     me = 0.510998950e-3
     MH = 125.0
-    G  = 4.2e-3
+    G = 4.2e-3
     Gyy = (2.27e-3)*(4.2e-3)
     hbarc2 =  0.389
     alpha2 = (1.0/137.0)*(1.0/137.0)
-#    alpha2 = alpha * alpha
 
-
-    if wvalue > MH:
-        cs = (8. * np.pi * np.pi* hbarc2 ) * (Gyy / MH)* (1./ np.pi) * \
-         ( (MH *G)/((MH*MH - wvalue*wvalue)*(MH*MH-wvalue*wvalue) + MH*MH*G*G))
-    else:
-        cs = 0.
+    cs = (8. * np.pi * np.pi* hbarc2 ) * (Gyy / MH)* (1./ np.pi) * \
+         ( (MH *G)/((MH*MH - wvalue*wvalue)*(MH*MH-wvalue*wvalue) + MH*MH*G*G)) * 1e9
 
     return cs
-    
 
+####################################################################
+
+    
 def trap_integ(wv, fluxv):
     wmin = np.zeros(len(wv) - 1)
     integ = np.zeros(len(wv) - 1)
 
     for i in range(len(wv) - 2, -1, -1):
         wvwid = wv[i + 1] - wv[i]
-        cs_0 = cs_higgs_w(wv[i])
-        cs_1 = cs_higgs_w(wv[i + 1])
+        cs_0 = cs_higgs_w_condition(wv[i])
+        cs_1 = cs_higgs_w_condition(wv[i + 1])
+#        cs_0 = cs_higgs_w(wv[i])
+#        cs_1 = cs_higgs_w(wv[i + 1])
         traparea = wvwid * 0.5 * (fluxv[i] * cs_0 + fluxv[i + 1] * cs_1)
         wmin[i] = wv[i]
         if i == len(wv) - 2:
@@ -60,7 +76,7 @@ def trap_integ(wv, fluxv):
 
     nanobarn = 1.e+40
 
-    return wmin, integ * 1000000000.0
+    return wmin, integ  # * 1000000000.0
 
 
 sys.path.append('./values')
@@ -76,7 +92,7 @@ wv2, int_el = trap_integ(wv, el)
 
 fig, ax = plt.subplots(figsize = (9., 8.))
 ax.set_xlim(125., 1000.)
-ax.set_ylim(1.e-15, 1.e-4)
+ax.set_ylim(1.e-14, 1.e-4)
 
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
@@ -103,10 +119,6 @@ wv1, int_inel = trap_integ(wv, ie)
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$)').format(10,np.log10(inel[2]))
 plt.loglog(wv2[:101], int_inel[:101], linestyle = 'dashdot',  linewidth=2, label = inel_label)
 plt.legend(title = title_label)
-
-
-
-
 
 
 
