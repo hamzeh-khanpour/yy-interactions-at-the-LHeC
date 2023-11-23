@@ -18,7 +18,7 @@ def cs_DM_w(wvalue):
 
     # Element-wise calculation of cs
     cs = np.where(wvalue > mDM, (4.0 * np.pi * alpha2 * hbarc2 ) / wvalue* (beta) * \
-             (2.0 - beta**2.0 - (1-beta**4.0)/(2.0 * beta)*np.log((1.0+beta)/(1.0-beta))), 0.)
+             (2.0 - beta**2.0 - (1-beta**4.0)/(2.0 * beta)*np.log((1.0+beta)/(1.0-beta))), 0.)  * 1e9
 
     return cs
 
