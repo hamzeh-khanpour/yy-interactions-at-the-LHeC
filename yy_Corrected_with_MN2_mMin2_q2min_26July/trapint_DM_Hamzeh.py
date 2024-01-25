@@ -32,10 +32,10 @@ def cs_DM_w_condition(wvalue):
     alpha2 = (1.0/137.0)*(1.0/137.0)
 
     # Element-wise calculation of beta using np.where
-    beta = np.sqrt(np.where(1.0 - 4.0 * mDM * mDM / wvalue**2 >= 0, 1.0 - 4.0 * mDM * mDM / wvalue**2, np.nan))
+    beta = np.sqrt(np.where(1.0 - 4.0 * mDM * mDM / wvalue**2.0 >= 0, 1.0 - 4.0 * mDM * mDM / wvalue**2.0, np.nan))
 
     # Element-wise calculation of cs using np.where
-    cs = np.where(wvalue > mDM, (4.0 * np.pi * alpha2 * hbarc2 ) / wvalue * (beta) * \
+    cs = np.where(wvalue > mDM, (4.0 * np.pi * alpha2 * hbarc2 ) / wvalue**2.0 * (beta) * \
              (2.0 - beta**2.0 - (1-beta**4.0)/(2.0 * beta) * np.log((1.0+beta)/(1.0-beta))), 0.) * 1e9
 
     return cs
@@ -51,10 +51,10 @@ def cs_DM_w(wvalue):
     alpha2 = (1.0/137.0)*(1.0/137.0)
 
     # Element-wise comparison
-    beta = np.sqrt( 1.0 - 4.0 * mDM * mDM / wvalue**2 )
+    beta = np.sqrt( 1.0 - 4.0 * mDM * mDM / wvalue**2.0 )
 
     # Element-wise calculation of cs
-    cs = (4.0 * np.pi * alpha2 * hbarc2 ) / wvalue* (beta) * \
+    cs = (4.0 * np.pi * alpha2 * hbarc2 ) / wvalue**2.0* (beta) * \
              ( 2.0 - beta**2.0 - (1-beta**4.0)/(2.0 * beta)*np.log((1.0+beta)/(1.0-beta)) ) * 1e9
 
     return cs
@@ -69,14 +69,14 @@ def cs_DM_w_old(wvalue):
     alpha2 = (1.0/137.0)*(1.0/137.0)
     # alpha2 = alpha * alpha
 
-    if (1.0 - 4.0 * mDM * mDM / wvalue**2) >= 0:
-        beta = np.sqrt(1.0 - 4.0 * mDM * mDM / wvalue**2)
+    if (1.0 - 4.0 * mDM * mDM / wvalue**2.0) >= 0:
+        beta = np.sqrt(1.0 - 4.0 * mDM * mDM / wvalue**2.0)
     else:
         # Handle the case where the expression is negative (e.g., set beta to NaN)
         beta = np.nan
 
     if wvalue > mDM:
-        cs = (4.0 * np.pi * alpha2 * hbarc2 ) / wvalue* (beta) * \
+        cs = (4.0 * np.pi * alpha2 * hbarc2 ) / wvalue**2.0 * (beta) * \
              (2.0 - beta**2.0 - (1-beta**4.0)/(2.0 * beta)*math.log((1.0+beta)/(1.0-beta))) * 1e9
     else:
         cs = 0.
