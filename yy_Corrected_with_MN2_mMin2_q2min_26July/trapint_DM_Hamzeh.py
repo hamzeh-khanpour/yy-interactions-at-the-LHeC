@@ -32,11 +32,11 @@ def cs_DM_w_condition(wvalue):
     alpha2 = (1.0/137.0)*(1.0/137.0)
 
     # Element-wise calculation of beta using np.where
-    beta = np.sqrt(np.where(1.0 - 4.0 * mDM * mDM / wvalue**2.0 >= 0, 1.0 - 4.0 * mDM * mDM / wvalue**2.0, np.nan))
+    beta = np.sqrt(np.where(1.0 - 4.0 * mDM * mDM / wvalue**2.0 >= 0.0, 1.0 - 4.0 * mDM * mDM / wvalue**2.0, np.nan))
 
     # Element-wise calculation of cs using np.where
     cs = np.where(wvalue > mDM, (4.0 * np.pi * alpha2 * hbarc2 ) / wvalue**2.0 * (beta) * \
-             (2.0 - beta**2.0 - (1-beta**4.0)/(2.0 * beta) * np.log((1.0+beta)/(1.0-beta))), 0.) * 1e9
+             (2.0 - beta**2.0 - (1.0-beta**4.0)/(2.0 * beta) * np.log((1.0+beta)/(1.0-beta))), 0.0) * 1e9
 
     return cs
 
@@ -55,7 +55,7 @@ def cs_DM_w(wvalue):
 
     # Element-wise calculation of cs
     cs = (4.0 * np.pi * alpha2 * hbarc2 ) / wvalue**2.0* (beta) * \
-             ( 2.0 - beta**2.0 - (1-beta**4.0)/(2.0 * beta)*np.log((1.0+beta)/(1.0-beta)) ) * 1e9
+             ( 2.0 - beta**2.0 - (1.0-beta**4.0)/(2.0 * beta)*np.log((1.0+beta)/(1.0-beta)) ) * 1e9
 
     return cs
 
@@ -69,7 +69,7 @@ def cs_DM_w_old(wvalue):
     alpha2 = (1.0/137.0)*(1.0/137.0)
     # alpha2 = alpha * alpha
 
-    if (1.0 - 4.0 * mDM * mDM / wvalue**2.0) >= 0:
+    if (1.0 - 4.0 * mDM * mDM / wvalue**2.0) >= 0.0:
         beta = np.sqrt(1.0 - 4.0 * mDM * mDM / wvalue**2.0)
     else:
         # Handle the case where the expression is negative (e.g., set beta to NaN)
@@ -77,7 +77,7 @@ def cs_DM_w_old(wvalue):
 
     if wvalue > mDM:
         cs = (4.0 * np.pi * alpha2 * hbarc2 ) / wvalue**2.0 * (beta) * \
-             (2.0 - beta**2.0 - (1-beta**4.0)/(2.0 * beta)*math.log((1.0+beta)/(1.0-beta))) * 1e9
+             (2.0 - beta**2.0 - (1.0-beta**4.0)/(2.0 * beta)*math.log((1.0+beta)/(1.0-beta))) * 1e9
     else:
         cs = 0.
 
@@ -143,7 +143,7 @@ wv2, int_el = trap_integ(wv, el)
 
 fig, ax = plt.subplots(figsize = (9., 8.))
 ax.set_xlim(100., 1000.)
-ax.set_ylim(1.e-9, 1.e4)
+ax.set_ylim(1.e-9, 1.e3)
 
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])

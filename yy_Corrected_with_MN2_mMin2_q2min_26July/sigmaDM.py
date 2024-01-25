@@ -13,12 +13,12 @@ def cs_DM_w(wvalue):
     alpha2 = (1.0/137.0)*(1.0/137.0)
 
     # Element-wise comparison
-    condition = (1.0 - 4.0 * mDM * mDM / wvalue**2.0) >= 0
+    condition = (1.0 - 4.0 * mDM * mDM / wvalue**2.0) >= 0.0
     beta = np.sqrt(np.where(condition, 1.0 - 4.0 * mDM * mDM / wvalue**2.0, np.nan))
 
     # Element-wise calculation of cs
     cs = np.where(wvalue > mDM, (4.0 * np.pi * alpha2 * hbarc2 ) / wvalue**2.0 * (beta) * \
-             (2.0 - beta**2.0 - (1-beta**4.0)/(2.0 * beta)*np.log((1.0+beta)/(1.0-beta))), 0.)  * 1e9
+             (2.0 - beta**2.0 - (1.0-beta**4.0)/(2.0 * beta)*np.log((1.0+beta)/(1.0-beta))), 0.0)  * 1e9
 
     return cs
 
@@ -34,12 +34,12 @@ ax.plot(wvalue, y)
 ax.set_yscale("log")
 
 # Customize the plot
-ax.set_xlabel('wvalue')
-ax.set_ylabel('cs_DM_w')
-ax.set_title('Plot of cs_DM_w')
+ax.set_xlabel('W [GeV]')
+ax.set_ylabel('$\sigma_{\gamma \gamma -> S^+ S^-}$ (pb)')
+ax.set_title('$\sigma_{\gamma \gamma ->  S^+ S^-}$')
 
 # Save the plot as a PDF file
-plt.savefig('cs_DM_w_plot.pdf')
+# plt.savefig('cs_DM_w_plot.pdf')
 
 # Show the plot
 plt.show()
