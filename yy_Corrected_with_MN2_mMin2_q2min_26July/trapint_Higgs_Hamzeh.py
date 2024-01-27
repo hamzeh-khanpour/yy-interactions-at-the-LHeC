@@ -56,6 +56,24 @@ def cs_higgs_w(wvalue):
 
 ####################################################################
 
+# Function to calculate cross-section
+def higgs_cross_section_final(wvalue):
+
+    # Constants
+    M_H = 125.0  # Higgs mass in GeV
+    Gamma = 4.2e-3  # Total width
+    Gamma_gamma = (2.27e-3)*(Gamma)  # Two-photon width
+    hbarc2 =  0.389
+
+    cs = 8 * np.pi**2 * hbarc2 * (Gamma_gamma / M_H) * (1 / np.pi) * (M_H * Gamma) / ((M_H**2 - wvalue**2)**2 + M_H**2 * Gamma**2)  * 1e9
+
+    return cs
+
+
+####################################################################
+
+
+
     
 def trap_integ(wv, fluxv):
     wmin = np.zeros(len(wv) - 1)
@@ -63,8 +81,8 @@ def trap_integ(wv, fluxv):
 
     for i in range(len(wv) - 2, -1, -1):
         wvwid = wv[i + 1] - wv[i]
-        cs_0 = cs_higgs_w_condition(wv[i])
-        cs_1 = cs_higgs_w_condition(wv[i + 1])
+        cs_0 = higgs_cross_section_final(wv[i])
+        cs_1 = higgs_cross_section_final(wv[i + 1])
 #        cs_0 = cs_higgs_w(wv[i])
 #        cs_1 = cs_higgs_w(wv[i + 1])
         traparea = wvwid * 0.5 * (fluxv[i] * cs_0 + fluxv[i + 1] * cs_1)
@@ -91,7 +109,7 @@ wv1, int_inel = trap_integ(wv, ie)
 wv2, int_el = trap_integ(wv, el)
 
 fig, ax = plt.subplots(figsize = (9.0, 8.0))
-ax.set_xlim(125.0, 1000.0)
+ax.set_xlim(125.1, 1000.0)
 ax.set_ylim(1.e-14, 1.e-4)
 
 
