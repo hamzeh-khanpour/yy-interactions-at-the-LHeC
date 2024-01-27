@@ -44,6 +44,44 @@ def cs_higgsionos_w_condition(wvalue):
 ##################################################################
 
 
+def cs_tautau_w(wvalue):
+    re = 2.8179403262e-15 * 137.0 / 128.0
+    me = 0.510998950e-3
+    mtau = 100.0
+    G = 4.2e-3
+    Gyy = (2.27e-3)*(4.2e-3)
+    hbarc2 =  0.389
+    alpha2 = (1.0/137.0)*(1.0/137.0)
+
+    cs = 4.0 * np.pi * hbarc2 * alpha2 / wvalue / wvalue \
+         * ((1.0 + 4.0*mtau*mtau/wvalue/wvalue)*np.log(wvalue * wvalue / mtau / mtau) - 1.0 - 2.0*mtau*mtau/wvalue/wvalue) * 1e9
+
+    return cs
+
+
+##################################################################
+
+
+def cs_higgsionos_w_condition_higgsionos(wvalue):
+    re = 2.8179403262e-15 * 137.0 / 128.0
+    me = 0.510998950e-3
+    mhiggsionos = 100.0
+    hbarc2 =  0.389
+    alpha2 = (1.0/137.0)*(1.0/137.0)
+
+    # Element-wise calculation of beta using np.where
+    beta = np.sqrt(np.where(1.0 - 4.0 * mhiggsionos * mhiggsionos / wvalue**2.0 >= 0, 1.0 - 4.0 * mhiggsionos * mhiggsionos / wvalue**2.0, np.nan))
+
+    # Element-wise calculation of cs using np.where
+    cs = np.where(wvalue > mhiggsionos, (4.0 * np.pi * alpha2 * hbarc2 ) / wvalue**2.0 *
+               ( (1.0 + 4.0*mhiggsionos**2.0/wvalue**2.0 - 8.0*mhiggsionos**4.0/wvalue**4.0) * np.log((1.0+beta)/(1.0-beta)) - beta* (1.0 + 4.0*mhiggsionos**2.0/wvalue**2.0)), 0.) * 1e9
+
+    return cs
+
+
+##################################################################
+
+
 """
 def cs_DM_w(wvalue):
     re = 2.8179403262e-15 * 137.0 / 128.0
