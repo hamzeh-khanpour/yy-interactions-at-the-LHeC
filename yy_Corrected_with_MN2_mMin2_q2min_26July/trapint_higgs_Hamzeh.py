@@ -34,10 +34,10 @@ def cs_higgs_w(wvalue):
 
 
     if wvalue > MH:
-        cs = (8. * np.pi * np.pi* hbarc2 ) * (Gyy / MH)* (1./ np.pi) * \
+        cs = (8.0 * np.pi * np.pi* hbarc2 ) * (Gyy / MH)* (1./ np.pi) * \
          ( (MH *G)/((MH*MH - wvalue*wvalue)*(MH*MH-wvalue*wvalue) + MH*MH*G*G))
     else:
-        cs = 0.
+        cs = 0.0
 
     return cs
 
@@ -74,7 +74,7 @@ wv1, int_inel = trap_integ(wv, ie)
 wv2, int_el = trap_integ(wv, el)
 
 fig, ax = plt.subplots(figsize = (9., 8.))
-ax.set_xlim(125., 1000.)
+ax.set_xlim(125.0, 1000.0)
 ax.set_ylim(1.e-15, 1.e-4)
 
 
@@ -106,6 +106,13 @@ inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}^
 plt.loglog(wv2[:101], int_inel[:101], linestyle = 'dashdot',  linewidth=2, label = inel_label)
 plt.legend(title = title_label)
 """
+
+
+
+# Save the output values in a text file
+output_data = np.column_stack((wv2[:101], int_el[:101], int_inel[:101]))
+header = 'W_Value Elastic Inelastic'
+np.savetxt('output_values_Higgs.txt', output_data, header=header, fmt='%0.8e', delimiter='\t')
 
 
 

@@ -137,9 +137,9 @@ el = np.array(elas[3])
 wv1, int_inel = trap_integ(wv, ie)
 wv2, int_el = trap_integ(wv, el)
 
-fig, ax = plt.subplots(figsize = (9., 8.))
-ax.set_xlim(100., 1000.)
-ax.set_ylim(1.e-9, 1.e3)
+fig, ax = plt.subplots(figsize = (9.0, 8.0))
+ax.set_xlim(200.0, 1000.0)
+ax.set_ylim(1.0e-9, 1.0e3)
 
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
@@ -187,6 +187,13 @@ plt.loglog(wv2[:101], int_inel[:101], linestyle = 'dashdot',  linewidth=2, label
 plt.legend(title = title_label)
 
 
+
+
+
+# Save the output values in a text file
+output_data = np.column_stack((wv2[:101], int_el[:101], int_inel[:101]))
+header = 'W_Value Elastic Inelastic'
+np.savetxt('output_values.txt', output_data, header=header, fmt='%0.8e', delimiter='\t')
 
 
 
