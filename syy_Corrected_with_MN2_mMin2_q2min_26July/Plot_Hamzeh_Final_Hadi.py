@@ -29,14 +29,14 @@ sys.path.append('./values')
 # from syy_1_4_4_0907 import *
 from wgrid_1_4_4_0908 import *
 
-fig, ax = plt.subplots(figsize = (9., 8.))
-ax.set_xlim(10., 1000.)
+fig, ax = plt.subplots(figsize = (9.0, 8.0))
+ax.set_xlim(10.0, 1000.0)
 ax.set_ylim(2.e-7, 1.e-1)
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
 title_label = ('$Q^2_e<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$').format(10,np.log10(inel[1]))
-plt.loglog(wvalues[3][:101], elas[3][:101], linestyle = 'solid',  linewidth=2, label = 'elastic')
-plt.loglog(wvalues[3][:101], inel[3][:101], linestyle = 'dotted', linewidth=2, label = inel_label)
+plt.loglog(wvalues[3][:202], elas[3][:202], linestyle = 'solid',  linewidth=2, label = 'elastic')
+plt.loglog(wvalues[3][:202], inel[3][:202], linestyle = 'dotted', linewidth=2, label = inel_label)
 #plt.grid()
 
 
@@ -47,7 +47,7 @@ plt.loglog(wvalues[3][:101], inel[3][:101], linestyle = 'dotted', linewidth=2, l
 from wgrid_2_4_4_0908 import *
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$)').format(10,np.log10(inel[2]))
-plt.loglog(wvalues[3][:101], inel[3][:101], linestyle = 'dashdot', linewidth=2, label = inel_label)
+plt.loglog(wvalues[3][:202], inel[3][:202], linestyle = 'dashdot', linewidth=2, label = inel_label)
 plt.legend(title = title_label)
 
 
@@ -58,7 +58,7 @@ plt.legend(title = title_label)
 from wgrid_3_4_4_0908 import *
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$)').format(10,np.log10(inel[2]))
-plt.loglog(wvalues[3][:101], inel[3][:101], linestyle = 'dashdot', linewidth=2, label = inel_label)
+plt.loglog(wvalues[3][:202], inel[3][:202], linestyle = 'dashdot', linewidth=2, label = inel_label)
 plt.legend(title = title_label)
 
 font1 = {'family':'serif','color':'black','size':24}

@@ -21,30 +21,26 @@ plt.rcParams["legend.fontsize"] = 15
 plt.rcParams['legend.title_fontsize'] = 'x-large'
 
 
-
-
-def cs_tautau_w(wvalue):
-    re = 2.8179403262e-15 * 137.0 / 128.0
-    me = 0.510998950e-3
-    mtau = 1.77686
-
-    cs = 4.0 * np.pi * re * re * me * me / wvalue / wvalue \
-         * ((1.0+4.0*mtau*mtau/wvalue/wvalue)*np.log(wvalue * wvalue / mtau / mtau) - 1.0 - 2.0*mtau*mtau/wvalue/wvalue)
-
-    return cs
-
-
-
 def cs_ww_w(wvalue):
     re = 2.8179403262e-15 * 137.0 / 128.0
     me = 0.510998950e-3
     mw = 80.379
+    hbarc2 =  0.389
+    alpha2 = (1.0/128.0)*(1.0/128.0)
+
+    #if wvalue > 2.0 * mw:
+        #cs = (19.0/2.0) * np.pi * re * re * me * me / mw / mw \
+             #* np.sqrt(wvalue * wvalue - 4.0 * mw * mw) / wvalue
+    #elif wvalue > 300.0:
+        #cs = 8.0 * np.pi * re * re * me * me / mw / mw
+    #else:
+        #cs = 0.0
 
     if wvalue > 2.0 * mw:
-        cs = (19.0/2.0) * np.pi * re * re * me * me / mw / mw \
-             * np.sqrt(wvalue * wvalue - 4.0 * mw * mw) / wvalue
+        cs = (19.0/2.0) * np.pi * hbarc2 * alpha2  / mw / mw \
+             * np.sqrt(wvalue * wvalue - 4.0 * mw * mw) / wvalue         * 1e9
     elif wvalue > 300.0:
-        cs = 8.0 * np.pi * re * re * me * me / mw / mw
+        cs = 8.0 * np.pi * hbarc2 * alpha2  / mw / mw                    * 1e9
     else:
         cs = 0.0
 
@@ -73,7 +69,7 @@ def trap_integ(wv, fluxv):
 
     nanobarn = 1.e+40
 
-    return wmid, integ * nanobarn
+    return wmid, integ  # * nanobarn
 
 
 sys.path.append('./values')
@@ -89,15 +85,15 @@ el = np.array(elas[3])
 wv1, int_inel = trap_integ(wv, ie)
 wv2, int_el = trap_integ(wv, el)
 
-fig, ax = plt.subplots(figsize = (9., 8.))
+fig, ax = plt.subplots(figsize = (9.0, 8.0))
 # ax.set_xlim(10., 1000.)
-ax.set_xlim(161., 1000.)
+ax.set_xlim(161.0, 1000.0)
 ax.set_ylim(2.e-4, 1.e1)
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
 title_label = ('$Q^2_e<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$').format(10,np.log10(inel[1]))
-plt.loglog(wv2[:101], int_el[:101], linestyle = 'solid',  linewidth=2,  label = 'elastic')
-plt.loglog(wv1[:101], int_inel[:101], linestyle = 'dotted',  linewidth=2, label = inel_label)
+plt.loglog(wv2[:202], int_el[:202], linestyle = 'solid',  linewidth=2,  label = 'elastic')
+plt.loglog(wv1[:202], int_inel[:202], linestyle = 'dotted',  linewidth=2, label = inel_label)
 
 
 plt.legend(title = title_label)
@@ -115,7 +111,7 @@ ie = np.array(inel[3])
 wv1, int_inel = trap_integ(wv, ie)
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$)').format(10,np.log10(inel[2]))
-plt.loglog(wv2[:101], int_inel[:101], linestyle = 'dashdot',  linewidth=2, label = inel_label)
+plt.loglog(wv2[:202], int_inel[:202], linestyle = 'dashdot',  linewidth=2, label = inel_label)
 plt.legend(title = title_label)
 
 
@@ -132,7 +128,7 @@ ie = np.array(inel[3])
 wv1, int_inel = trap_integ(wv, ie)
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$)').format(10,np.log10(inel[2]))
-plt.loglog(wv2[:101], int_inel[:101], linestyle = 'dashdot',  linewidth=2, label = inel_label)
+plt.loglog(wv2[:202], int_inel[:202], linestyle = 'dashdot',  linewidth=2, label = inel_label)
 plt.legend(title = title_label)
 
 
@@ -166,7 +162,7 @@ ie = np.array(inel[3])
 wv1, int_inel = trap_integ(wv, ie)
 
 inel_label = 'M_N < ' + str(inel[0])
-plt.loglog(wv1[:101], int_inel[:101], '-', label = inel_label)
+plt.loglog(wv1[:202], int_inel[:202], '-', label = inel_label)
 plt.legend(title = title_label)
 
 from wgrid_3_4_4_0908 import *
@@ -176,7 +172,7 @@ ie = np.array(inel[3])
 wv1, int_inel = trap_integ(wv, ie)
 
 inel_label = 'M_N < ' + str(inel[0])
-plt.loglog(wv2[:101], int_inel[:101], '-', label = inel_label)
+plt.loglog(wv2[:202], int_inel[:202], '-', label = inel_label)
 plt.legend(title = title_label)
 """
 

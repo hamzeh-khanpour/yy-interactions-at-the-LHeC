@@ -74,7 +74,7 @@ wv1, int_inel = trap_integ(wv, ie)
 wv2, int_el = trap_integ(wv, el)
 
 fig, ax = plt.subplots(figsize = (9., 8.))
-ax.set_xlim(125.0, 1000.0)
+ax.set_xlim(100.0, 1000.0)
 ax.set_ylim(1.e-15, 1.e-4)
 
 

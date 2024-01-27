@@ -33,7 +33,7 @@ def cs_higgs_w_condition(wvalue):
 
     # Use np.greater for element-wise comparison
     condition = np.greater(wvalue, MH)
-    cs = np.where(condition, (8. * np.pi * np.pi * hbarc2) * (Gyy / MH) * (1. / np.pi) *
+    cs = np.where(condition, (8.0 * np.pi * np.pi * hbarc2) * (Gyy / MH) * (1.0 / np.pi) *
                   ((MH * G) / ((MH * MH - wvalue * wvalue)*(MH * MH - wvalue * wvalue) + MH * MH * G * G)) * 1e9, 0.0)
 
     return cs
@@ -49,7 +49,7 @@ def cs_higgs_w(wvalue):
     hbarc2 =  0.389
     alpha2 = (1.0/137.0)*(1.0/137.0)
 
-    cs = (8. * np.pi * np.pi* hbarc2 ) * (Gyy / MH)* (1./ np.pi) * \
+    cs = (8.0 * np.pi * np.pi* hbarc2 ) * (Gyy / MH)* (1.0/ np.pi) * \
          ( (MH *G)/((MH*MH - wvalue*wvalue)*(MH*MH-wvalue*wvalue) + MH*MH*G*G)) * 1e9
 
     return cs
@@ -90,15 +90,15 @@ el = np.array(elas[3])
 wv1, int_inel = trap_integ(wv, ie)
 wv2, int_el = trap_integ(wv, el)
 
-fig, ax = plt.subplots(figsize = (9., 8.))
-ax.set_xlim(125., 1000.)
+fig, ax = plt.subplots(figsize = (9.0, 8.0))
+ax.set_xlim(125.0, 1000.0)
 ax.set_ylim(1.e-14, 1.e-4)
 
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
 title_label = ('$Q^2_e<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$').format(10,np.log10(inel[1]))
-plt.loglog(wv2[:101], int_el[:101], linestyle = 'solid',  linewidth=2,  label = 'elastic')
-plt.loglog(wv1[:101], int_inel[:101], linestyle = 'dotted',  linewidth=2, label = inel_label)
+plt.loglog(wv2[:202], int_el[:202], linestyle = 'solid',  linewidth=2,  label = 'elastic')
+plt.loglog(wv1[:202], int_inel[:202], linestyle = 'dotted',  linewidth=2, label = inel_label)
 
 #plt.grid()
 
@@ -117,7 +117,7 @@ ie = np.array(inel[3])
 wv1, int_inel = trap_integ(wv, ie)
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$)').format(10,np.log10(inel[2]))
-plt.loglog(wv2[:101], int_inel[:101], linestyle = 'dashdot',  linewidth=2, label = inel_label)
+plt.loglog(wv2[:202], int_inel[:202], linestyle = 'dashdot',  linewidth=2, label = inel_label)
 plt.legend(title = title_label)
 
 
@@ -132,7 +132,7 @@ ie = np.array(inel[3])
 wv1, int_inel = trap_integ(wv, ie)
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$)').format(10,np.log10(inel[2]))
-plt.loglog(wv2[:101], int_inel[:101], linestyle = 'dashdot',  linewidth=2, label = inel_label)
+plt.loglog(wv2[:202], int_inel[:202], linestyle = 'dashdot',  linewidth=2, label = inel_label)
 plt.legend(title = title_label)
 
 
@@ -168,7 +168,7 @@ ie = np.array(inel[3])
 wv1, int_inel = trap_integ(wv, ie)
 
 inel_label = 'M_N < ' + str(inel[0])
-plt.loglog(wv1[:101], int_inel[:101], '-', label = inel_label)
+plt.loglog(wv1[:202], int_inel[:202], '-', label = inel_label)
 plt.legend(title = title_label)
 
 from wgrid_3_4_4_0908 import *
@@ -178,7 +178,7 @@ ie = np.array(inel[3])
 wv1, int_inel = trap_integ(wv, ie)
 
 inel_label = 'M_N < ' + str(inel[0])
-plt.loglog(wv2[:101], int_inel[:101], '-', label = inel_label)
+plt.loglog(wv2[:202], int_inel[:202], '-', label = inel_label)
 plt.legend(title = title_label)
 """
 
