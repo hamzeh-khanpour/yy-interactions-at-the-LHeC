@@ -26,12 +26,16 @@ def cs_tautau_w(wvalue):
     me = 0.510998950e-3
     mtau = 1.77686
     hbarc2 =  0.389
-    alpha2 = (1.0/137.0)*(1.0/137.0)
-
+    alpha2 = (1.0/133.0)*(1.0/133.0)
+    # Element-wise calculation of beta using np.where
+    beta = np.sqrt(np.where(1.0 - 4.0 * mtau * mtau / wvalue**2.0 >= 0, 1.0 - 4.0 * mtau * mtau / wvalue**2.0, np.nan))
     #cs = 4.0 * np.pi * re * re * me * me / wvalue / wvalue \
          #* ((1.0+4.0*mtau*mtau/wvalue/wvalue)*np.log(wvalue * wvalue / mtau / mtau) - 1.0 - 2.0*mtau*mtau/wvalue/wvalue)
+    #cs = 4.0 * np.pi * hbarc2 * alpha2 / wvalue / wvalue \
+         #* ( (1.0 + 4.0*mtau*mtau/wvalue/wvalue)*np.log(wvalue * wvalue / mtau / mtau) - 1.0 - 2.0*mtau*mtau/wvalue/wvalue)  * 1e9
+
     cs = 4.0 * np.pi * hbarc2 * alpha2 / wvalue / wvalue \
-         * ( (1.0 + 4.0*mtau*mtau/wvalue/wvalue)*np.log(wvalue * wvalue / mtau / mtau) - 1.0 - 2.0*mtau*mtau/wvalue/wvalue)  * 1e9
+         * ( (1.0 + 4.0*mtau*mtau/wvalue/wvalue)*np.log(wvalue * wvalue / mtau / mtau) - beta* (1.0 + 4.0 * mtau * mtau / wvalue**2.0) )  * 1e9
 
     return cs
     
@@ -122,13 +126,20 @@ plt.legend(title = title_label)
 
 
 
+# Save the output values in a text file
+output_data = np.column_stack((wv2[:202], int_el[:202], int_inel[:202]))
+header = 'W_Value Elastic Inelastic'
+np.savetxt('output_values_tau.txt', output_data, header=header, fmt='%0.8e', delimiter='\t')
+
+
+
 
 
 font1 = {'family':'serif','color':'black','size':24}
 font2 = {'family':'serif','color':'black','size':24}
 
 plt.xlabel("W$_0$ [GeV]", fontdict=font2)
-plt.ylabel("$\sigma_{\\tau \\tau}$ (W > W$_0$) [pb]", fontdict=font2)
+plt.ylabel("$\sigma_{\\tau^+\\tau^-}$ (W > W$_0$) [pb]", fontdict=font2)
 
 
 

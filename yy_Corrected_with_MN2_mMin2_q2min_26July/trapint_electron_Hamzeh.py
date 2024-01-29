@@ -65,6 +65,27 @@ def cs_electron_w_condition_electron(wvalue):
 ##################################################################
 
 
+def cs_electron_w_condition_electron_Krzysztof(wvalue):
+    re = 2.8179403262e-15 * 137.0 / 128.0
+    me = 0.510998950e-3
+    melectron = 0.511 * 1e-3
+    hbarc2 = 0.389
+    alpha2 = (1.0/133.0)*(1.0/133.0)
+
+    # Element-wise calculation of beta using np.where
+    beta = np.sqrt(np.where(1.0 - 4.0 * melectron * melectron / wvalue**2.0 >= 0, 1.0 - 4.0 * melectron * melectron / wvalue**2.0, np.nan))
+
+    cs = 4.0 * np.pi * hbarc2 * alpha2 / wvalue / wvalue \
+         * ( (1.0 + 4.0*melectron*melectron/wvalue/wvalue)*np.log(wvalue * wvalue / melectron / melectron) - beta* (1.0 + 4.0 * melectron * melectron / wvalue**2.0) )  * 1e9
+
+
+    return cs
+
+
+##################################################################
+
+
+
 """
 def cs_DM_w(wvalue):
     re = 2.8179403262e-15 * 137.0 / 128.0
@@ -85,14 +106,15 @@ def cs_DM_w(wvalue):
 """
 
 
+
 def trap_integ(wv, fluxv):
     wmin = np.zeros(len(wv) - 1)
     integ = np.zeros(len(wv) - 1)
 
     for i in range(len(wv) - 2, -1, -1):
         wvwid = wv[i + 1] - wv[i]
-        cs_0 = cs_electron_w_condition(wv[i])
-        cs_1 = cs_electron_w_condition(wv[i + 1])
+        cs_0 = cs_electron_w_condition_electron_Krzysztof(wv[i])
+        cs_1 = cs_electron_w_condition_electron_Krzysztof(wv[i + 1])
 #        cs_0 = cs_DM_w(wv[i])
 #        cs_1 = cs_DM_w(wv[i + 1])
 #        cs_0 = cs_DM_w_old(wv[i])

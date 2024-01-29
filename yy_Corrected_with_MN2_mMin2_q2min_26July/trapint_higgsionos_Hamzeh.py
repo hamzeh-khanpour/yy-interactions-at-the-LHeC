@@ -82,6 +82,30 @@ def cs_higgsionos_w_condition_higgsionos(wvalue):
 ##################################################################
 
 
+def cs_higgsionos_w_condition_higgsionos_Krzysztof(wvalue):
+    re = 2.8179403262e-15 * 137.0 / 128.0
+    me = 0.510998950e-3
+    mhiggsionos = 200.0
+    hbarc2 = 0.389
+    alpha2 = (1.0/137.0)*(1.0/137.0)
+
+    # Element-wise calculation of beta using np.where
+    beta = np.sqrt(np.where(1.0 - 4.0 * mhiggsionos * mhiggsionos / wvalue**2.0 >= 0, 1.0 - 4.0 * mhiggsionos * mhiggsionos / wvalue**2.0, np.nan))
+
+    cs = 4.0 * np.pi * hbarc2 * alpha2 / wvalue / wvalue \
+         * ( (1.0 + 4.0*mhiggsionos*mhiggsionos/wvalue/wvalue)*np.log(wvalue * wvalue / mhiggsionos / mhiggsionos) - beta* (1.0 + 4.0 * mhiggsionos * mhiggsionos / wvalue**2.0) )  * 1e9
+
+
+    return cs
+
+
+##################################################################
+
+
+
+
+
+
 """
 def cs_DM_w(wvalue):
     re = 2.8179403262e-15 * 137.0 / 128.0
@@ -108,8 +132,8 @@ def trap_integ(wv, fluxv):
 
     for i in range(len(wv) - 2, -1, -1):
         wvwid = wv[i + 1] - wv[i]
-        cs_0 = cs_higgsionos_w_condition(wv[i])
-        cs_1 = cs_higgsionos_w_condition(wv[i + 1])
+        cs_0 = cs_higgsionos_w_condition_higgsionos_Krzysztof(wv[i])
+        cs_1 = cs_higgsionos_w_condition_higgsionos_Krzysztof(wv[i + 1])
 #        cs_0 = cs_DM_w(wv[i])
 #        cs_1 = cs_DM_w(wv[i + 1])
 #        cs_0 = cs_DM_w_old(wv[i])
@@ -198,7 +222,7 @@ plt.legend(title = title_label)
 # Save the output values in a text file
 output_data = np.column_stack((wv2[:202], int_el[:202], int_inel[:202]))
 header = 'W_Value Elastic Inelastic'
-np.savetxt('output_values.txt', output_data, header=header, fmt='%0.8e', delimiter='\t')
+np.savetxt('output_values_higgsionos.txt', output_data, header=header, fmt='%0.8e', delimiter='\t')
 
 
 
