@@ -22,6 +22,7 @@ plt.rcParams['legend.title_fontsize'] = 'x-large'
 
 
 def cs_ww_w(wvalue):
+
     re = 2.8179403262e-15 * 137.0 / 128.0
     me = 0.510998950e-3
     mw = 80.379
@@ -46,7 +47,27 @@ def cs_ww_w(wvalue):
 
     return cs
 
-    
+
+
+
+def cs_ww_w_PR364(wvalue):
+
+    re = 2.8179403262e-15 * 137.0 / 128.0
+    me = 0.510998950e-3
+    mw = 80.379
+    hbarc2 =  0.389
+    alpha2 = (1.0/128.0)*(1.0/128.0)
+
+    beta = np.sqrt(np.where(1.0 - 4.0 * mw * mw / wvalue**2.0 >= 0, 1.0 - 4.0 * mw * mw / wvalue**2.0, np.nan))
+
+    cs = np.pi * hbarc2 * alpha2 / wvalue**2.0 * beta * \
+         ( -3.0 * (1.0 - beta**4.0)/beta * np.log((1.0 + beta)/(1.0 - beta)) + \
+           2.0* (22.0 - 9.0 * beta**2.0 + 3.0*beta**4.0)/(1.0 - beta**2.0) )*1e9
+
+    return cs
+
+
+
 
 def trap_integ(wv, fluxv):
     wmin = np.zeros(len(wv) - 1)
