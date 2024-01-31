@@ -24,7 +24,7 @@ plt.rcParams['legend.title_fontsize'] = 'x-large'
 
 ##################################################################
 
-def cs_higgsionos_w_condition(wvalue):
+def cs_higgsionos_w_condition_Hamzeh(wvalue):
     re = 2.8179403262e-15 * 137.0 / 128.0
     me = 0.510998950e-3
     mhiggsionos = 100.0
@@ -62,7 +62,7 @@ def cs_tautau_w(wvalue):
 ##################################################################
 
 
-def cs_higgsionos_w_condition_higgsionos(wvalue):
+def cs_higgsionos_w_condition(wvalue):
     re = 2.8179403262e-15 * 137.0 / 128.0
     me = 0.510998950e-3
     mhiggsionos = 100.0
@@ -82,18 +82,20 @@ def cs_higgsionos_w_condition_higgsionos(wvalue):
 ##################################################################
 
 
-def cs_higgsionos_w_condition_higgsionos_Krzysztof(wvalue):
+def cs_higgsionos_w_condition_Krzysztof(wvalue):
     re = 2.8179403262e-15 * 137.0 / 128.0
     me = 0.510998950e-3
-    mhiggsionos = 200.0
+    mhiggsionos = 100.0
     hbarc2 = 0.389
     alpha2 = (1.0/137.0)*(1.0/137.0)
 
     # Element-wise calculation of beta using np.where
     beta = np.sqrt(np.where(1.0 - 4.0 * mhiggsionos * mhiggsionos / wvalue**2.0 >= 0, 1.0 - 4.0 * mhiggsionos * mhiggsionos / wvalue**2.0, np.nan))
 
-    cs = 4.0 * np.pi * hbarc2 * alpha2 / wvalue / wvalue \
-         * ( (1.0 + 4.0*mhiggsionos*mhiggsionos/wvalue/wvalue)*np.log(wvalue * wvalue / mhiggsionos / mhiggsionos) - beta* (1.0 + 4.0 * mhiggsionos * mhiggsionos / wvalue**2.0) )  * 1e9
+    # Element-wise calculation of cs using np.where
+    cs =  4.0 * np.pi * hbarc2 * alpha2 / wvalue**2.0 * \
+         (2.0 * (1.0 + 4.0 * mhiggsionos**2.0 / wvalue**2.0 - 8.0 * mhiggsionos**4.0 / wvalue**4.0) * np.log(2.0 * wvalue / (mhiggsionos * (1.0 + beta))) -
+          beta * (1.0 + 4.0 * mhiggsionos**2.0 / wvalue**2.0)) * 1e9
 
 
     return cs
@@ -132,8 +134,8 @@ def trap_integ(wv, fluxv):
 
     for i in range(len(wv) - 2, -1, -1):
         wvwid = wv[i + 1] - wv[i]
-        cs_0 = cs_higgsionos_w_condition_higgsionos_Krzysztof(wv[i])
-        cs_1 = cs_higgsionos_w_condition_higgsionos_Krzysztof(wv[i + 1])
+        cs_0 = cs_higgsionos_w_condition_Krzysztof(wv[i])
+        cs_1 = cs_higgsionos_w_condition_Krzysztof(wv[i + 1])
 #        cs_0 = cs_DM_w(wv[i])
 #        cs_1 = cs_DM_w(wv[i + 1])
 #        cs_0 = cs_DM_w_old(wv[i])
@@ -168,8 +170,8 @@ ax.set_ylim(1.0e-9, 1.0e3)
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
 title_label = ('$Q^2_e<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$').format(10,np.log10(inel[1]))
-plt.loglog(wv2[:202], int_el[:202], linestyle = 'solid',  linewidth=2,  label = 'elastic')
-plt.loglog(wv1[:202], int_inel[:202], linestyle = 'dotted',  linewidth=2, label = inel_label)
+plt.loglog(wv2[:303], int_el[:303], linestyle = 'solid',  linewidth=2,  label = 'elastic')
+plt.loglog(wv1[:303], int_inel[:303], linestyle = 'dotted',  linewidth=2, label = inel_label)
 
 #plt.grid()
 
@@ -190,7 +192,7 @@ ie = np.array(inel[3])
 wv1, int_inel = trap_integ(wv, ie)
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$)').format(10,np.log10(inel[2]))
-plt.loglog(wv2[:202], int_inel[:202], linestyle = 'dashdot',  linewidth=2, label = inel_label)
+plt.loglog(wv2[:303], int_inel[:303], linestyle = 'dashdot',  linewidth=2, label = inel_label)
 plt.legend(title = title_label)
 
 
@@ -209,7 +211,7 @@ ie = np.array(inel[3])
 wv1, int_inel = trap_integ(wv, ie)
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$)').format(10,np.log10(inel[2]))
-plt.loglog(wv2[:202], int_inel[:202], linestyle = 'dashdot',  linewidth=2, label = inel_label)
+plt.loglog(wv2[:303], int_inel[:303], linestyle = 'dashdot',  linewidth=2, label = inel_label)
 plt.legend(title = title_label)
 
 
@@ -220,7 +222,7 @@ plt.legend(title = title_label)
 
 
 # Save the output values in a text file
-output_data = np.column_stack((wv2[:202], int_el[:202], int_inel[:202]))
+output_data = np.column_stack((wv2[:303], int_el[:303], int_inel[:303]))
 header = 'W_Value Elastic Inelastic'
 np.savetxt('output_values_higgsionos.txt', output_data, header=header, fmt='%0.8e', delimiter='\t')
 

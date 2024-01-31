@@ -27,7 +27,7 @@ def cs_zz_w(wvalue):
     me = 0.510998950e-3
     mZ = 91.186
 
-    alpha = 1./137.
+    alpha = 1.0/137.0
     hbarc =  197.327
     hbarc2 =  0.389
     convert =  1.0 # hbarc2 * alpha * alpha * 1000000000.0
@@ -131,7 +131,7 @@ plt.legend(title = title_label)
 # Save the output values in a text file
 output_data = np.column_stack((wv2[:303], int_el[:303], int_inel[:303]))
 header = 'W_Value Elastic Inelastic'
-np.savetxt('output_values_Z.txt', output_data, header=header, fmt='%0.8e', delimiter='\t')
+np.savetxt('output_values_ZZ.txt', output_data, header=header, fmt='%0.8e', delimiter='\t')
 
 
 

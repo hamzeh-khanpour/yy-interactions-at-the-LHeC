@@ -130,6 +130,7 @@ def trap_integ(wv, fluxv):
     return wmin, integ   # * 1000000000.0
 
 
+
 sys.path.append('./values')
 
 from wgrid_1_4_4_0908 import *
@@ -143,7 +144,8 @@ wv2, int_el = trap_integ(wv, el)
 
 fig, ax = plt.subplots(figsize = (9.0, 8.0))
 ax.set_xlim(100.0, 1000.0)
-ax.set_ylim(1.e-9, 1.e3)
+ax.set_ylim(1.0e-9, 1.0e3)
+
 
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
@@ -192,6 +194,7 @@ plt.legend(title = title_label)
 
 
 
+
 # Save the output values in a text file
 output_data = np.column_stack((wv2[:303], int_el[:303], int_inel[:303]))
 header = 'W_Value Elastic Inelastic'
@@ -202,11 +205,12 @@ np.savetxt('output_values_sleptons.txt', output_data, header=header, fmt='%0.8e'
 
 
 
+
 font1 = {'family':'serif','color':'black','size':24}
 font2 = {'family':'serif','color':'black','size':24}
 
 plt.xlabel("W$_0$ [GeV]",  fontdict = font2)
-plt.ylabel("$\sigma_{\widetilde{\ell}^+ \widetilde{\ell}^-}$ (W > W$_0$) [pb]", fontdict = font2)
+plt.ylabel("$\sigma_{\widetilde{\ell}^+\widetilde{\ell}^-}$ (W > W$_0$) [pb]", fontdict = font2)
 
 
 
