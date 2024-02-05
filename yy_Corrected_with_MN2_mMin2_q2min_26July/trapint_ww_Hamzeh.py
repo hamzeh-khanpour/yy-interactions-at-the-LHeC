@@ -169,7 +169,7 @@ font1 = {'family':'serif','color':'black','size':24}
 font2 = {'family':'serif','color':'black','size':24}
 
 plt.xlabel("W$_0$ [GeV]",  fontdict = font2)
-plt.ylabel("$\sigma_{WW}$ (W > W$_0$) [pb]", fontdict = font2)
+plt.ylabel("$\sigma_{W^+W^-}$ (W > W$_0$) [pb]", fontdict = font2)
 
 
 plt.savefig("cs_WW_MN2_mMin2_q2min_Final.pdf")

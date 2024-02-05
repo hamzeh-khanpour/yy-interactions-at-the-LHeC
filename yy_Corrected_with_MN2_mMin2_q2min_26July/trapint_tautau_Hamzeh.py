@@ -43,8 +43,6 @@ plt.rcParams['legend.title_fontsize'] = 'x-large'
     
 
 
-
-
 ##################################################################
 
 def cs_electron_w_condition_Hamzeh(wvalue):  # Eq.62 of Physics Reports 364 (2002) 359-450
@@ -97,8 +95,8 @@ def trap_integ(wv, fluxv):
 
     for i in range(len(wv) - 2, -1, -1):
         wvwid = wv[i + 1] - wv[i]
-        cs_0 = cs_electron_w_condition_Krzysztof(wv[i])
-        cs_1 = cs_electron_w_condition_Krzysztof(wv[i + 1])
+        cs_0 = cs_electron_w_condition_Hamzeh(wv[i])
+        cs_1 = cs_electron_w_condition_Hamzeh(wv[i + 1])
         traparea = wvwid * 0.5 * (fluxv[i] * cs_0 + fluxv[i + 1] * cs_1)
         wmin[i] = wv[i]
         if i == len(wv) - 2:

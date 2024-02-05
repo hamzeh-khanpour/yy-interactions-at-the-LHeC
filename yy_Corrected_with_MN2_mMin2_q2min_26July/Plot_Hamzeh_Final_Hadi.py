@@ -55,11 +55,14 @@ ax.set_xlim(10., 1000.)
 ax.set_ylim(1.e-5, 1.0e0)
 
 
+
+
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
 title_label = ('$Q^2_e<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$').format(10,np.log10(inel[1]))
 plt.loglog(wv2[:303], int_el[:303], linestyle = 'solid',  linewidth=2,  label = 'elastic')
 plt.loglog(wv1[:303], int_inel[:303], linestyle = 'dotted',  linewidth=2, label = inel_label)
 #plt.grid()
+
 
 
 
@@ -80,6 +83,7 @@ plt.legend(title = title_label)
 
 
 
+
 from wgrid_3_4_4_0908 import *
 
 wv = np.array(wvalues[3])
@@ -94,10 +98,13 @@ plt.legend(title = title_label)
 
 
 
+
+
 # Save the output values in a text file
 output_data = np.column_stack((wv2[:303], int_el[:303], int_inel[:303]))
 header = 'W_Value Elastic Inelastic'
 np.savetxt('output_values_ntegrated_Syy.txt', output_data, header=header, fmt='%0.8e', delimiter='\t')
+
 
 
 
@@ -108,6 +115,7 @@ font2 = {'family':'serif','color':'black','size':24}
 
 plt.xlabel("W$_0$ [GeV]",  fontdict = font2)
 plt.ylabel("Integrated S$_{\gamma \gamma}$ (W > W$_0$)", fontdict = font2)
+
 
 
 
