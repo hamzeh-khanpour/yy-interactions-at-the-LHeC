@@ -1,5 +1,5 @@
 
-# Final Version -- February 2024 -- Hamzeh Khanpour
+# Final Version -- October 2023 -- Hamzeh Khanpour
 
 import math
 import scipy.integrate as integ

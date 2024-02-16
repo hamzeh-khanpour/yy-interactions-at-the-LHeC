@@ -1,5 +1,5 @@
 
-# Final Version -- February 2024 -- Hamzeh Khanpour
+# Final Version -- October 2023 -- Hamzeh Khanpour
 
 import matplotlib.pyplot as plt
 import math
@@ -31,20 +31,15 @@ def qmin2(mass, y):
 
 # flux at given y with q2max point-like form factor
 # Q2 integration was done analytically
-def flux_y_pl(w, YY, mass, qmax2, eEbeam):
-
-    ye = w * np.exp(-YY) / (2.0*eEbeam)
-
-#    print('YY: ', YY)
-
-    if (ye <= 0 or ye >= 1):
-#        print('invalid ye value: ', ye)
+def flux_y_pl(y, mass, qmax2):
+    if (y <= 0 or y >= 1):
+        print('invalid y value: ', y)
         return -1.0
     else:
-        qmin2v = qmin2(mass, ye)
+        qmin2v = qmin2(mass, y)
         # print('qmin2v', qmin2v)
-        y1 = (1./2.) * (1. + (1. - ye) * (1. - ye)) / ye                         # Hamzeh  1 -> 1/2
-        y2 = 1. * (1. - ye) / ye                                                # Hamzeh  2 -> 1
+        y1 = (1./2.) * (1. + (1. - y) * (1. - y)) / y                         # Hamzeh  1 -> 1/2
+        y2 = 1. * (1. - y) / y                                                # Hamzeh  2 -> 1                                                         
         flux1 = y1 * math.log(qmax2 / qmin2v)
         flux2 = y2 * (1. - qmin2v / qmax2)
         # print(flux1, flux2)
@@ -57,20 +52,16 @@ def flux_y_pl(w, YY, mass, qmax2, eEbeam):
 
 
 # flux at given y with q2max with dipole form factor
-def flux_y_dipole(w, YY, mass, qmax2, pEbeam):
-
-    yp = w * np.exp(YY) / (2.0*pEbeam)
-
-
-    if (yp <= 0 or yp >= 1):
-#        print('invalid yp value: ', yp)
+def flux_y_dipole(y, mass, qmax2): 
+    if (y <= 0 or y >= 1):
+        print('invalid y value: ', y)
         return -1.0
     else:
-        qmin2v = qmin2(mass, yp)
+        qmin2v = qmin2(mass, y)
 	# integration from qmin2 to qmax2
         flux_y_tmp = integ.quad(flux_y_q2_dipole,
                                 math.log(qmin2v), math.log(qmax2),
-                                args=(yp, mass, qmin2v))
+                                args=(y, mass, qmin2v))
         # print(flux_y_tmp)
         return flux_y_tmp[0]
 
@@ -80,16 +71,12 @@ def flux_y_dipole(w, YY, mass, qmax2, pEbeam):
 
 
 
-def flux_y_inel(w, YY, mMin2, qmax2, mNmax, pEbeam, pout=False):
-
-    yp = w * np.exp(YY) / (2.0*pEbeam)
-
-
-    if (yp <= 0 or yp >= 1):
-#        print('invalid yp value: ', yp)
+def flux_y_inel(y, mMin2, qmax2, mNmax, pout=False): 
+    if (y <= 0 or y >= 1):
+        print('invalid y value: ', y)
         return -1.0
     else:
-        qmin2v = (mMin2*mMin2 / (1 - yp) - pmass * pmass) * yp                 # Hamzeh mMin2-> mMin2*mMin2
+        qmin2v = (mMin2*mMin2 / (1 - y) - pmass * pmass) * y                 # Hamzeh mMin2-> mMin2*mMin2
         if pout:
             print('qmin2, qmax2:', qmin2v, qmax2)
 	# integration from qmin2 to qmax2
@@ -99,11 +86,11 @@ def flux_y_inel(w, YY, mMin2, qmax2, mNmax, pEbeam, pout=False):
 #  				epsrel=1.e-3)
         flux_y_tmp = integ.quad(flux_y_q2_inel_mN2,
                                 math.log(qmin2v), math.log(qmax2),
-                                args=(yp, mMin2, mNmax, qmin2v),
+                                args=(y, mMin2, mNmax, qmin2v),
 				epsrel=1.e-2)
 #				epsabs=1.e-5, epsrel=1.e-5)
         if pout:
-            print('yp, flux: {:8.5e} {:8.5e}'.format(yp, flux_y_tmp[0]))
+            print('y, flux: {:8.5e} {:8.5e}'.format(y, flux_y_tmp[0]))
         return flux_y_tmp[0]
 
 
@@ -160,14 +147,27 @@ def flux_y_q2_inel_mN2(lnq2, yp, mMin2, nMmax, qmin2v, pout=False):
 
 
 
+
 # picking up proton and electron mass as external constants
-def flux_yy_atye(w, YY, qmax2e, qmax2p, s_cms, eEbeam, pEbeam, pout=False):
+def flux_yy_atye(w, Y, qmax2e, qmax2p, s_cms, eEbeam, pEbeam, pout=False):
+
 #    yp = w * w / s_cms / ye
+
+    yp = w * math.exp(Y)  / (2.0*pEbeam)
+    ye = w * math.exp(-Y) / (2.0*eEbeam)
+
+    if (yp <= 0 or yp >= 1 or ye <= 0 or ye >= 1):
+        print('invalid yp value: ', yp)
+        print('invalid ye value: ', ye)
+        return 0.0
+
+
     if pout:
-        print(emass, pmass,w, YY, qmax2e, s_cms)
-    flux_prod = flux_y_dipole(w, YY, pmass, qmax2p, pEbeam) \
-                * w * flux_y_pl(w, YY, emass, qmax2e, eEbeam)
+        print(emass, pmass, w, Y, qmax2e, s_cms)
+    flux_prod = flux_y_dipole(yp, pmass, qmax2p) \
+                * w * flux_y_pl(ye, emass, qmax2e)
     return flux_prod
+
 
 
 
@@ -176,21 +176,30 @@ def flux_yy_atye(w, YY, qmax2e, qmax2p, s_cms, eEbeam, pEbeam, pout=False):
 
 
 # inelastic flux at given ye and W
-def flux_yyinel_atye(w, YY, qmax2e, qmax2p, mNmax, s_cms, eEbeam, pEbeam, pout=False):
-#    yp = w * w / s_cms / ye
-    minM2 = (pmass + pi0mass)# * (pmass + pi0mass)                                           # Hamzeh
+def flux_yyinel_atye(w, Y, qmax2e, qmax2p, mNmax, s_cms, eEbeam, pEbeam, pout=False):
 
-#    print('YY: ', YY)
+#    yp = w * w / s_cms / ye
+
+    yp = w * math.exp(Y)  / (2.0*pEbeam)
+    ye = w * math.exp(-Y) / (2.0*eEbeam)
+
+    if (yp <= 0 or yp >= 1 or ye <= 0 or ye >= 1):
+        print('invalid yp value: ', yp)
+        print('invalid ye value: ', ye)
+        return 0.0
+
+
+    minM2 = (pmass + pi0mass)# * (pmass + pi0mass)                                           # Hamzeh
 
     # given: ye, w, qmax2e, qmax2p, cms energy
     # calculated inside here: gamma **Monochrome** energy on proton side (yp)
     #   and: minimum mass M_N, to pass
     # point-like on the electron side
     # according to Eq.(A.1)
-    flux_prod = flux_y_inel(w, YY, minM2, qmax2p, mNmax, pEbeam) \
-                * w * flux_y_pl(w, YY, emass, qmax2e, eEbeam)
+    flux_prod = flux_y_inel(yp, minM2, qmax2p, mNmax) \
+                * w * flux_y_pl(ye, emass, qmax2e)
     if pout:
-        print(emass, pmass, w, YY,  qmax2e, s_cms, flux_prod)
+        print(emass, pmass, w, Y, qmax2e, s_cms, flux_prod)
 
     return flux_prod
 
@@ -200,15 +209,20 @@ def flux_yyinel_atye(w, YY, qmax2e, qmax2p, mNmax, s_cms, eEbeam, pEbeam, pout=F
 
 
 
-def flux_el_yy_atW(YY, eEbeam, pEbeam, qmax2e, qmax2p):
+def flux_el_yy_atW(Y, eEbeam, pEbeam, qmax2e, qmax2p):
     # first calculate the ymin for e-side, p-side
+
     s_cms = 4.0 * eEbeam * pEbeam
     sqrt_cms = math.sqrt(4.0 * eEbeam * pEbeam)
-    w0 = 10.0
 
-    # print(ymin)
+    w0 = 100.0
+
+#    ymin = w * w / s_cms
+
+#    print(' Y value: ', Y)
+
     fyyatw = integ.quad(flux_yy_atye, w0, sqrt_cms,
-                        args=(YY, qmax2e, qmax2p, s_cms, eEbeam, pEbeam))
+                        args=(Y, qmax2e, qmax2p, s_cms, eEbeam, pEbeam))
     return fyyatw
 
 
@@ -216,17 +230,21 @@ def flux_el_yy_atW(YY, eEbeam, pEbeam, qmax2e, qmax2p):
 
 
 
-def flux_inel_yy_atW(YY, eEbeam, pEbeam, qmax2e, mNmax, qmax2p):
+def flux_inel_yy_atW(Y, eEbeam, pEbeam, qmax2e, mNmax, qmax2p):
     # first calculate the ymin for e-side, p-side
+
     s_cms = 4.0 * eEbeam * pEbeam
     sqrt_cms = math.sqrt(4.0 * eEbeam * pEbeam)
-    w0 = 10.0
+
+    w0 = 100.0
+
+#    ymin = w * w / s_cms
 
     # flux for ymin -> 1., at a given w.
     # Qmax2e, Qmax2p are given from experimental constraints (beam holes)
     # integration according to Eq.(A.1) apart from 2/W (external)
     fyyatw = integ.quad(flux_yyinel_atye, w0, sqrt_cms,
-                        args=(YY, qmax2e, qmax2p, mNmax, s_cms, eEbeam, pEbeam),
+                        args=(Y, qmax2e, qmax2p, mNmax, s_cms, eEbeam, pEbeam),
 			epsrel=1.e-2)
 #			epsabs=1.e-5, epsrel=1.e-5)
     return fyyatw
