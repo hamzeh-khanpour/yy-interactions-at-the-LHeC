@@ -143,6 +143,27 @@ def flux_y_q2_inel_mN2(lnq2, yp, mMin2, nMmax, qmin2v, pout=False):
 
 
 
+
+
+
+# --------------------------------------------------------------
+# Sigma_{gamma_gamma} for Higgs
+
+
+# Constants
+pi = math.pi
+hbarc2 = 0.389
+M_H = 125.0  # Higgs mass in GeV
+Gamma_gamma = (2.27e-3) * (4.07e-3)  # Two-photon width
+
+# Function to calculate the magnitude of the function at W = 125 GeV
+def Sigma_gamma_gamma_Higgs():
+    return ( 4.0 * pi**2.0 * Gamma_gamma * hbarc2 / M_H ** 2.0 )  * 1e9
+
+# Calculate and print the magnitude at 125 GeV
+magnitude = Sigma_gamma_gamma_Higgs()
+print(f"The magnitude of the function at W = 125 GeV is: {magnitude}")
+
 # --------------------------------------------------------------
 
 
@@ -164,8 +185,10 @@ def flux_yy_atye(w, Y, qmax2e, qmax2p, s_cms, eEbeam, pEbeam, pout=False):
 
     if pout:
         print(emass, pmass, w, Y, qmax2e, s_cms)
-    flux_prod = flux_y_dipole(yp, pmass, qmax2p) \
+    flux_prod = Sigma_gamma_gamma_Higgs() * flux_y_dipole(yp, pmass, qmax2p) \
                 * w * flux_y_pl(ye, emass, qmax2e)
+
+
     return flux_prod
 
 
@@ -196,7 +219,7 @@ def flux_yyinel_atye(w, Y, qmax2e, qmax2p, mNmax, s_cms, eEbeam, pEbeam, pout=Fa
     #   and: minimum mass M_N, to pass
     # point-like on the electron side
     # according to Eq.(A.1)
-    flux_prod = flux_y_inel(yp, minM2, qmax2p, mNmax) \
+    flux_prod = Sigma_gamma_gamma_Higgs() * flux_y_inel(yp, minM2, qmax2p, mNmax) \
                 * w * flux_y_pl(ye, emass, qmax2e)
     if pout:
         print(emass, pmass, w, Y, qmax2e, s_cms, flux_prod)
@@ -215,7 +238,7 @@ def flux_el_yy_atW(Y, eEbeam, pEbeam, qmax2e, qmax2p):
     s_cms = 4.0 * eEbeam * pEbeam
     sqrt_cms = math.sqrt(4.0 * eEbeam * pEbeam)
 
-    w0 = 100.0
+    w0 = 125.0
 
 #    ymin = w * w / s_cms
 
@@ -236,7 +259,7 @@ def flux_inel_yy_atW(Y, eEbeam, pEbeam, qmax2e, mNmax, qmax2p):
     s_cms = 4.0 * eEbeam * pEbeam
     sqrt_cms = math.sqrt(4.0 * eEbeam * pEbeam)
 
-    w0 = 100.0
+    w0 = 125.0
 
 #    ymin = w * w / s_cms
 

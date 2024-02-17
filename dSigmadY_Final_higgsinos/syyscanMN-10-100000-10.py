@@ -58,7 +58,7 @@ for Y in wlist:
 
 
 
-with open('10_100000_10_dSigmadY.dat', 'w') as f:
+with open('10_100000_10_dSigmadY_Higgsinos.dat', 'w') as f:
     print(res_param, file = f)     
     print(res_inel, file = f)
     print(res_el, file = f)

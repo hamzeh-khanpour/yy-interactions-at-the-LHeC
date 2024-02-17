@@ -31,15 +31,36 @@ sys.path.append('./values')
 # from syy_1_4_4_0907 import *
 from wgrid_1_4_4_0908 import *
 
-fig, ax = plt.subplots(figsize = (9.0, 8.0))
+fig, ax = plt.subplots(figsize = (11.0, 9.0))
 ax.set_xlim(0.0, 5.0)
-ax.set_ylim(0.0, 0.01)
+ax.set_ylim(0.0, 0.004)
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
 title_label = ('$Q^2_e<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$').format(10,np.log10(inel[1]))
-plt.plot(wvalues[3][:101], elas[3][:101], linestyle = 'solid',  linewidth=2, label = 'elastic')
-plt.plot(wvalues[3][:101], inel[3][:101], linestyle = 'dotted', linewidth=2, label = inel_label)
+plt.plot(wvalues[3][:202], elas[3][:202], linestyle = 'dashed',  linewidth=2, color='blue', label = 'elastic')
+plt.plot(wvalues[3][:202], inel[3][:202], linestyle = 'dashdot', linewidth=2, color='red', label = inel_label)
 #plt.grid()
+plt.legend(title = title_label)
+
+
+
+# Add additional information
+info_text = "LHeC"
+plt.text(0.2, 0.90, info_text, transform=ax.transAxes, ha='center', va='center', fontsize=20, color='black')
+
+info_text_2 = "$M_{higgsinos}$ = 100 GeV"
+plt.text(0.2, 0.85, info_text_2, transform=ax.transAxes, ha='center', va='center', fontsize=20, color='black')
+
+
+
+# Set label colors
+ax.xaxis.label.set_color('black')
+ax.yaxis.label.set_color('black')
+
+# Add legend with specified colors
+legend = plt.legend(title = title_label)
+legend.get_texts()[0].set_color("blue")  # Color for 'elastic'
+legend.get_texts()[1].set_color("red")   # Color for inel_label
 
 
 
@@ -48,12 +69,12 @@ font2 = {'family':'serif','color':'black','size':24}
 
 
 
-plt.xlabel("Y",  fontdict = font2)
-plt.ylabel("dS/dY", fontdict = font2)
+plt.xlabel("$Y_{higgsinos}$",  fontdict = font2)
+plt.ylabel("$d\sigma/dY_{higgsinos}$ [pb]", fontdict = font2)
 
 
-plt.savefig("dSigmadY.pdf")
-plt.savefig("dSigmadY.jpg")
+plt.savefig("dSigmadY_higgsinos.pdf")
+plt.savefig("dSigmadY_higgsinos.jpg")
 
 plt.show()
 
