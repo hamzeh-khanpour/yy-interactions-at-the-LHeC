@@ -146,7 +146,8 @@ def flux_y_q2_inel_mN2(lnq2, yp, mMin2, nMmax, qmin2v, pout=False):
 
 
 
-# --------------------------------------------------------------
+##################################################################
+
 # Sigma_{gamma_gamma} for Higgs
 
 
@@ -164,7 +165,8 @@ def Sigma_gamma_gamma_Higgs():
 magnitude = Sigma_gamma_gamma_Higgs()
 print(f"The magnitude of the function at W = 125 GeV is: {magnitude}")
 
-# --------------------------------------------------------------
+
+##################################################################
 
 
 
@@ -238,7 +240,7 @@ def flux_el_yy_atW(Y, eEbeam, pEbeam, qmax2e, qmax2p):
     s_cms = 4.0 * eEbeam * pEbeam
     sqrt_cms = math.sqrt(4.0 * eEbeam * pEbeam)
 
-    w0 = 125.0
+    w0 = 125.0001
 
 #    ymin = w * w / s_cms
 
@@ -259,7 +261,7 @@ def flux_inel_yy_atW(Y, eEbeam, pEbeam, qmax2e, mNmax, qmax2p):
     s_cms = 4.0 * eEbeam * pEbeam
     sqrt_cms = math.sqrt(4.0 * eEbeam * pEbeam)
 
-    w0 = 125.0
+    w0 = 125.0001
 
 #    ymin = w * w / s_cms
 
