@@ -66,13 +66,10 @@ plt.legend(title = title_label)
 
 
 
-
 # Save the output values in a text file
 output_data = np.column_stack((wvalues[3][:303], elas[3][:303], inel[3][:303]))
 header = 'W_Value Elastic Inelastic'
 np.savetxt('output_values_Syy.txt', output_data, header=header, fmt='%0.8e', delimiter='\t')
-
-
 
 
 

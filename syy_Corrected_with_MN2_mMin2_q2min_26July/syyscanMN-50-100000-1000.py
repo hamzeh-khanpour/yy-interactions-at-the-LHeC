@@ -7,9 +7,9 @@ import numpy as np
 
 # last two arguments: mNmax (not squared), Q2max (squared)
 
-mNmax = 300.0
+mNmax = 50.0
 q2emax = 100000.0
-q2pmax = 100000.0
+q2pmax = 1000.0
 # wlist = [10., 20., 50., 100., 200., 500.]
 # wlist = [200.]
 # wln = np.linspace(1., 3., 41)
@@ -47,7 +47,7 @@ for wv in wlist:
 
 
 
-with open('300_100000_100000_ALPHA2PI_MN_Q2_Q2_mMin2_q2min.dat', 'w') as f:
+with open('50_100000_1000_ALPHA2PI_MN_Q2_Q2_mMin2_q2min.dat', 'w') as f:
     print(res_param, file = f)     
     print(res_inel, file = f)
     print(res_el, file = f)
