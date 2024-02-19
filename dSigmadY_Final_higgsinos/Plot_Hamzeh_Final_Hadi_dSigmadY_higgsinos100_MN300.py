@@ -52,6 +52,8 @@ info_text_2 = "$M_{higgsinos}$ = 200 GeV"
 plt.text(0.2, 0.85, info_text_2, transform=ax.transAxes, ha='center', va='center', fontsize=20, color='black')
 
 
+# Setting y-axis to log scale
+#plt.yscale('log')
 
 # Set label colors
 ax.xaxis.label.set_color('black')
