@@ -39,7 +39,7 @@ def flux_y_pl(ye, mass, qmax2):
         qmin2v = qmin2(mass, ye)
         # print('qmin2v', qmin2v)
         y1 = (1./2.) * (1. + (1. - ye) * (1. - ye)) / ye                         # Hamzeh  1 -> 1/2
-        y2 = 1. * (1. - ye) / ye                                                # Hamzeh  2 -> 1
+        y2 = 1. * (1. - ye) / ye                                                 # Hamzeh  2 -> 1
         flux1 = y1 * math.log(qmax2 / qmin2v)
         flux2 = y2 * (1. - qmin2v / qmax2)
         # print(flux1, flux2)
@@ -151,7 +151,7 @@ def flux_yy_atye(ye, w, qmax2e, qmax2p, s_cms, pout=False):
 
     yp = w * w / s_cms / ye
 
-    if (yp <= 0.0 or yp >= 1.0):
+    if (yp <= 0.01 or yp >= 0.20):                                                            # Hamzeh tagged elastic
         print('invalid yp value: ', yp)
         return 0.0
     else:
