@@ -150,18 +150,20 @@ def flux_y_q2_inel_mN2(lnq2, yp, mMin2, nMmax, qmin2v, pout=False):
 
 # Sigma_{gamma_gamma} for higgsionos
 
-def cs_higgsionos_w_condition_Hamzeh(wvalue):
+def csbbbar(wvalue):
 
-    mhiggsionos = 100.0
+    mbquark = 4.50
+    chargbqaurk = 1.0/3.0;
+    Nc = 3.0;
 
     hbarc2 =  0.389
     alpha2 = (1.0/137.0)*(1.0/137.0)
 
     # Element-wise calculation of beta using np.where
-    beta = np.sqrt(np.where(1.0 - 4.0 * mhiggsionos * mhiggsionos / wvalue**2.0 >= 0, 1.0 - 4.0 * mhiggsionos * mhiggsionos / wvalue**2.0, np.nan))
+    beta = np.sqrt(np.where(1.0 - 4.0 * mbquark * mbquark / wvalue**2.0 >= 0, 1.0 - 4.0 * mbquark * mbquark / wvalue**2.0, np.nan))
 
     # Element-wise calculation of cs using np.where
-    cs = np.where(wvalue > mhiggsionos, (4.0 * np.pi * alpha2 * hbarc2 ) / wvalue**2.0 * (beta) * \
+    cs = np.where(wvalue > mbquark, chargbqaurk**4.0 * Nc* (4.0 * np.pi * alpha2 * hbarc2 ) / wvalue**2.0 * (beta) * \
              ( (3.0 - (beta**4.0))/(2.0 * beta) * np.log((1.0+beta)/(1.0-beta)) - 2.0 + beta**2.0), 0.) * 1e9
 
     return cs
@@ -188,7 +190,7 @@ def flux_yy_atye(w, Y, qmax2p2, qmax2p1, s_cms, pEbeam2, pEbeam1, pout=False):
 
     if pout:
         print(pmass, w, Y, qmax2p2, s_cms)
-    flux_prod = cs_higgsionos_w_condition_Hamzeh(w) * flux_y_dipole(yp1, pmass, qmax2p1) \
+    flux_prod = csbbbar(w) * flux_y_dipole(yp1, pmass, qmax2p1) \
                 * w * flux_y_dipole(yp2, pmass, qmax2p2)
 
 
@@ -222,7 +224,7 @@ def flux_yyinel_atye(w, Y, qmax2p2, qmax2p1, mNmax, s_cms, pEbeam2, pEbeam1, pou
     #   and: minimum mass M_N, to pass
     # point-like on the electron side
     # according to Eq.(A.1)
-    flux_prod = cs_higgsionos_w_condition_Hamzeh(w) * flux_y_inel(yp1, minM2, qmax2p1, mNmax) \
+    flux_prod = csbbbar(w) * flux_y_inel(yp1, minM2, qmax2p1, mNmax) \
                 * w * flux_y_inel(yp2, minM2, qmax2p2, mNmax)
     if pout:
         print(pmass, w, Y, qmax2p2, s_cms, flux_prod)
@@ -241,7 +243,7 @@ def flux_el_yy_atW(Y, pEbeam2, pEbeam1, qmax2p2, qmax2p1):
     s_cms = 4.0 * pEbeam2 * pEbeam1
     sqrt_cms = math.sqrt(4.0 * pEbeam2 * pEbeam1)
 
-    w0 = 200.0001
+    w0 = 125.0001
 
 #    ymin = w * w / s_cms
 
@@ -262,7 +264,7 @@ def flux_inel_yy_atW(Y, pEbeam2, pEbeam1, qmax2p2, mNmax, qmax2p1):
     s_cms = 4.0 * pEbeam2 * pEbeam1
     sqrt_cms = math.sqrt(4.0 * pEbeam2 * pEbeam1)
 
-    w0 = 200.0001
+    w0 = 125.0001
 
 #    ymin = w * w / s_cms
 
