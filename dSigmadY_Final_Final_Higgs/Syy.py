@@ -179,7 +179,7 @@ def flux_yy_atye(w, Y, qmax2e, qmax2p, s_cms, eEbeam, pEbeam, pout=False):
     yp = w * math.exp(Y)  / (2.0*pEbeam)
     ye = w * math.exp(-Y) / (2.0*eEbeam)
 
-    if (yp <= 0 or yp >= 1 or ye <= 0 or ye >= 1):
+    if (yp <= 0.0 or yp >= 1.0 or ye <= 0.0 or ye >= 1.0):              # Hamzeh  --- take care for tagged elastic
         print('invalid yp value: ', yp)
         print('invalid ye value: ', ye)
         return 0.0
@@ -208,7 +208,7 @@ def flux_yyinel_atye(w, Y, qmax2e, qmax2p, mNmax, s_cms, eEbeam, pEbeam, pout=Fa
     yp = w * math.exp(Y)  / (2.0*pEbeam)
     ye = w * math.exp(-Y) / (2.0*eEbeam)
 
-    if (yp <= 0 or yp >= 1 or ye <= 0 or ye >= 1):
+    if (yp <= 0.0 or yp >= 1.0 or ye <= 0.0 or ye >= 1.0):
         print('invalid yp value: ', yp)
         print('invalid ye value: ', ye)
         return 0.0

@@ -7,7 +7,7 @@ import numpy as np
 
 # last two arguments: mNmax (not squared), Q2max (squared)
 
-mNmax = 10.0
+mNmax  = 10.0
 q2emax = 100000.0
 q2pmax = 10.0
 

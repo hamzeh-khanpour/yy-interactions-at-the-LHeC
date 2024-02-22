@@ -152,7 +152,7 @@ def flux_y_q2_inel_mN2(lnq2, yp, mMin2, nMmax, qmin2v, pout=False):
 
 def cs_higgsionos_w_condition_Hamzeh(wvalue):
 
-    mhiggsionos = 200.0
+    mhiggsionos = 100.0
 
     hbarc2 =  0.389
     alpha2 = (1.0/137.0)*(1.0/137.0)
@@ -180,7 +180,7 @@ def flux_yy_atye(w, Y, qmax2e, qmax2p, s_cms, eEbeam, pEbeam, pout=False):
     yp = w * math.exp(Y)  / (2.0*pEbeam)
     ye = w * math.exp(-Y) / (2.0*eEbeam)
 
-    if (yp <= 0 or yp >= 1 or ye <= 0 or ye >= 1):
+    if (yp <= 0.0 or yp >= 1.0 or ye <= 0.0 or ye >= 1.0):              # Hamzeh take care of tagged elastic
         print('invalid yp value: ', yp)
         print('invalid ye value: ', ye)
         return 0.0
@@ -209,7 +209,7 @@ def flux_yyinel_atye(w, Y, qmax2e, qmax2p, mNmax, s_cms, eEbeam, pEbeam, pout=Fa
     yp = w * math.exp(Y)  / (2.0*pEbeam)
     ye = w * math.exp(-Y) / (2.0*eEbeam)
 
-    if (yp <= 0 or yp >= 1 or ye <= 0 or ye >= 1):
+    if (yp <= 0.0 or yp >= 1.0 or ye <= 0.0 or ye >= 1.0):
         print('invalid yp value: ', yp)
         print('invalid ye value: ', ye)
         return 0.0
@@ -241,7 +241,7 @@ def flux_el_yy_atW(Y, eEbeam, pEbeam, qmax2e, qmax2p):
     s_cms = 4.0 * eEbeam * pEbeam
     sqrt_cms = math.sqrt(4.0 * eEbeam * pEbeam)
 
-    w0 = 400.0001
+    w0 = 200.0001
 
 #    ymin = w * w / s_cms
 
@@ -262,7 +262,7 @@ def flux_inel_yy_atW(Y, eEbeam, pEbeam, qmax2e, mNmax, qmax2p):
     s_cms = 4.0 * eEbeam * pEbeam
     sqrt_cms = math.sqrt(4.0 * eEbeam * pEbeam)
 
-    w0 = 400.0001
+    w0 = 200.0001
 
 #    ymin = w * w / s_cms
 

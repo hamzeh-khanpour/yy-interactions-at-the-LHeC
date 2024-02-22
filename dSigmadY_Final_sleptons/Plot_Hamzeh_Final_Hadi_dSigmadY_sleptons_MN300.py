@@ -29,11 +29,11 @@ sys.path.append('./values')
 # from syy_1_3_3_0804 import *
 # from syy_1_3_4_0805 import *
 # from syy_1_4_4_0907 import *
-from dSigmadY_sleptons100_MN300 import *
+from dSigmadY_sleptons200_MN300 import *
 
 fig, ax = plt.subplots(figsize = (11.0, 9.0))
 ax.set_xlim(0.0, 5.0)
-ax.set_ylim(0.0, 0.005)
+ax.set_ylim(0.000001, 0.0005)
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
 title_label = ('$Q^2_e<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$').format(10,np.log10(inel[1]))
@@ -48,8 +48,14 @@ plt.legend(title = title_label)
 info_text = "LHeC"
 plt.text(0.2, 0.90, info_text, transform=ax.transAxes, ha='center', va='center', fontsize=20, color='black')
 
-info_text_2 = "$M_{\widetilde{\ell}}$ = 100 GeV"
+info_text_2 = "$M_{\widetilde{\ell}}$ = 200 GeV"
 plt.text(0.2, 0.85, info_text_2, transform=ax.transAxes, ha='center', va='center', fontsize=20, color='black')
+
+
+
+# Setting y-axis to log scale
+plt.yscale('log')
+
 
 
 
@@ -73,8 +79,8 @@ plt.xlabel("$Y_{\widetilde{\ell}}$",  fontdict = font2)
 plt.ylabel("$d\sigma/dY_{\widetilde{\ell}}$ [pb]", fontdict = font2)
 
 
-plt.savefig("dSigmadY_sleptons100GeV_MN300.pdf")
-plt.savefig("dSigmadY_sleptons100GeV_MN300.jpg")
+plt.savefig("dSigmadY_sleptons200GeV_MN300.pdf")
+plt.savefig("dSigmadY_sleptons200GeV_MN300.jpg")
 
 plt.show()
 
