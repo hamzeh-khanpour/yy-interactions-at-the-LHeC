@@ -148,7 +148,7 @@ def flux_y_q2_inel_mN2(lnq2, yp, mMin2, nMmax, qmin2v, pout=False):
 
 ##################################################################
 
-# Sigma_{gamma_gamma} for higgsionos
+# Sigma_{gamma_gamma} for b bbar
 
 def csbbbar(wvalue):
 

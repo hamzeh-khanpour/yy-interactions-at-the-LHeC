@@ -29,27 +29,27 @@ sys.path.append('./values')
 # from syy_1_3_3_0804 import *
 # from syy_1_3_4_0805 import *
 # from syy_1_4_4_0907 import *
-from dSigmadY_higgsinos200_MN300 import *
+from dSigmadY_ep_bbbar import *
 
 fig, ax = plt.subplots(figsize = (11.0, 9.0))
 ax.set_xlim(0.0, 5.0)
-ax.set_ylim(0.0, 0.004)
+ax.set_ylim(0.00001, 0.003)
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
 title_label = ('$Q^2_e<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$').format(10,np.log10(inel[1]))
-plt.plot(wvalues[3][:202], elas[3][:202], linestyle = 'dashed',  linewidth=2, color='blue', label = 'elastic')
-plt.plot(wvalues[3][:202], inel[3][:202], linestyle = 'dashdot', linewidth=2, color='red', label = inel_label)
+plt.plot(wvalues[3][:303], elas[3][:303], linestyle = 'dashed',  linewidth=2, color='blue', label = 'elastic')
+plt.plot(wvalues[3][:303], inel[3][:303], linestyle = 'dashdot', linewidth=2, color='red', label = inel_label)
 #plt.grid()
 plt.legend(title = title_label)
 
 
 
 # Add additional information
-info_text = "LHeC"
-plt.text(0.2, 0.90, info_text, transform=ax.transAxes, ha='center', va='center', fontsize=20, color='black')
+info_text = "$ep \\rightarrow e p b \\bar{b}$"
+plt.text(0.2, 0.90, info_text, transform=ax.transAxes, ha='center', va='center', fontsize=25, color='black')
 
-info_text_2 = "$M_{higgsinos}$ = 200 GeV"
-plt.text(0.2, 0.85, info_text_2, transform=ax.transAxes, ha='center', va='center', fontsize=20, color='black')
+#info_text_2 = "$M_{higgsinos}$ = 100 GeV"
+#plt.text(0.2, 0.85, info_text_2, transform=ax.transAxes, ha='center', va='center', fontsize=20, color='black')
 
 
 # Setting y-axis to log scale
@@ -71,12 +71,12 @@ font2 = {'family':'serif','color':'black','size':24}
 
 
 
-plt.xlabel("$Y_{higgsinos}$",  fontdict = font2)
-plt.ylabel("$d\sigma/dY_{higgsinos}$ [pb]", fontdict = font2)
+plt.xlabel("$Y$",  fontdict = font2)
+plt.ylabel("$d\sigma/dY " " (ep \\rightarrow e p b \\bar{b})$ [pb]", fontdict = font2)
 
 
-plt.savefig("dSigmadY_higgsinos200GeV_MN300.pdf")
-plt.savefig("dSigmadY_higgsinos200GeV_MN300.jpg")
+plt.savefig("dSigmadY_ep_bbbar.pdf")
+plt.savefig("dSigmadY_ep_bbbar.jpg")
 
 plt.show()
 

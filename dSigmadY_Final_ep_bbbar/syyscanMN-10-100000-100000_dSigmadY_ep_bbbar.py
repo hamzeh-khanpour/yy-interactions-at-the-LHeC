@@ -9,12 +9,12 @@ import numpy as np
 
 mNmax = 10.0
 q2emax = 100000.0
-q2pmax = 10.0
+q2pmax = 100000.0
 
 # wlist = [10., 20., 50., 100., 200., 500.]
 # wlist = [200.]
 # wln = np.linspace(1., 3., 41)
-wln = np.linspace(0.0, 5.0, 202)
+wln = np.linspace(0.0, 5.0, 303)
 # wln = np.linspace(1., 2.5, 76)
 # wln = np.linspace(3., 3.25, 13)
 wlist = [1.0*x for x in wln]
@@ -31,11 +31,11 @@ inelastic = True
 for Y in wlist:
     print('Y, nMmax, q2emax, q2pmax:', Y, mNmax, q2emax, q2pmax)
     if inelastic:
-        flux_inel_w = Syy.flux_inel_yy_atW(Y, 7000.0, 7000.0, q2emax, mNmax, q2pmax)
+        flux_inel_w = Syy.flux_inel_yy_atW(Y, 50.0, 7000.0, q2emax, mNmax, q2pmax)
 
         # print(flux_inel_w)
 
-        s_cms = 7000.0 + 7000.0
+        s_cms = 4.0 * 50.0 * 7000.0
 
         syy = 2.0 * flux_inel_w[0] / s_cms
 
@@ -44,11 +44,11 @@ for Y in wlist:
               .format(Y, syy, flux_inel_w[0], flux_inel_w[1]))
 
 
-    flux_el = Syy.flux_el_yy_atW(Y, 7000.0, 7000.0, q2emax, q2pmax)
+    flux_el = Syy.flux_el_yy_atW(Y, 50.0, 7000.0, q2emax, q2pmax)
 
     # print(flux_el)
 
-    s_cms = 7000.0 + 7000.0
+    s_cms = 4.0 * 50.0 * 7000.0
 
     syy = 2.0 * flux_el[0] / s_cms
 
@@ -58,7 +58,7 @@ for Y in wlist:
 
 
 
-with open('300_100000_100000_dSigmadY_Higgsinos_200GeV.dat', 'w') as f:
+with open('10_100000_100000_dSigmadY_ep_bbbar.dat', 'w') as f:
     print(res_param, file = f)     
     print(res_inel, file = f)
     print(res_el, file = f)

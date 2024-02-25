@@ -181,6 +181,13 @@ plt.legend(title = title_label)
 
 
 
+# Add additional information
+info_text = "LHeC"
+plt.text(0.2, 0.90, info_text, transform=ax.transAxes, ha='center', va='center', fontsize=20, color='black')
+
+info_text_2 = "$M_{higgsinos}$ = 100 GeV"
+plt.text(0.2, 0.85, info_text_2, transform=ax.transAxes, ha='center', va='center', fontsize=20, color='black')
+
 
 
 
