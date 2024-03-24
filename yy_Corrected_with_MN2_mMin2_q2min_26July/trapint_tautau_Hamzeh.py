@@ -70,7 +70,7 @@ def cs_electron_w_condition_Krzysztof(wvalue):
     me = 0.510998950e-3
     mtau = 1.77686
     hbarc2 = 0.389
-    alpha2 = (1.0/133.0)*(1.0/133.0)
+    alpha2 = (1.0/137.0)*(1.0/137.0)
 
     # Element-wise calculation of beta using np.where
     beta = np.sqrt(np.where(1.0 - 4.0 * mtau * mtau / wvalue**2.0 >= 0, 1.0 - 4.0 * mtau * mtau / wvalue**2.0, np.nan))
