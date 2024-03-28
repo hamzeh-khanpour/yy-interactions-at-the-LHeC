@@ -135,7 +135,7 @@ def trap_integ(wv, fluxv):
 
 sys.path.append('./values')
 
-from wgrid_1_4_4_0908 import *
+from EPA_ALLM_sf_MN10 import *
 
 wv = np.array(wvalues[3])
 ie = np.array(inel[3])
@@ -151,7 +151,7 @@ ax.set_ylim(1.0e-7, 1.0e4)
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
 title_label = ('$Q^2_e<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$').format(10,np.log10(inel[1]))
-plt.loglog(wv2[:303], int_el[:303], linestyle = 'solid',  linewidth=2,  label = 'tagged elastic')
+plt.loglog(wv2[:303], int_el[:303], linestyle = 'solid',  linewidth=2,  label = 'elastic')
 plt.loglog(wv1[:303], int_inel[:303], linestyle = 'dotted',  linewidth=2, label = inel_label)
 
 #plt.grid()
@@ -159,42 +159,6 @@ plt.loglog(wv1[:303], int_inel[:303], linestyle = 'dotted',  linewidth=2, label 
 plt.legend(title = title_label)
 
 #plt.grid()
-
-
-
-
-
-
-
-from wgrid_2_4_4_0908 import *
-
-wv = np.array(wvalues[3])
-ie = np.array(inel[3])
-wv1, int_inel = trap_integ(wv, ie)
-
-inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$)').format(10,np.log10(inel[2]))
-plt.loglog(wv2[:303], int_inel[:303], linestyle = 'dashdot',  linewidth=2, label = inel_label)
-plt.legend(title = title_label)
-
-
-
-
-
-
-
-
-
-
-from wgrid_3_4_4_0908 import *
-
-wv = np.array(wvalues[3])
-ie = np.array(inel[3])
-wv1, int_inel = trap_integ(wv, ie)
-
-inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$)').format(10,np.log10(inel[2]))
-plt.loglog(wv2[:303], int_inel[:303], linestyle = 'dashdot',  linewidth=2, label = inel_label)
-plt.legend(title = title_label)
-
 
 
 

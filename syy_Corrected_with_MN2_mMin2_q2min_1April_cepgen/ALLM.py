@@ -9,16 +9,20 @@ import pycepgen
 
 
 
-# 11 Suri-Yennie
-# sf_luxlike = pycepgen.StructureFunctionsFactory.build(11)
-
-
 # 202 ALLM97 (continuum, FT/HERA photoprod. tot.x-s 1356 points fit)
-# sf_luxlike = pycepgen.StructureFunctionsFactory.build(202)
+sf_ALLM97 = pycepgen.StructureFunctionsFactory.build(202)
+
+
+# 11 Suri-Yennie
+# sf_Suri_Yennie = pycepgen.StructureFunctionsFactory.build(11)
 
 
 # 301 LUXlike (hybrid)
 # sf_luxlike = pycepgen.StructureFunctionsFactory.build(301)
+
+
+# 303 Kulagin-Barinov (hybrid)
+# sf_Kulagin_Barinov = pycepgen.StructureFunctionsFactory.build(303)
 
 
 # units in GeV
@@ -127,7 +131,7 @@ def allm_f2divx_mN(mN, Q2, yp):
     else:
         # 27 Jul 2021: adding Qmin2
         if qmin2 < Q2:
-            return allm_f2(xbj, Q2) / Q2**0.0 * 2.0 * mN * mqdiff                  # Hamzeh: It should be Q2**2.0 in Syy200.py
+            return sf_ALLM97.F2(xbj, Q2) / Q2**0.0 * 2.0 * mN * mqdiff                  # Hamzeh: It should be Q2**2.0 in Syy200.py
         else:
             return 0.
 
@@ -160,7 +164,7 @@ def allm_xf2_mN(mN, Q2, yp):
     else:
 
         if qmin2 < Q2:
-            return allm_f2(xbj, Q2) / Q2**0.0  * 2.0 * mN *  (1.0/mqdiff)          # Hamzeh ( 1.0 - qmin2 / math.exp(lnq2) )
+            return sf_ALLM97.F2(xbj, Q2) / Q2**0.0  * 2.0 * mN *  (1.0/mqdiff)          # Hamzeh ( 1.0 - qmin2 / math.exp(lnq2) )
         else:
             return 0.
 

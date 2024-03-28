@@ -115,7 +115,7 @@ def trap_integ(wv, fluxv):
 
 sys.path.append('./values')
 
-from cepgen_GRAPE_like_sf import *
+from EPA_ALLM_sf_MN10 import *
 
 wv = np.array(wvalues[3])
 ie = np.array(inel[3])
@@ -131,8 +131,8 @@ ax.set_ylim(1.e-3, 10.e2)
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
 title_label = ('$Q^2_e<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$').format(10,np.log10(inel[1]))
-plt.loglog(wv2[:101], int_el[:101], linestyle = 'solid',  linewidth=2,  label = 'tagged elastic')
-plt.loglog(wv1[:101], int_inel[:101], linestyle = 'dotted',  linewidth=2, label = inel_label)
+plt.loglog(wv2[:303], int_el[:303], linestyle = 'solid',  linewidth=2,  label = 'elastic')
+plt.loglog(wv1[:303], int_inel[:303], linestyle = 'dotted',  linewidth=2, label = inel_label)
 
 #plt.grid()
 
@@ -144,7 +144,7 @@ plt.legend(title = title_label)
 
 
 # Save the output values in a text file
-output_data = np.column_stack((wv2[:101], int_el[:101], int_inel[:101]))
+output_data = np.column_stack((wv2[:303], int_el[:303], int_inel[:303]))
 header = 'W_Value Elastic Inelastic'
 np.savetxt('output_values_tau.txt', output_data, header=header, fmt='%0.8e', delimiter='\t')
 
