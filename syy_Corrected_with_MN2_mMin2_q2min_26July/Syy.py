@@ -151,7 +151,7 @@ def flux_yy_atye(ye, w, qmax2e, qmax2p, s_cms, pout=False):
 
     yp = w * w / s_cms / ye
 
-    if (yp <= 0.01 or yp >= 0.20):                                                            # Hamzeh tagged elastic
+    if (yp <= 0.0 or yp >= 1.0):                                                            # Hamzeh tagged elastic   ==>  if (yp <= 0.01 or yp >= 0.20):
         print('invalid yp value: ', yp)
         return 0.0
     else:
