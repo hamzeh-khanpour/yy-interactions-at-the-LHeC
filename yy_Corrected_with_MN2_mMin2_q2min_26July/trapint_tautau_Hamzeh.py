@@ -45,7 +45,7 @@ plt.rcParams['legend.title_fontsize'] = 'x-large'
 
 ##################################################################
 
-def cs_electron_w_condition_Hamzeh(wvalue):  # Eq.62 of Physics Reports 364 (2002) 359-450
+def cs_tautau_w_condition_Hamzeh(wvalue):  # Eq.62 of Physics Reports 364 (2002) 359-450
     re = 2.8179403262e-15 * 137.0 / 128.0
     me = 0.510998950e-3
     mtau = 1.77686
@@ -65,7 +65,7 @@ def cs_electron_w_condition_Hamzeh(wvalue):  # Eq.62 of Physics Reports 364 (200
 ##################################################################
 
 
-def cs_electron_w_condition_Krzysztof(wvalue):
+def cs_tautau_w_condition_Krzysztof(wvalue):
     re = 2.8179403262e-15 * 137.0 / 128.0
     me = 0.510998950e-3
     mtau = 1.77686
@@ -95,8 +95,8 @@ def trap_integ(wv, fluxv):
 
     for i in range(len(wv) - 2, -1, -1):
         wvwid = wv[i + 1] - wv[i]
-        cs_0 = cs_electron_w_condition_Hamzeh(wv[i])
-        cs_1 = cs_electron_w_condition_Hamzeh(wv[i + 1])
+        cs_0 = cs_tautau_w_condition_Hamzeh(wv[i])
+        cs_1 = cs_tautau_w_condition_Hamzeh(wv[i + 1])
         traparea = wvwid * 0.5 * (fluxv[i] * cs_0 + fluxv[i + 1] * cs_1)
         wmin[i] = wv[i]
         if i == len(wv) - 2:

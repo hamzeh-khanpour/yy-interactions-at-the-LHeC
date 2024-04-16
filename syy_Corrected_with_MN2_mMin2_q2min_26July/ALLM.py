@@ -100,6 +100,8 @@ def allm_f2divx_mN(mN, Q2, yp):
         return 0.
     
     xbj = Q2 / mqdiff
+
+    minM2 = (pmass + pi0mass) * (pmass + pi0mass)
     
     qmin2 = (mN*mN / (1.0 - yp) - pmass * pmass) * yp
     
@@ -129,12 +131,14 @@ def allm_xf2_mN(mN, Q2, yp):
     mqdiff = mN*mN - pmass * pmass + Q2
 
     if mqdiff < 0:
-        print('mN*mN, Q2:', mN*mN, Q2)  
+        print('mN*mN, Q2:', mN*mN, Q2)
         return 0.
 
     xbj = Q2 / mqdiff
+
+    minM2 = (pmass + pi0mass) * (pmass + pi0mass)
     
-    qmin2 = (mN/mN / (1.0 - yp) - pmass * pmass) * yp
+    qmin2 = (mN*mN / (1.0 - yp) - pmass * pmass) * yp
 
     if xbj < 0:
         print('xbj: ', xbj)
