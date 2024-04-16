@@ -78,7 +78,7 @@ def allm_xf2_mN(mN, Q2, yp):
 
     xbj = Q2 / mqdiff
 
-    qmin2 = (mN/mN / (1.0 - yp) - pmass * pmass) * yp
+    qmin2 = (mN*mN / (1.0 - yp) - pmass * pmass) * yp
 
     if xbj < 0:
         print('xbj: ', xbj)

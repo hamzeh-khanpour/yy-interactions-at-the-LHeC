@@ -123,14 +123,14 @@ def flux_y_q2_inel_mN2(lnq2, yp, mMin2, nMmax, qmin2v, pout=False):
         # integration variable: q2
 	#
 
-        qmin2 = (mMin2*mMin2 / (1 - yp) - pmass * pmass) * yp                                  # Hamzeh
+        qmin2v = (mMin2*mMin2 / (1 - yp) - pmass * pmass) * yp                                  # Hamzeh
 
         formE = GRAPE_like_sf.allm_formE_qmin2(math.exp(lnq2), yp, mMin2, nMmax)[0]
         formMq2 = GRAPE_like_sf.allm_formM_mN2(math.exp(lnq2), yp, mMin2, nMmax)[0]
 
         # formM was divided by q2*q2 -> should be q2?? Why?
         formMNew = formMq2 / ( math.exp(lnq2) * math.exp(lnq2) )  #                            # Hamzeh
-        formENew = formE * ( 1.0 - qmin2 / math.exp(lnq2) )       #  / ( math.exp(lnq2) )      # Hamzeh
+        formENew = formE * ( 1.0 - qmin2v / math.exp(lnq2) )       #  / ( math.exp(lnq2) )      # Hamzeh
 
         flux_tmp = (1 - yp) * formENew \
                     + yp * yp * 0.5 * formMNew
