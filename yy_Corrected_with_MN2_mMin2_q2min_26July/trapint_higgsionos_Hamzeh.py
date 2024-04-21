@@ -170,7 +170,7 @@ ax.set_ylim(1.0e-9, 1.0e3)
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
 title_label = ('$Q^2_e<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$').format(10,np.log10(inel[1]))
-plt.loglog(wv2[:303], int_el[:303], linestyle = 'solid',  linewidth=2,  label = 'tagged elastic')
+plt.loglog(wv2[:303], int_el[:303], linestyle = 'solid',  linewidth=2,  label = 'elastic')
 plt.loglog(wv1[:303], int_inel[:303], linestyle = 'dotted',  linewidth=2, label = inel_label)
 
 #plt.grid()
@@ -180,13 +180,6 @@ plt.legend(title = title_label)
 #plt.grid()
 
 
-
-# Add additional information
-info_text = "LHeC"
-plt.text(0.2, 0.90, info_text, transform=ax.transAxes, ha='center', va='center', fontsize=20, color='black')
-
-info_text_2 = "$M_{higgsinos}$ = 100 GeV"
-plt.text(0.2, 0.85, info_text_2, transform=ax.transAxes, ha='center', va='center', fontsize=20, color='black')
 
 
 

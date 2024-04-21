@@ -45,7 +45,7 @@ plt.rcParams['legend.title_fontsize'] = 'x-large'
 
 ##################################################################
 
-def cs_tautau_w_condition_Hamzeh(wvalue):  # Eq.62 of Physics Reports 364 (2002) 359-450
+def cs_electron_w_condition_Hamzeh(wvalue):  # Eq.62 of Physics Reports 364 (2002) 359-450
     re = 2.8179403262e-15 * 137.0 / 128.0
     me = 0.510998950e-3
     mtau = 1.77686
@@ -65,12 +65,12 @@ def cs_tautau_w_condition_Hamzeh(wvalue):  # Eq.62 of Physics Reports 364 (2002)
 ##################################################################
 
 
-def cs_tautau_w_condition_Krzysztof(wvalue):
+def cs_electron_w_condition_Krzysztof(wvalue):
     re = 2.8179403262e-15 * 137.0 / 128.0
     me = 0.510998950e-3
     mtau = 1.77686
     hbarc2 = 0.389
-    alpha2 = (1.0/137.0)*(1.0/137.0)
+    alpha2 = (1.0/133.0)*(1.0/133.0)
 
     # Element-wise calculation of beta using np.where
     beta = np.sqrt(np.where(1.0 - 4.0 * mtau * mtau / wvalue**2.0 >= 0, 1.0 - 4.0 * mtau * mtau / wvalue**2.0, np.nan))
@@ -95,8 +95,8 @@ def trap_integ(wv, fluxv):
 
     for i in range(len(wv) - 2, -1, -1):
         wvwid = wv[i + 1] - wv[i]
-        cs_0 = cs_tautau_w_condition_Hamzeh(wv[i])
-        cs_1 = cs_tautau_w_condition_Hamzeh(wv[i + 1])
+        cs_0 = cs_electron_w_condition_Hamzeh(wv[i])
+        cs_1 = cs_electron_w_condition_Hamzeh(wv[i + 1])
         traparea = wvwid * 0.5 * (fluxv[i] * cs_0 + fluxv[i + 1] * cs_1)
         wmin[i] = wv[i]
         if i == len(wv) - 2:
@@ -131,7 +131,7 @@ ax.set_ylim(1.e-3, 10.e2)
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
 title_label = ('$Q^2_e<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$').format(10,np.log10(inel[1]))
-plt.loglog(wv2[:303], int_el[:303], linestyle = 'solid',  linewidth=2,  label = 'tagged elastic')
+plt.loglog(wv2[:303], int_el[:303], linestyle = 'solid',  linewidth=2,  label = 'elastic')
 plt.loglog(wv1[:303], int_inel[:303], linestyle = 'dotted',  linewidth=2, label = inel_label)
 
 #plt.grid()

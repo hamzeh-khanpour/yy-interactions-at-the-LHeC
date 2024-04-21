@@ -29,17 +29,17 @@ def qmin2(mass, y):
 # --------------------------------------------------------------
 
 
-# flux at given ye with q2max point-like form factor
+# flux at given y with q2max point-like form factor
 # Q2 integration was done analytically
-def flux_y_pl(ye, mass, qmax2):
-    if (ye <= 0 or ye >= 1):
-        print('invalid ye value: ', ye)
+def flux_y_pl(y, mass, qmax2):
+    if (y <= 0 or y >= 1):
+        print('invalid y value: ', y)
         return -1.0
     else:
-        qmin2v = qmin2(mass, ye)
+        qmin2v = qmin2(mass, y)
         # print('qmin2v', qmin2v)
-        y1 = (1./2.) * (1. + (1. - ye) * (1. - ye)) / ye                         # Hamzeh  1 -> 1/2
-        y2 = 1. * (1. - ye) / ye                                                 # Hamzeh  2 -> 1
+        y1 = (1./2.) * (1. + (1. - y) * (1. - y)) / y                         # Hamzeh  1 -> 1/2
+        y2 = 1. * (1. - y) / y                                                # Hamzeh  2 -> 1                                                         
         flux1 = y1 * math.log(qmax2 / qmin2v)
         flux2 = y2 * (1. - qmin2v / qmax2)
         # print(flux1, flux2)
@@ -51,17 +51,17 @@ def flux_y_pl(ye, mass, qmax2):
 
 
 
-# flux at given yp with q2max with dipole form factor
-def flux_y_dipole(yp, mass, qmax2):
-    if (yp <= 0 or yp >= 1):
-        print('invalid yp value: ', yp)
+# flux at given y with q2max with dipole form factor
+def flux_y_dipole(y, mass, qmax2): 
+    if (y <= 0 or y >= 1):
+        print('invalid y value: ', y)
         return -1.0
     else:
-        qmin2v = qmin2(mass, yp)
+        qmin2v = qmin2(mass, y)
 	# integration from qmin2 to qmax2
         flux_y_tmp = integ.quad(flux_y_q2_dipole,
                                 math.log(qmin2v), math.log(qmax2),
-                                args=(yp, mass, qmin2v))
+                                args=(y, mass, qmin2v))
         # print(flux_y_tmp)
         return flux_y_tmp[0]
 
@@ -71,26 +71,26 @@ def flux_y_dipole(yp, mass, qmax2):
 
 
 
-def flux_y_inel(yp, mMin2, qmax2, mNmax, pout=False):
-    if (yp <= 0 or yp >= 1):
-        print('invalid yp value: ', yp)
+def flux_y_inel(y, mMin2, qmax2, mNmax, pout=False): 
+    if (y <= 0 or y >= 1):
+        print('invalid y value: ', y)
         return -1.0
     else:
-        qmin2v = (mMin2*mMin2 / (1 - yp) - pmass * pmass) * yp                 # Hamzeh mMin2-> mMin2*mMin2
+        qmin2v = (mMin2*mMin2 / (1 - y) - pmass * pmass) * y                 # Hamzeh mMin2-> mMin2*mMin2
         if pout:
             print('qmin2, qmax2:', qmin2v, qmax2)
 	# integration from qmin2 to qmax2
 #        flux_y_tmp = integ.quad(flux_y_q2_inel,
 #                                math.log(qmin2v), math.log(qmax2),
-#                                args=(yp, mMin2, mNmax, qmin2v),
+#                                args=(y, mMin2, mNmax, qmin2v),
 #  				epsrel=1.e-3)
         flux_y_tmp = integ.quad(flux_y_q2_inel_mN2,
                                 math.log(qmin2v), math.log(qmax2),
-                                args=(yp, mMin2, mNmax, qmin2v),
+                                args=(y, mMin2, mNmax, qmin2v),
 				epsrel=1.e-2)
 #				epsabs=1.e-5, epsrel=1.e-5)
         if pout:
-            print('yp, flux: {:8.5e} {:8.5e}'.format(yp, flux_y_tmp[0]))
+            print('y, flux: {:8.5e} {:8.5e}'.format(y, flux_y_tmp[0]))
         return flux_y_tmp[0]
 
 
@@ -99,17 +99,17 @@ def flux_y_inel(yp, mMin2, qmax2, mNmax, pout=False):
 
 
 
-# returning flux factor at given (q2, yp)
+# returning flux factor at given (q2, y)
 # with dipole form factor with effective mass parameter
-def flux_y_q2_dipole(lnq2, yp, mass, qmin2v):
+def flux_y_q2_dipole(lnq2, y, mass, qmin2v):
         gE2 = (1 + math.exp(lnq2)/0.71) ** (-4)
         gM2 = 7.78 * gE2
         formE = (4 * mass * mass * gE2 + math.exp(lnq2) * gM2) \
                 / (4 * mass * mass + math.exp(lnq2))
         formM = gM2
-        flux_tmp = (1 - yp) * (1 - qmin2v / math.exp(lnq2)) * formE \
-                               + yp * yp * 0.5 * formM
-        flux_tmp *= ALPHA2PI / yp
+        flux_tmp = (1 - y) * (1 - qmin2v / math.exp(lnq2)) * formE \
+                               + y * y * 0.5 * formM
+        flux_tmp *= ALPHA2PI / y
         # print(lnq2, flux_tmp)
         return flux_tmp
 
@@ -146,20 +146,16 @@ def flux_y_q2_inel_mN2(lnq2, yp, mMin2, nMmax, qmin2v, pout=False):
 # --------------------------------------------------------------
 
 
+
 # picking up proton and electron mass as external constants
 def flux_yy_atye(ye, w, qmax2e, qmax2p, s_cms, pout=False):
-
     yp = w * w / s_cms / ye
+    if pout:
+        print(emass, pmass, ye, w, qmax2e, s_cms)
+    flux_prod = flux_y_dipole(yp, pmass, qmax2p) \
+                * yp * flux_y_pl(ye, emass, qmax2e)
+    return flux_prod
 
-    if (yp <= 0.0 or yp >= 1.0):                                                            # Hamzeh tagged elastic   ==>  if (yp <= 0.01 or yp >= 0.20):
-        print('invalid yp value: ', yp)
-        return 0.0
-    else:
-        if pout:
-            print(emass, pmass, ye, w, qmax2e, s_cms)
-        flux_prod = flux_y_dipole(yp, pmass, qmax2p) \
-                    * yp * flux_y_pl(ye, emass, qmax2e)
-        return flux_prod
 
 
 # --------------------------------------------------------------
