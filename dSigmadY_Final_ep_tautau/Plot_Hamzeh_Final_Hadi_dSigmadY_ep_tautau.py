@@ -30,11 +30,12 @@ sys.path.append('./values')
 # from syy_1_3_4_0805 import *
 # from syy_1_4_4_0907 import *
 
-from dSigmadY_ep_tautau import *
+
+from dSigmadY_ep_tautau_10_10000_10000 import *
 
 fig, ax = plt.subplots(figsize = (11.0, 9.0))
 ax.set_xlim(-10.0, 10.0)
-ax.set_ylim(0.1, 10.0)
+ax.set_ylim(0.1, 15.0)
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
 title_label = ('$Q^2_e<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$').format(10,np.log10(inel[1]))
@@ -46,8 +47,8 @@ plt.legend(title = title_label)
 
 
 # Add additional information
-info_text = "$ep \\rightarrow e p \\tau^+\\tau^-$; W = 10 GeV"
-plt.text(0.2, 0.90, info_text, transform=ax.transAxes, ha='center', va='center', fontsize=25, color='black')
+info_text = "$ep \\rightarrow e \\tau^+\\tau^- p$; W = 10 GeV"
+plt.text(0.3, 0.20, info_text, transform=ax.transAxes, ha='center', va='center', fontsize=25, color='black')
 
 #info_text_2 = "$M_{higgsinos}$ = 100 GeV"
 #plt.text(0.2, 0.85, info_text_2, transform=ax.transAxes, ha='center', va='center', fontsize=20, color='black')
@@ -73,11 +74,27 @@ font2 = {'family':'serif','color':'black','size':24}
 
 
 plt.xlabel("$Y_{\\tau^+\\tau^-}$",  fontdict = font2)
-plt.ylabel("$d\sigma/dY " " (ep \\rightarrow e p \\tau^+\\tau^-)$ [pb]", fontdict = font2)
+plt.ylabel("$d\sigma/dY " " (e \\rightarrow e p \\tau^+\\tau^- p)$ [pb]", fontdict = font2)
 
 
 plt.savefig("dSigmadY_ep_tautau.pdf")
 plt.savefig("dSigmadY_ep_tautau.jpg")
+
+
+# Calculate the area under the elastic curve (example)
+x_elastic = wvalues[3][:303]  # x values for elastic curve
+y_elastic = elas[3][:303]     # y values for elastic curve
+area_elastic = np.trapz(y_elastic, x_elastic)  # Calculate area under the elastic curve
+
+# Calculate the area under the inelastic curve (example)
+x_inelastic = wvalues[3][:303]  # x values for inelastic curve
+y_inelastic = inel[3][:303]     # y values for inelastic curve
+area_inelastic = np.trapz(y_inelastic, x_inelastic)  # Calculate area under the inelastic curve
+
+print("Area under the elastic curve:", area_elastic, "pb*GeV")
+print("Area under the inelastic curve:", area_inelastic, "pb*GeV")
+
+
 
 plt.show()
 
