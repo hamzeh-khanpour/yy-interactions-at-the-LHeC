@@ -142,7 +142,7 @@ def allm_xf2_mN(mN, Q2, yp):
     else:
     
         if qmin2 < Q2:
-            return allm_f2(xbj, Q2) / Q2**0.0  * 2.0 * mN *  (1.0/mqdiff) * ( 1.0 - qmin2 / Q2 )
+            return allm_f2(xbj, Q2) / Q2**0.0  * 2.0 * mN *  (1.0/mqdiff)                  # * ( 1.0 - qmin2 / Q2 )   # Hamzeh
         else:
             return 0.
 

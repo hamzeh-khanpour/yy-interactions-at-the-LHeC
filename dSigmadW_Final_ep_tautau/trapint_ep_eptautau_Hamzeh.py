@@ -69,7 +69,7 @@ sys.path.append('./values')
 
 
 
-from wgrid_3_10_10 import *
+from wgrid_10_100_100 import *
 
 wv = np.array(wvalues[3])
 ie = np.array(inel[3])

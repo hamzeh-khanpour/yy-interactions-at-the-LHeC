@@ -31,7 +31,7 @@ sys.path.append('./values')
 # from syy_1_4_4_0907 import *
 
 
-from dSigmadY_ep_tautau_10_10000_10000 import *
+from dSigmadY_ep_tautau_10_100_100 import *
 
 fig, ax = plt.subplots(figsize = (11.0, 9.0))
 ax.set_xlim(-10.0, 10.0)

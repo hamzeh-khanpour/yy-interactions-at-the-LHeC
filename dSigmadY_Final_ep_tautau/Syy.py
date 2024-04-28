@@ -130,7 +130,7 @@ def flux_y_q2_inel_mN2(lnq2, yp, mMin2, nMmax, qmin2v, pout=False):
 
         # formM was divided by q2*q2 -> should be q2?? Why?
         formMNew = formMq2 / ( math.exp(lnq2) * math.exp(lnq2) )  #                            # Hamzeh
-        formENew = formE # * ( 1.0 - qmin2v / math.exp(lnq2) )       #  / ( math.exp(lnq2) )      # Hamzeh
+        formENew = formE  * ( 1.0 - qmin2v / math.exp(lnq2) )       #  / ( math.exp(lnq2) )      # Hamzeh
 
         flux_tmp = (1 - yp) * formENew \
                     + yp * yp * 0.5 * formMNew
@@ -181,7 +181,7 @@ def flux_yy_atye(w, Y, qmax2e, qmax2p, s_cms, eEbeam, pEbeam, pout=False):
     yp = w * math.exp(Y)  / (2.0*pEbeam)
     ye = w * math.exp(-Y) / (2.0*eEbeam)
 
-    if (yp <= 0.0 or yp >= 1.0 or ye <= 0.0 or ye >= 1.0):              # Hamzeh take care of tagged elastic
+    if (yp <= 0.0 or yp >= 1.0 or ye <= 0.0 or ye >= 1.0):                            # Hamzeh take care of tagged elastic
         print('invalid yp value: ', yp)
         print('invalid ye value: ', ye)
         return 0.0
