@@ -82,6 +82,23 @@ def compare_distributions(filename):
     print("Area under the curve for q2prime (quasi-elastic):", area_q2prime_QE)
 
 
+
+
+    # Print histograms as text
+    print("\nHistogram contents (Mll):")
+    hist_Mll_E.Print()
+    hist_Mll_QE.Print()
+
+    print("\nHistogram contents (Yll):")
+    hist_Yll_E.Print()
+    hist_Yll_QE.Print()
+
+    print("\nHistogram contents (q2prime):")
+    hist_q2prime_E.Print()
+    hist_q2prime_QE.Print()
+
+
+
     # Plot histograms for Mll
     canvas_Mll = ROOT.TCanvas("canvas_Mll", "Mll Comparison", 800, 600)
     hist_Mll_E.SetLineColor(ROOT.kBlue)
