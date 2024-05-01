@@ -24,4 +24,9 @@ High energy photon-photon interactions at the LHeC: Exclusive production of pair
 pairs of charged supersymmetric particles. 
 
 
+This repository provides the elastic and inelastic luminosity spectrum $S_{\gamma\gamma}$ at the LHeC calculated 
+using the Equivalent Photon Approximation} (EPA) approach. 
 
+
+This repository also provides cross-section calculations for several Exclusive productions such as leptons pairs, W and Z bosons as well as
+pairs of charged supersymmetric particles production via photon-photon interaction at the LHeC.
