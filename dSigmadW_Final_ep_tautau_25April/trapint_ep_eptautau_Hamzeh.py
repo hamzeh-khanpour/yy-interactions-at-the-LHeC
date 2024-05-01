@@ -69,7 +69,7 @@ sys.path.append('./values')
 
 
 
-from wgrid_10_100_100 import *
+from wgrid_10_100000_10 import *
 
 wv = np.array(wvalues[3])
 ie = np.array(inel[3])
@@ -80,7 +80,7 @@ wv2, int_el = trap_integ(wv, el)
 
 fig, ax = plt.subplots(figsize = (9.0, 8.0))
 ax.set_xlim(10.0, 500.0)
-ax.set_ylim(1.0e-4, 100.0e0)
+ax.set_ylim(1.0e-4, 1.0e2)
 
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
@@ -95,12 +95,52 @@ plt.legend(title = title_label)
 #plt.grid()
 
 
+##################################################################
+
+
+from wgrid_50_100000_1000 import *
+
+wv = np.array(wvalues[3])
+ie = np.array(inel[3])
+wv1, int_inel = trap_integ(wv, ie)
+
+inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$)').format(10,np.log10(inel[2]))
+plt.loglog(wv2[:303], int_inel[:303], linestyle = 'dashdot',  linewidth=2, label = inel_label)
+plt.legend(title = title_label)
+
+
+
+##################################################################
+
+
+from wgrid_300_100000_100000 import *
+
+wv = np.array(wvalues[3])
+ie = np.array(inel[3])
+wv1, int_inel = trap_integ(wv, ie)
+
+inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$)').format(10,np.log10(inel[2]))
+plt.loglog(wv2[:303], int_inel[:303], linestyle = 'dashdot',  linewidth=2, label = inel_label)
+plt.legend(title = title_label)
+
+
+
 
 
 # Save the output values in a text file
 output_data = np.column_stack((wv2[:303], int_el[:303], int_inel[:303]))
 header = 'W_Value Elastic Inelastic'
-np.savetxt('dSigmadW_ep_bbbar_elastic.txt', output_data, header=header, fmt='%0.8e', delimiter='\t')
+np.savetxt('dSigmadW_ep_bbbar.txt', output_data, header=header, fmt='%0.8e', delimiter='\t')
+
+
+
+##################################################################
+
+
+# Save the output values in a text file
+output_data = np.column_stack((wv2[:303], int_el[:303], int_inel[:303]))
+header = 'W_Value Elastic Inelastic'
+np.savetxt('dSigmadW_ep_tautau_elastic_inelastic.txt', output_data, header=header, fmt='%0.8e', delimiter='\t')
 
 
 
@@ -113,8 +153,8 @@ plt.ylabel("$d\sigma/dW  (ep \\rightarrow e p \\tau^+\\tau^-)$ [pb]", fontdict =
 
 
 
-plt.savefig("dSigmadW_ep_bbbar_elastic.pdf")
-plt.savefig("dSigmadW_ep_bbbar_elastic.jpg")
+plt.savefig("dSigmadW_ep_tautau_elastic_inelastic.pdf")
+plt.savefig("dSigmadW_ep_tautau_elastic_inelastic.jpg")
 
 
 

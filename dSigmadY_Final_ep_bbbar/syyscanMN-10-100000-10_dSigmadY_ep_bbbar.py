@@ -7,7 +7,7 @@ import numpy as np
 
 # last two arguments: mNmax (not squared), Q2max (squared)
 
-mNmax  = 10.0
+mNmax = 10.0
 q2emax = 100000.0
 q2pmax = 10.0
 
@@ -58,7 +58,7 @@ for Y in wlist:
 
 
 
-with open('10_100000_10_dSigmadY_Higgs.dat', 'w') as f:
+with open('10_100000_10_dSigmadY_ep_bbbar.dat', 'w') as f:
     print(res_param, file = f)     
     print(res_inel, file = f)
     print(res_el, file = f)

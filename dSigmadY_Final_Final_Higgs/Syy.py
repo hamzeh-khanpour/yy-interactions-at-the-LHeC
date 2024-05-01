@@ -123,14 +123,14 @@ def flux_y_q2_inel_mN2(lnq2, yp, mMin2, nMmax, qmin2v, pout=False):
         # integration variable: q2
 	#
 
-        qmin2 = (mMin2*mMin2 / (1 - yp) - pmass * pmass) * yp                                  # Hamzeh
+        qmin2v = (mMin2*mMin2 / (1 - yp) - pmass * pmass) * yp                                  # Hamzeh
 
         formE = ALLM.allm_formE_qmin2(math.exp(lnq2), yp, mMin2, nMmax)[0]
         formMq2 = ALLM.allm_formM_mN2(math.exp(lnq2), yp, mMin2, nMmax)[0]
 
         # formM was divided by q2*q2 -> should be q2?? Why?
         formMNew = formMq2 / ( math.exp(lnq2) * math.exp(lnq2) )  #                            # Hamzeh
-        formENew = formE * ( 1.0 - qmin2 / math.exp(lnq2) )       #  / ( math.exp(lnq2) )      # Hamzeh
+        formENew = formE #  * ( 1.0 - qmin2v / math.exp(lnq2) )       #  / ( math.exp(lnq2) )      # Hamzeh
 
         flux_tmp = (1 - yp) * formENew \
                     + yp * yp * 0.5 * formMNew
@@ -240,7 +240,7 @@ def flux_el_yy_atW(Y, eEbeam, pEbeam, qmax2e, qmax2p):
     s_cms = 4.0 * eEbeam * pEbeam
     sqrt_cms = math.sqrt(4.0 * eEbeam * pEbeam)
 
-    w0 = 125.0001
+    w0 = 125.000001
 
 #    ymin = w * w / s_cms
 
@@ -261,7 +261,7 @@ def flux_inel_yy_atW(Y, eEbeam, pEbeam, qmax2e, mNmax, qmax2p):
     s_cms = 4.0 * eEbeam * pEbeam
     sqrt_cms = math.sqrt(4.0 * eEbeam * pEbeam)
 
-    w0 = 125.0001
+    w0 = 125.000001
 
 #    ymin = w * w / s_cms
 
