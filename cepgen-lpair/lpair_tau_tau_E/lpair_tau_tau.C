@@ -16,8 +16,8 @@ TFile *F;
 // **********************************************************************
 
     TH1 *histMassdilepton =  new TH1F("M_{inv}", "", 500, 0.0, 500.0);
-    TH1 *histPtdilepton   =  new TH1F("Pt", "",      50, 0.0, 100.0);
-    TH1 *histq2           =  new TH1F("q2", "",      50, 0.0, 100.0);
+    TH1 *histPtdilepton   =  new TH1F("Pt", "",      50, 0.0, 10.0);
+    TH1 *histq2           =  new TH1F("q2", "",      50, 0.0, 10.0);
     TH1 *histq2prime      =  new TH1F("q2prime", "", 50, 0.0, 100.0);
 
     TH1 *histetall         =  new TH1F("etall", "",     40, -20.0, 20.0);
@@ -103,7 +103,7 @@ void lpair_tau_tau::Loop()
     Tsignal_LHeC->Branch("Thetall",&Thetall);
 
 
-//    gStyle->SetOptStat(0);
+    gStyle->SetOptStat(0);
 
 
 
