@@ -20,4 +20,6 @@ syyscan.py: input
 
 # Final Version -- 1 May 2024
 
+High energy photon-photon interactions at the LHeC: Exclusive production of pairs leptons, W and Z bosons as well as
+pairs of charged supersymmetric particles. 
 
