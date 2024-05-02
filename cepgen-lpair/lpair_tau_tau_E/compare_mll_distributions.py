@@ -278,4 +278,4 @@ def compare_distributions(filename):
     file.Close()
 
 # Call the function with the filename of the ROOT file
-compare_distributions("/home/hamzeh-khanpour/Desktop/lpair_tau_tau_E/LHeC_Compare.root")
+compare_distributions("LHeC_Compare.root")
