@@ -1,7 +1,11 @@
+
 import ROOT
 import array  # Add this line to import the array module
 import numpy as np
 import sys
+
+##################################################################
+
 
 ROOT.gStyle.SetOptStat(0)  # Remove the statistics box from the plots
 
@@ -9,6 +13,9 @@ integrated_cross_section_value_E = 48.8223395  # pb
 integrated_cross_section_value_QE = 24.703  # pb
 
 bin_width_correction = 5.0
+
+##################################################################
+
 
 
 def compare_distributions(filename):
@@ -92,6 +99,9 @@ def compare_distributions(filename):
 
     # Draw the canvas
     canvas_Yll.Draw()
+    
+##################################################################
+    
 
     # Calculate area under the curve for each distribution
     area_Yll_E = hist_Yll_E.Integral() / bin_width_correction
@@ -99,6 +109,7 @@ def compare_distributions(filename):
 
     print("Area under the curve for Yll (elastic):", area_Yll_E)
     print("Area under the curve for Yll (quasi-elastic):", area_Yll_QE)
+
 
     # Calculate area under the curve for Matplotlib data
     area_Yll_MPL_elastic = 0
@@ -115,5 +126,7 @@ def compare_distributions(filename):
 
 # Call the function with the filename of the ROOT file
 compare_distributions("LHeC_Compare.root")
+
+##################################################################
 
 
