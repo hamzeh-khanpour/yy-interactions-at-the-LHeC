@@ -32,7 +32,7 @@ sys.path.append('./values')
 # from syy_1_3_4_0805 import *
 # from syy_1_4_4_0907 import *
 
-from dSigmadY_higgsinos100_MN300 import *
+from dSigmadY_10_10_10_higgsinos_MN100 import *
 
 fig, ax = plt.subplots(figsize = (11.0, 9.0))
 ax.set_xlim(0.0, 5.0)
