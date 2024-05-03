@@ -64,7 +64,7 @@ def compare_distributions(filename):
         tree_E.GetEntry(i)
         weight = integrated_cross_section_value_E / tree_E.GetEntries()
         hist_Mll_E.Fill(Mll_E[0], weight)
-        hist_Yll_E.Fill(Yll_E[0], weight * 5.0)
+        hist_Yll_E.Fill(Yll_E[0], weight)
         hist_q2prime_E.Fill(q2prime_E[0])
         hist_q2_E.Fill(q2_E[0])
         hist_Ptll_E.Fill(Ptll_E[0], weight)
@@ -73,7 +73,7 @@ def compare_distributions(filename):
         tree_QE.GetEntry(i)
         weight = integrated_cross_section_value_QE / tree_QE.GetEntries()
         hist_Mll_QE.Fill(Mll_QE[0], weight)
-        hist_Yll_QE.Fill(Yll_QE[0], weight * 5.0)
+        hist_Yll_QE.Fill(Yll_QE[0], weight)
         hist_q2prime_QE.Fill(q2prime_QE[0])
         hist_q2_QE.Fill(q2_QE[0])
         hist_Ptll_QE.Fill(Ptll_QE[0], weight)
@@ -81,8 +81,8 @@ def compare_distributions(filename):
     # Calculate area under the curve for each distribution
     area_Mll_E = hist_Mll_E.Integral()
     area_Mll_QE = hist_Mll_QE.Integral()
-    area_Yll_E = hist_Yll_E.Integral() / 5.0
-    area_Yll_QE = hist_Yll_QE.Integral() / 5.0
+    area_Yll_E = hist_Yll_E.Integral()
+    area_Yll_QE = hist_Yll_QE.Integral()
     area_q2prime_E = hist_q2prime_E.Integral()
     area_q2prime_QE = hist_q2prime_QE.Integral()
     area_q2_E = hist_q2_E.Integral()
@@ -278,4 +278,4 @@ def compare_distributions(filename):
     file.Close()
 
 # Call the function with the filename of the ROOT file
-compare_distributions("/home/hamzeh-khanpour/Desktop/lpair_tau_tau_E/LHeC_Compare.root")
+compare_distributions("LHeC_Compare.root")
