@@ -7,7 +7,7 @@
 
 
 TFile *target;
-TTree *Tsignal_LHeC = new TTree("LHeC_E","LHeC_E");
+TTree *Tsignal_LHeC = new TTree("LHeC_QE","LHeC_QE");
 TFile *F;
 
 
@@ -124,7 +124,8 @@ void lpair_higgsino::Loop()
 
       Float_t  integrated_luminosity = 1.0; // fb^{-1}
 
-      Float_t  integrated_cross_section_value_BH  = 48.8223395;   //   pb
+//      Float_t  integrated_cross_section_value_BH  = 1.01516903e-03;   //   elastic
+      Float_t  integrated_cross_section_value_BH  = 9.35686193e-04;   //   inelastic
 
       Float_t  event_weight_BH  = integrated_cross_section_value_BH  * integrated_luminosity / nentries;
 
@@ -269,7 +270,7 @@ void lpair_higgsino::Loop()
    }  // end events loop
 
 
-     target = new TFile ("LHeC_higgsino_E.root","recreate");
+     target = new TFile ("LHeC_higgsino_QE.root","recreate");
      target->cd();
 
      Tsignal_LHeC->Write();

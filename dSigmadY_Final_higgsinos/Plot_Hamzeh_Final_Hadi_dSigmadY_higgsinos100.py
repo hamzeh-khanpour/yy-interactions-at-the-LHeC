@@ -1,8 +1,3 @@
-
-# Final Version -- Febraury 2024 -- Hamzeh Khanpour
-
-# ================================================================================
-
 import numpy as np
 import matplotlib.pyplot as plt
 import sys
@@ -23,33 +18,30 @@ plt.rcParams["legend.fontsize"] = 15
 
 plt.rcParams['legend.title_fontsize'] = 'x-large'
 
-
-# ================================================================================
-
-
 sys.path.append('./values')
-# from syy_1_3_3_0804 import *
-# from syy_1_3_4_0805 import *
-# from syy_1_4_4_0907 import *
 
-from dSigmadY_10_10_10_higgsinos_MN100 import *
+from dSigmadY_10_100_100_higgsinos_MN100 import *
 
-fig, ax = plt.subplots(figsize = (11.0, 9.0))
+fig, ax = plt.subplots(figsize=(11.0, 9.0))
 ax.set_xlim(0.0, 5.0)
-ax.set_ylim(0.00001, 0.04)
+ax.set_ylim(0.00001, 0.001)
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
-title_label = ('$Q^2_e<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$').format(10,np.log10(inel[1]))
-plt.plot(wvalues[3][:202], elas[3][:202], linestyle = 'dashed',  linewidth=2, color='blue', label = 'elastic')
-plt.plot(wvalues[3][:202], inel[3][:202], linestyle = 'dashdot', linewidth=2, color='red', label = inel_label)
-#plt.grid()
-plt.legend(title = title_label)
+title_label = ('$Q^2_e<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$').format(10, np.log10(inel[1]))
 
+# Plot elastic and inelastic cross-sections
+elastic_plot, = plt.plot(wvalues[3][:202], elas[3][:202], linestyle='dashed', linewidth=2, color='blue', label='elastic')
+inelastic_plot, = plt.plot(wvalues[3][:202], inel[3][:202], linestyle='dashdot', linewidth=2, color='red', label=inel_label)
 
+# Calculate the area under the plots
+area_elastic = np.trapz(elas[3][:202], wvalues[3][:202])
+area_inelastic = np.trapz(inel[3][:202], wvalues[3][:202])
 
-# ================================================================================
+print("Area under elastic plot:", area_elastic)
+print("Area under inelastic plot:", area_inelastic)
 
-
+# Add legend with specified colors
+legend = plt.legend(handles=[elastic_plot, inelastic_plot], title=title_label)
 
 # Add additional information
 info_text = "LHeC"
@@ -58,40 +50,17 @@ plt.text(0.2, 0.90, info_text, transform=ax.transAxes, ha='center', va='center',
 info_text_2 = "$M_{higgsinos}$ = 100 GeV"
 plt.text(0.2, 0.85, info_text_2, transform=ax.transAxes, ha='center', va='center', fontsize=20, color='black')
 
-
-# Setting y-axis to log scale
-#plt.yscale('log')
-
 # Set label colors
 ax.xaxis.label.set_color('black')
 ax.yaxis.label.set_color('black')
 
-# Add legend with specified colors
-legend = plt.legend(title = title_label)
-legend.get_texts()[0].set_color("blue")  # Color for 'elastic'
-legend.get_texts()[1].set_color("red")   # Color for inel_label
+# Set axis labels
+plt.xlabel("$Y_{higgsinos}$", fontdict={'family': 'serif', 'color': 'black', 'size': 24})
+plt.ylabel("$d\sigma/dY_{higgsinos}$ [pb]", fontdict={'family': 'serif', 'color': 'black', 'size': 24})
 
-
-
-font1 = {'family':'serif','color':'black','size':24}
-font2 = {'family':'serif','color':'black','size':24}
-
-
-
-# ================================================================================
-
-
-plt.xlabel("$Y_{higgsinos}$",  fontdict = font2)
-plt.ylabel("$d\sigma/dY_{higgsinos}$ [pb]", fontdict = font2)
-
-
+# Save the plot
 plt.savefig("dSigmadY_higgsinos100GeV.pdf")
 plt.savefig("dSigmadY_higgsinos100GeV.jpg")
 
+# Show the plot
 plt.show()
-
-
-
-# ================================================================================
-
-
