@@ -11,8 +11,8 @@ import math
 ROOT.gStyle.SetOptStat(0)  # Remove the statistics box from the plots
 
 # Integrated cross-section values
-integrated_cross_section_value_E = 48.8223395  # pb
-integrated_cross_section_value_QE = 24.703  # pb
+integrated_cross_section_value_E  = 1.01516903e-03  # pb
+integrated_cross_section_value_QE = 9.35686193e-04  # pb
 
 bin_width_correction = 1.0
 
@@ -41,8 +41,8 @@ def compare_Mll_distributions(filename_root):
     tree_QE.SetBranchAddress("Mll", Mll_QE)
 
     # Create histograms for Mll from ROOT
-    hist_Mll_E = ROOT.TH1F("hist_Mll_E", "Mll distribution", 500, 10, 500)
-    hist_Mll_QE = ROOT.TH1F("hist_Mll_QE", "Mll distribution", 500, 10, 500)
+    hist_Mll_E = ROOT.TH1F("hist_Mll_E", "Mll distribution", 300, 200, 500)
+    hist_Mll_QE = ROOT.TH1F("hist_Mll_QE", "Mll distribution", 300, 200, 500)
 
     # Fill histograms for Mll from ROOT
     for i in range(tree_E.GetEntries()):
@@ -58,8 +58,8 @@ def compare_Mll_distributions(filename_root):
     # Plot histograms for Mll using ROOT
     canvas_Mll = ROOT.TCanvas("canvas_Mll", "Mll Comparison", 800, 600)
     hist_Mll_E.SetLineColor(ROOT.kBlue)
-    hist_Mll_E.SetMinimum(1e-4)  # Set minimum y-axis value
-    hist_Mll_E.SetMaximum(100)  # Set maximum y-axis value
+    hist_Mll_E.SetMinimum(1e-6)  # Set minimum y-axis value
+    hist_Mll_E.SetMaximum(1e-4)  # Set maximum y-axis value
     hist_Mll_E.GetYaxis().SetTitle("d#sigma/dM_{#tau^{+}#tau^{-}} [pb/GeV]")  # Y-axis title
     hist_Mll_E.GetXaxis().SetTitle("M_{#tau^{+}#tau^{-}} [GeV] = W_{#gamma#gamma} [GeV]")  # X-axis title
     hist_Mll_E.Draw()
@@ -102,7 +102,7 @@ def compare_Mll_distributions(filename_root):
     
 
     # Load data from text file
-    data = np.loadtxt("dSigmadW_ep_tautau_elastic_inelastic.txt", delimiter='\t', skiprows=1)
+    data = np.loadtxt("dSigmadW_ep_higgsinos_elastic_inelastic.txt", delimiter='\t', skiprows=1)
     wv = data[:, 0]
     int_el = data[:, 1]
     int_inel = data[:, 2]
@@ -116,8 +116,8 @@ def compare_Mll_distributions(filename_root):
 
     # Matplotlib plot for elastic and inelastic cross-sections
     fig, ax = plt.subplots(figsize=(9.0, 8.0))
-    ax.set_xlim(10.0, 500.0)
-    ax.set_ylim(1.0e-4, 1.0e2)
+    ax.set_xlim(200.0, 500.0)
+    ax.set_ylim(1.0e-6, 1.0e-4)
 
     # Plot elastic and inelastic cross-sections
     ax.loglog(wv, int_el, linestyle='solid', linewidth=2, label='elastic')
@@ -126,7 +126,7 @@ def compare_Mll_distributions(filename_root):
     # Convert ROOT histograms to numpy arrays
     Mll_E_array = np.array([hist_Mll_E.GetBinContent(i) for i in range(1, hist_Mll_E.GetNbinsX() + 1)])
     Mll_QE_array = np.array([hist_Mll_QE.GetBinContent(i) for i in range(1, hist_Mll_QE.GetNbinsX() + 1)])
-    bin_edges = np.linspace(10, 500, 501)
+    bin_edges = np.linspace(200, 500, 301)
 
     # Plot ROOT histograms on the matplotlib plot
     ax.hist(bin_edges[:-1], bin_edges, weights=Mll_E_array, histtype='step', color='blue', linestyle='-', label='ROOT elastic')
@@ -148,4 +148,4 @@ def compare_Mll_distributions(filename_root):
 
 
 # Call the function with the filename of the ROOT file
-compare_Mll_distributions("LHeC_Compare.root")
+compare_Mll_distributions("LHeC_higgsino_Compare.root")

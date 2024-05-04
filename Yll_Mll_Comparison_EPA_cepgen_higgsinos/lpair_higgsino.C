@@ -7,7 +7,7 @@
 
 
 TFile *target;
-TTree *Tsignal_LHeC = new TTree("LHeC_QE","LHeC_QE");
+TTree *Tsignal_LHeC = new TTree("LHeC_E","LHeC_E");
 TFile *F;
 
 
@@ -15,7 +15,7 @@ TFile *F;
 // Book Histograms
 // **********************************************************************
 
-    TH1 *histMassdilepton =  new TH1F("M_{inv}", "", 500, 0.0, 500.0);
+    TH1 *histMassdilepton =  new TH1F("M_{inv}", "", 800, 200.0, 1000.0);
     TH1 *histPtdilepton   =  new TH1F("Pt", "",      50, 0.0, 10.0);
     TH1 *histq2           =  new TH1F("q2", "",      50, 0.0, 10.0);
     TH1 *histq2prime      =  new TH1F("q2prime", "", 50, 0.0, 100.0);
@@ -124,8 +124,8 @@ void lpair_higgsino::Loop()
 
       Float_t  integrated_luminosity = 1.0; // fb^{-1}
 
-//      Float_t  integrated_cross_section_value_BH  = 1.01516903e-03;   //   elastic
-      Float_t  integrated_cross_section_value_BH  = 9.35686193e-04;   //   inelastic
+      Float_t  integrated_cross_section_value_BH  = 1.01516903e-03;   //   elastic
+//      Float_t  integrated_cross_section_value_BH  = 9.35686193e-04;   //   inelastic
 
       Float_t  event_weight_BH  = integrated_cross_section_value_BH  * integrated_luminosity / nentries;
 
@@ -270,7 +270,7 @@ void lpair_higgsino::Loop()
    }  // end events loop
 
 
-     target = new TFile ("LHeC_higgsino_QE.root","recreate");
+     target = new TFile ("LHeC_higgsino_E.root","recreate");
      target->cd();
 
      Tsignal_LHeC->Write();
@@ -283,7 +283,7 @@ Double_t xl1=0.70, yl1=0.70, xl2=xl1+0.0, yl2=yl1+0.0;
 TLegend *leg = new TLegend(xl1,yl1,xl2,yl2);
 leg->SetBorderSize(0);
 
-leg->AddEntry(histMassdilepton,"Elastic (#tau^{+}#tau^{-}) cepgen","L")->SetTextColor(kBlue+1);
+leg->AddEntry(histMassdilepton,"Elastic (higgsinos) cepgen","L")->SetTextColor(kBlue+1);
 
 leg->SetTextSize(0.04);
 leg->SetTextFont(12);
@@ -312,11 +312,11 @@ TLatex *t3a = new TLatex(0.40,0.80,"Q^{2}_{e,max}<10^{2} GeV^{2};  Q^{2}_{p,max}
 TCanvas* c1 = new TCanvas("c1","Massdilepton", 10, 10, 900, 700);
 
 //histMassdilepton->SetTitle("Jet Algorithem = ee_genkt_cambridge");
-histMassdilepton->GetXaxis()->SetTitle("M_{#tau^{+}#tau^{-}} [GeV]");
+histMassdilepton->GetXaxis()->SetTitle("M_{higgsinos} [GeV]");
 //histMassdilepton->GetXaxis()->SetTitleOffset(1.25);
 histMassdilepton->GetXaxis()->SetLabelFont(22);
 histMassdilepton->GetXaxis()->SetTitleFont(22);
-histMassdilepton->GetYaxis()->SetTitle("d#sigma/dM_{#tau^{+}#tau^{-}} [pb/GeV]");  //   # of Events
+histMassdilepton->GetYaxis()->SetTitle("d#sigma/dM_{higgsinos} [pb/GeV]");  //   # of Events
 histMassdilepton->GetYaxis()->SetTitleOffset(1.40);
 histMassdilepton->GetYaxis()->SetLabelFont(22);
 histMassdilepton->GetYaxis()->SetTitleFont(22);
@@ -358,11 +358,11 @@ histMassdilepton->GetXaxis()->SetRangeUser(10,500);
 TCanvas* c2 = new TCanvas("c2","Ptdilepton", 10, 10, 900, 700);
 
 //histPtdilepton->SetTitle("Jet Algorithem = ee_genkt_cambridge");
-histPtdilepton->GetXaxis()->SetTitle("P_{T}^{#tau^{+}#tau^{-}} [GeV]");
+histPtdilepton->GetXaxis()->SetTitle("P_{T}^{higgsinos} [GeV]");
 //histPtdilepton->GetXaxis()->SetTitleOffset(1.25);
 histPtdilepton->GetXaxis()->SetLabelFont(22);
 histPtdilepton->GetXaxis()->SetTitleFont(22);
-histPtdilepton->GetYaxis()->SetTitle("d#sigma/dP_{T}^{#tau^{+}#tau^{-}} [pb/GeV]");   //    # of Events
+histPtdilepton->GetYaxis()->SetTitle("d#sigma/dP_{T}^{higgsinos} [pb/GeV]");   //    # of Events
 histPtdilepton->GetYaxis()->SetTitleOffset(1.40);
 histPtdilepton->GetYaxis()->SetLabelFont(22);
 histPtdilepton->GetYaxis()->SetTitleFont(22);
@@ -402,7 +402,7 @@ cout<<"Integral(Ptdilepton) ="<<histPtdilepton->Integral()<<endl;
 TCanvas* c3 = new TCanvas("c3","etall", 10, 10, 900, 700);
 
 //histetall->SetTitle("Jet Algorithem = ee_genkt_cambridge"); t5a->Draw("same");
-histetall->GetXaxis()->SetTitle("#eta^{#tau^{+}#tau^{-}}");
+histetall->GetXaxis()->SetTitle("#eta^{higgsinos}");
 //histetall->GetXaxis()->SetTitleOffset(1.25);
 histetall->GetXaxis()->SetLabelFont(22);
 histetall->GetXaxis()->SetTitleFont(22);
@@ -448,11 +448,11 @@ histetall->GetYaxis()->SetTitleFont(22);
 TCanvas* c4 = new TCanvas("c4","Yll", 10, 10, 900, 700);
 
 //histYll->SetTitle("Jet Algorithem = ee_genkt_cambridge"); t5a->Draw("same");
-histYll->GetXaxis()->SetTitle("Y^{#tau^{+}#tau^{-}}");
+histYll->GetXaxis()->SetTitle("Y^{higgsinos}");
 //histYll->GetXaxis()->SetTitleOffset(1.25);
 histYll->GetXaxis()->SetLabelFont(22);
 histYll->GetXaxis()->SetTitleFont(22);
-histYll->GetYaxis()->SetTitle("d#sigma/dY^{#tau^{+}#tau^{-}} [pb/GeV]");
+histYll->GetYaxis()->SetTitle("d#sigma/dY^{higgsinos} [pb/GeV]");
 histYll->GetYaxis()->SetTitleOffset(1.40);
 histYll->GetYaxis()->SetLabelFont(22);
 histYll->GetYaxis()->SetTitleFont(22);
@@ -495,7 +495,7 @@ histYll->GetYaxis()->SetTitleFont(22);
 TCanvas* c5 = new TCanvas("c5","Thetall", 10, 10, 900, 700);
 
 //histThetall->SetTitle("Jet Algorithem = ee_genkt_cambridge"); t5a->Draw("same");
-histThetall->GetXaxis()->SetTitle("#theta^{#tau^{+}#tau^{-}}");
+histThetall->GetXaxis()->SetTitle("#theta^{higgsinos}");
 //histThetall->GetXaxis()->SetTitleOffset(1.25);
 histThetall->GetXaxis()->SetLabelFont(22);
 histThetall->GetXaxis()->SetTitleFont(22);

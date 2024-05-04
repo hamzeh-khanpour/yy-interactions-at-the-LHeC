@@ -48,8 +48,8 @@ def compare_distributions(filename):
     tree_QE.SetBranchAddress("Ptll", Ptll_QE)  # Add Ptll branch address
 
     # Create histograms for Mll, Yll, q2prime, q2, and Ptll
-    hist_Mll_E = ROOT.TH1F("hist_Mll_E", "Mll distribution", 200, 200, 1000)
-    hist_Mll_QE = ROOT.TH1F("hist_Mll_QE", "Mll distribution", 200, 200, 1000)
+    hist_Mll_E = ROOT.TH1F("hist_Mll_E", "Mll distribution", 300, 200, 500)
+    hist_Mll_QE = ROOT.TH1F("hist_Mll_QE", "Mll distribution", 300, 200, 500)
     hist_Yll_E = ROOT.TH1F("hist_Yll_E", "Yll distribution", 50, 0.0, 10.0)
     hist_Yll_QE = ROOT.TH1F("hist_Yll_QE", "Yll distribution", 50, 0.0, 10.0)
     hist_q2prime_E = ROOT.TH1F("hist_q2prime_E", "q2prime distribution", 50, 0.0, 100.0)

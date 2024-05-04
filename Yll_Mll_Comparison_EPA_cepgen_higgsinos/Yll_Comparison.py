@@ -12,7 +12,7 @@ ROOT.gStyle.SetOptStat(0)  # Remove the statistics box from the plots
 integrated_cross_section_value_E  = 1.01516903e-03  # pb
 integrated_cross_section_value_QE = 9.35686193e-04  # pb
 
-bin_width_correction = 5.0
+bin_width_correction = 10.0
 
 ##################################################################
 
@@ -44,8 +44,8 @@ def compare_distributions(filename):
         Yll_QE.append(event.Yll)
 
     # Create ROOT histograms for Yll
-    hist_Yll_E = ROOT.TH1F("hist_Yll_E", "Yll distribution", 50, 0.0, 10.0)
-    hist_Yll_QE = ROOT.TH1F("hist_Yll_QE", "Yll distribution", 50, 0.0, 10.0)
+    hist_Yll_E = ROOT.TH1F("hist_Yll_E", "Yll distribution", 100, 0.0, 10.0)
+    hist_Yll_QE = ROOT.TH1F("hist_Yll_QE", "Yll distribution", 100, 0.0, 10.0)
 
     # Fill histograms with Yll values with weights
     for y in Yll_E:
@@ -96,6 +96,9 @@ def compare_distributions(filename):
 
     # Save the plot for Yll as a PDF file
     canvas_Yll.SaveAs("Yll_Comparison.pdf")
+
+#    canvas_Yll.SetLogy()
+#    canvas_Yll.SetLogx()
 
     # Draw the canvas
     canvas_Yll.Draw()
