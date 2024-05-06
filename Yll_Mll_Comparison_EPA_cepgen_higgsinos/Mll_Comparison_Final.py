@@ -77,8 +77,8 @@ def compare_Mll_distributions(filename_root):
 
     # Add legend for Mll
     legend_Mll = ROOT.TLegend(0.7, 0.7, 0.85, 0.85)
-    legend_Mll.AddEntry(hist_Mll_E, "lpair elastic", "l")
-    legend_Mll.AddEntry(hist_Mll_QE, "lpair quasi-elastic", "l")
+    legend_Mll.AddEntry(hist_Mll_E, "elastic (cepgen)", "l")
+    legend_Mll.AddEntry(hist_Mll_QE, "quasi-elastic (cepgen)", "l")
     legend_Mll.SetBorderSize(0)  # Remove the border around the legend
     legend_Mll.Draw()
 
@@ -122,8 +122,8 @@ def compare_Mll_distributions(filename_root):
     ax.set_ylim(1.0e-6, 1.0e-4)
 
     # Plot elastic and inelastic cross-sections
-    ax.loglog(wv2, int_el, linestyle='solid', linewidth=2, label='EPA elastic')
-    ax.loglog(wv1, int_inel, linestyle='dotted', linewidth=2, label='EPA inelastic')
+    ax.loglog(wv2, int_el, linestyle='solid', linewidth=2, label='elastic (EPA)')
+    ax.loglog(wv1, int_inel, linestyle='dotted', linewidth=2, label='inelastic (EPA)')
 
     # Convert ROOT histograms to numpy arrays
     Mll_E_array = np.array([hist_Mll_E.GetBinContent(i) for i in range(1, hist_Mll_E.GetNbinsX() + 1)])
@@ -132,9 +132,9 @@ def compare_Mll_distributions(filename_root):
 
     # Plot ROOT histograms on the matplotlib plot
     ax.hist(bin_edges[:-1], bin_edges, weights=Mll_E_array, histtype='step', color='blue', linestyle='-',
-            label='lpair elastic')
+            label='elastic (cepgen)')
     ax.hist(bin_edges[:-1], bin_edges, weights=Mll_QE_array, histtype='step', color='red', linestyle='-',
-            label='lpair quasi-elastic')
+            label='quasi-elastic (cepgen)')
 
     # Set labels and legend
     ax.set_xlabel("W [GeV]", fontdict={'family': 'serif', 'color': 'black', 'size': 24})

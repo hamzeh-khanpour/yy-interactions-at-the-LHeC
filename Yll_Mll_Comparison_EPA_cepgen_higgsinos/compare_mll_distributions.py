@@ -141,8 +141,8 @@ def compare_distributions(filename):
 
     # Add legend for Mll
     legend_Mll = ROOT.TLegend(0.7, 0.7, 0.85, 0.85)
-    legend_Mll.AddEntry(hist_Mll_E, "elastic", "l")
-    legend_Mll.AddEntry(hist_Mll_QE, "quasi-elastic", "l")
+    legend_Mll.AddEntry(hist_Mll_E, "elastic (cepgen)", "l")
+    legend_Mll.AddEntry(hist_Mll_QE, "quasi-elastic (cepgen)", "l")
     legend_Mll.SetBorderSize(0)  # Remove the border around the legend
     legend_Mll.Draw()
 
@@ -171,8 +171,8 @@ def compare_distributions(filename):
 
     # Add legend for Yll
     legend_Yll = ROOT.TLegend(0.7, 0.7, 0.85, 0.85)
-    legend_Yll.AddEntry(hist_Yll_E, "elastic", "l")
-    legend_Yll.AddEntry(hist_Yll_QE, "quasi-elastic", "l")
+    legend_Yll.AddEntry(hist_Yll_E, "elastic (cepgen)", "l")
+    legend_Yll.AddEntry(hist_Yll_QE, "quasi-elastic (cepgen)", "l")
     legend_Yll.SetBorderSize(0)  # Remove the border around the legend
     legend_Yll.Draw()
 
@@ -203,8 +203,8 @@ def compare_distributions(filename):
 
     # Add legend for q2prime
     legend_q2prime = ROOT.TLegend(0.7, 0.7, 0.85, 0.85)
-    legend_q2prime.AddEntry(hist_q2prime_E, "elastic", "l")
-    legend_q2prime.AddEntry(hist_q2prime_QE, "quasi-elastic", "l")
+    legend_q2prime.AddEntry(hist_q2prime_E, "elastic (cepgen)", "l")
+    legend_q2prime.AddEntry(hist_q2prime_QE, "quasi-elastic (cepgen)", "l")
     legend_q2prime.SetBorderSize(0)  # Remove the border around the legend
     legend_q2prime.Draw()
 
@@ -235,8 +235,8 @@ def compare_distributions(filename):
 
     # Add legend for q2
     legend_q2 = ROOT.TLegend(0.7, 0.7, 0.85, 0.85)
-    legend_q2.AddEntry(hist_q2_E, "elastic", "l")
-    legend_q2.AddEntry(hist_q2_QE, "quasi-elastic", "l")
+    legend_q2.AddEntry(hist_q2_E, "elastic (cepgen)", "l")
+    legend_q2.AddEntry(hist_q2_QE, "quasi-elastic (cepgen)", "l")
     legend_q2.SetBorderSize(0)
     legend_q2.Draw()
 
@@ -268,8 +268,8 @@ def compare_distributions(filename):
 
     # Add legend for Ptll
     legend_Ptll = ROOT.TLegend(0.7, 0.7, 0.85, 0.85)
-    legend_Ptll.AddEntry(hist_Ptll_E, "elastic", "l")
-    legend_Ptll.AddEntry(hist_Ptll_QE, "quasi-elastic", "l")
+    legend_Ptll.AddEntry(hist_Ptll_E, "elastic (cepgen)", "l")
+    legend_Ptll.AddEntry(hist_Ptll_QE, "quasi-elastic (cepgen)", "l")
     legend_Ptll.SetBorderSize(0)
     legend_Ptll.Draw()
 

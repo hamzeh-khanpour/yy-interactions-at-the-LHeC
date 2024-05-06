@@ -78,10 +78,10 @@ def compare_distributions(filename):
 
     # Add legend for Yll
     legend_Yll = ROOT.TLegend(0.7, 0.7, 0.85, 0.85)
-    legend_Yll.AddEntry(hist_Yll_E, "elastic (lpair)", "l")
-    legend_Yll.AddEntry(hist_Yll_QE, "quasi-elastic (lpair)", "l")
-    legend_Yll.AddEntry(graph_Yll_MPL_elastic, "EPA (elastic)", "l")
-    legend_Yll.AddEntry(graph_Yll_MPL_inelastic, "EPA (inelastic)", "l")
+    legend_Yll.AddEntry(hist_Yll_E, "elastic (cepgen)", "l")
+    legend_Yll.AddEntry(hist_Yll_QE, "quasi-elastic (cepgen)", "l")
+    legend_Yll.AddEntry(graph_Yll_MPL_elastic, "elastic (EPA)", "l")
+    legend_Yll.AddEntry(graph_Yll_MPL_inelastic, "inelastic (EPA)", "l")
     legend_Yll.SetBorderSize(0)  # Remove the border around the legend
     legend_Yll.Draw()
 
@@ -110,8 +110,8 @@ def compare_distributions(filename):
     area_Yll_E = hist_Yll_E.Integral() / bin_width_correction
     area_Yll_QE = hist_Yll_QE.Integral() / bin_width_correction
 
-    print("Area under the curve for Yll (elastic):", area_Yll_E)
-    print("Area under the curve for Yll (quasi-elastic):", area_Yll_QE)
+    print("Area under the curve for Yll (elastic (cepgen)):", area_Yll_E)
+    print("Area under the curve for Yll (quasi-elastic (cepgen)):", area_Yll_QE)
 
 
     # Calculate area under the curve for Matplotlib data
@@ -121,8 +121,8 @@ def compare_distributions(filename):
         area_Yll_MPL_elastic += (Yll_MPL[i + 1] - Yll_MPL[i]) * (elas[3][i + 1] + elas[3][i]) / 2
         area_Yll_MPL_inelastic += (Yll_MPL[i + 1] - Yll_MPL[i]) * (inel[3][i + 1] + inel[3][i]) / 2
 
-    print("Area under the curve for Yll (EPA elastic):", area_Yll_MPL_elastic)
-    print("Area under the curve for Yll (EPA inelastic):", area_Yll_MPL_inelastic)
+    print("Area under the curve for Yll (elastic (EPA)):", area_Yll_MPL_elastic)
+    print("Area under the curve for Yll (inelastic (EPA)):", area_Yll_MPL_inelastic)
 
     # Cleanup
     file.Close()
