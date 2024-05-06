@@ -7,7 +7,7 @@
 
 
 TFile *target;
-TTree *Tsignal_LHeC = new TTree("LHeC_E","LHeC_E");
+TTree *Tsignal_LHeC = new TTree("LHeC_QE","LHeC_QE");
 TFile *F;
 
 
@@ -269,7 +269,7 @@ void lpair_tau_tau::Loop()
    }  // end events loop
 
 
-     target = new TFile ("LHeC_E.root","recreate");
+     target = new TFile ("LHeC_QE.root","recreate");
      target->cd();
 
      Tsignal_LHeC->Write();

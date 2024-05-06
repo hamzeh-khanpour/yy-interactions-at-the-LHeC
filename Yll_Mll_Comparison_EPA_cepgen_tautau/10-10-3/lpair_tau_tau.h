@@ -116,9 +116,9 @@ lpair_tau_tau::lpair_tau_tau(TTree *tree) : fChain(0)
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
-      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("/home/hamzeh-khanpour/hepmc3-build/QE_3_10_10.root");
+      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("/home/hamzeh-khanpour/hepmc3-build/event_tautau_QE_10_10_MN3.root");
       if (!f || !f->IsOpen()) {
-         f = new TFile("/home/hamzeh-khanpour/hepmc3-build/QE_3_10_10.root");
+         f = new TFile("/home/hamzeh-khanpour/hepmc3-build/event_tautau_QE_10_10_MN3.root");
       }
       f->GetObject("hepmc3_tree",tree);
 
