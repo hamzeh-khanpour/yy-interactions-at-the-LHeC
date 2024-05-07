@@ -91,7 +91,7 @@ def compare_distributions(filename):
     latex_Yll.SetTextFont(42)
     latex_Yll.SetTextSize(0.035)
     latex_Yll.DrawLatex(0.15, 0.8,
-                        "Q^{2}_{e,max}<10^{2} GeV^{2};  Q^{2}_{p,max}<10^{2} GeV^{2}; #color[2]{(#tau^{+}#tau^{-}) cepgen}")
+                        "Q^{2}_{e,max}<10 GeV^{2};  Q^{2}_{p,max}<10 GeV^{2}; #color[2]{(#tau^{+}#tau^{-}) cepgen}")
     
 
     # Save the plot for Yll as a PDF file
