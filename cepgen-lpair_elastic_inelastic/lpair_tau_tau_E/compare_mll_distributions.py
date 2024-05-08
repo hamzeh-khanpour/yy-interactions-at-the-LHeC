@@ -12,13 +12,12 @@ import sys
 import math
 
 
-bin_width_correction = 1.0
-
-
 ROOT.gStyle.SetOptStat(0)  # Remove the statistics box from the plots
 
 integrated_cross_section_value_E = 48.8223395  # pb
 integrated_cross_section_value_QE = 24.703  # pb
+
+bin_width_correction = 1.0
 
 
 ##################################################################
@@ -69,12 +68,13 @@ def compare_distributions(filename):
     hist_Mll_QE = ROOT.TH1F("hist_Mll_QE", "Mll distribution", 500, 10, 500)
     hist_Yll_E = ROOT.TH1F("hist_Yll_E", "Yll distribution", 100, -10.0, 10.0)
     hist_Yll_QE = ROOT.TH1F("hist_Yll_QE", "Yll distribution", 100, -10.0, 10.0)
-    hist_q2prime_E = ROOT.TH1F("hist_q2prime_E", "q2prime distribution", 50, 0.0, 100.0)
-    hist_q2prime_QE = ROOT.TH1F("hist_q2prime_QE", "q2prime distribution", 50, 0.0, 100.0)
-    hist_q2_E = ROOT.TH1F("hist_q2_E", "q2 distribution (elastic)", 50, 0.0, 100.0)
-    hist_q2_QE = ROOT.TH1F("hist_q2_QE", "q2 distribution (inelastic)", 50, 0.0, 100.0)
+    hist_q2prime_E = ROOT.TH1F("hist_q2prime_E", "q2prime distribution", 100, 0.0, 100.0)
+    hist_q2prime_QE = ROOT.TH1F("hist_q2prime_QE", "q2prime distribution", 100, 0.0, 100.0)
+    hist_q2_E = ROOT.TH1F("hist_q2_E", "q2 distribution (elastic)", 100, 0.0, 100.0)
+    hist_q2_QE = ROOT.TH1F("hist_q2_QE", "q2 distribution (inelastic)", 100, 0.0, 100.0)
     hist_Ptll_E = ROOT.TH1F("hist_Ptll_E", "Ptll distribution", 50, 0.0, 10.0)
     hist_Ptll_QE = ROOT.TH1F("hist_Ptll_QE", "Ptll distribution", 50, 0.0, 10.0)
+
 
     # Fill histograms for Mll, Yll, q2prime, q2, and Ptll
     for i in range(tree_E.GetEntries()):
@@ -82,8 +82,8 @@ def compare_distributions(filename):
         weight = integrated_cross_section_value_E / tree_E.GetEntries()
         hist_Mll_E.Fill(Mll_E[0], weight)
         hist_Yll_E.Fill(Yll_E[0], weight)
-        hist_q2prime_E.Fill(q2prime_E[0])
-        hist_q2_E.Fill(q2_E[0])
+        hist_q2prime_E.Fill(q2prime_E[0], weight)
+        hist_q2_E.Fill(q2_E[0], weight)
         hist_Ptll_E.Fill(Ptll_E[0], weight)
 
     for i in range(tree_QE.GetEntries()):
@@ -91,8 +91,8 @@ def compare_distributions(filename):
         weight = integrated_cross_section_value_QE / tree_QE.GetEntries()
         hist_Mll_QE.Fill(Mll_QE[0], weight)
         hist_Yll_QE.Fill(Yll_QE[0], weight)
-        hist_q2prime_QE.Fill(q2prime_QE[0])
-        hist_q2_QE.Fill(q2_QE[0])
+        hist_q2prime_QE.Fill(q2prime_QE[0], weight)
+        hist_q2_QE.Fill(q2_QE[0], weight)
         hist_Ptll_QE.Fill(Ptll_QE[0], weight)
 
     # Calculate area under the curve for each distribution
@@ -144,6 +144,7 @@ def compare_distributions(filename):
     hist_Ptll_E.Print()
     print("\nHistogram contents (Ptll - inelastic):")
     hist_Ptll_QE.Print()
+
 
 
 ##################################################################
@@ -239,13 +240,14 @@ def compare_distributions(filename):
     # Plot histograms for q2prime
     canvas_q2prime = ROOT.TCanvas("canvas_q2prime", "q2prime Comparison", 800, 600)
     hist_q2prime_E.SetLineColor(ROOT.kBlue)
-    hist_q2prime_E.GetYaxis().SetTitle("# Event")  # Y-axis title
-    hist_q2prime_E.GetXaxis().SetTitle("q^{2}_{p, max} [GeV^{2}]")  # X-axis title
+    hist_q2prime_E.GetYaxis().SetTitle("d#sigma/dq^{2}_{p} [pb/GeV]")  # Y-axis title
+    hist_q2prime_E.GetXaxis().SetTitle("q^{2}_{p} [GeV^{2}]")  # X-axis title
     hist_q2prime_E.Draw()
     hist_q2prime_QE.SetLineColor(ROOT.kRed)
     hist_q2prime_QE.Draw("SAME")
 
     # Set y-axis to logarithmic scale
+#    canvas_q2prime.SetLogx()    
     canvas_q2prime.SetLogy()
 
     # Add legend for q2prime
@@ -275,17 +277,21 @@ def compare_distributions(filename):
     canvas_q2prime.Draw()  
 
 
+##################################################################
+
+
 
     # Plot histograms for q2
     canvas_q2 = ROOT.TCanvas("canvas_q2", "q2 Comparison", 800, 600)
     hist_q2_E.SetLineColor(ROOT.kBlue)
-    hist_q2_E.GetYaxis().SetTitle("# Events")
-    hist_q2_E.GetXaxis().SetTitle("q^{2} [GeV^{2}]")
+    hist_q2_E.GetYaxis().SetTitle("d#sigma/dq^{2}_{e} [pb/GeV]")
+    hist_q2_E.GetXaxis().SetTitle("q^{2}_{e} [GeV^{2}]")
     hist_q2_E.Draw()
     hist_q2_QE.SetLineColor(ROOT.kRed)
     hist_q2_QE.Draw("SAME")
 
     # Set y-axis to logarithmic scale
+#    canvas_q2.SetLogx()
     canvas_q2.SetLogy()
 
     # Add legend for q2
