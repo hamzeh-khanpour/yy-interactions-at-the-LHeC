@@ -124,6 +124,7 @@ def compare_distributions(filename):
     print("\nHistogram contents (Ptll - quasi-elastic):")
     hist_Ptll_QE.Print()
 
+
     # Plot histograms for Mll
     canvas_Mll = ROOT.TCanvas("canvas_Mll", "Mll Comparison", 800, 600)
     hist_Mll_E.SetLineColor(ROOT.kBlue)
@@ -156,6 +157,8 @@ def compare_distributions(filename):
 
     # Save the plot for Mll as a PDF file
     canvas_Mll.SaveAs("Mll_Comparison.pdf")
+
+
 
     # Plot histograms for Yll
     canvas_Yll = ROOT.TCanvas("canvas_Yll", "Yll Comparison", 800, 600)
@@ -213,6 +216,9 @@ def compare_distributions(filename):
 
     # Save the plot for q2prime as a PDF file
     canvas_q2prime.SaveAs("q2prime_Comparison.pdf")
+
+
+
 
     # Plot histograms for q2
     canvas_q2 = ROOT.TCanvas("canvas_q2", "q2 Comparison", 800, 600)
@@ -273,6 +279,8 @@ def compare_distributions(filename):
 
     # Save the plot for Ptll as a PDF file
     canvas_Ptll.SaveAs("Ptll_Comparison.pdf")
+
+
 
     # Cleanup
     file.Close()
