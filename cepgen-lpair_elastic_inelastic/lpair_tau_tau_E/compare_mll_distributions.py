@@ -1,12 +1,29 @@
 
 
+#  Hamzeh Khanpour -- 8 May 2024
+#  cepgen-lpair_elastic_inelastic
+
+
 import ROOT
 import array
+import matplotlib.pyplot as plt
+import numpy as np
+import sys
+import math
+
+
+bin_width_correction = 1.0
+
 
 ROOT.gStyle.SetOptStat(0)  # Remove the statistics box from the plots
 
 integrated_cross_section_value_E = 48.8223395  # pb
 integrated_cross_section_value_QE = 24.703  # pb
+
+
+##################################################################
+
+
 
 def compare_distributions(filename):
     # Open the ROOT file
@@ -55,7 +72,7 @@ def compare_distributions(filename):
     hist_q2prime_E = ROOT.TH1F("hist_q2prime_E", "q2prime distribution", 50, 0.0, 100.0)
     hist_q2prime_QE = ROOT.TH1F("hist_q2prime_QE", "q2prime distribution", 50, 0.0, 100.0)
     hist_q2_E = ROOT.TH1F("hist_q2_E", "q2 distribution (elastic)", 50, 0.0, 100.0)
-    hist_q2_QE = ROOT.TH1F("hist_q2_QE", "q2 distribution (quasi-elastic)", 50, 0.0, 100.0)
+    hist_q2_QE = ROOT.TH1F("hist_q2_QE", "q2 distribution (inelastic)", 50, 0.0, 100.0)
     hist_Ptll_E = ROOT.TH1F("hist_Ptll_E", "Ptll distribution", 50, 0.0, 10.0)
     hist_Ptll_QE = ROOT.TH1F("hist_Ptll_QE", "Ptll distribution", 50, 0.0, 10.0)
 
@@ -89,17 +106,21 @@ def compare_distributions(filename):
     area_q2_QE = hist_q2_QE.Integral()
     area_Ptll_E = hist_Ptll_E.Integral()
     area_Ptll_QE = hist_Ptll_QE.Integral()
+    
+    
 
     print("Area under the curve for Mll (elastic):", area_Mll_E)
-    print("Area under the curve for Mll (quasi-elastic):", area_Mll_QE)
+    print("Area under the curve for Mll (inelastic):", area_Mll_QE)
     print("Area under the curve for Yll (elastic):", area_Yll_E)
-    print("Area under the curve for Yll (quasi-elastic):", area_Yll_QE)
+    print("Area under the curve for Yll (inelastic):", area_Yll_QE)
     print("Area under the curve for q2prime (elastic):", area_q2prime_E)
-    print("Area under the curve for q2prime (quasi-elastic):", area_q2prime_QE)
+    print("Area under the curve for q2prime (inelastic):", area_q2prime_QE)
     print("Area under the curve for q2 (elastic):", area_q2_E)
-    print("Area under the curve for q2 (quasi-elastic):", area_q2_QE)
+    print("Area under the curve for q2 (inelastic):", area_q2_QE)
     print("Area under the curve for Ptll (elastic):", area_Ptll_E)
-    print("Area under the curve for Ptll (quasi-elastic):", area_Ptll_QE)
+    print("Area under the curve for Ptll (inelastic):", area_Ptll_QE)
+    
+
 
     # Print histograms as text
     print("\nHistogram contents (Mll):")
@@ -116,13 +137,16 @@ def compare_distributions(filename):
 
     print("\nHistogram contents (q2 - elastic):")
     hist_q2_E.Print()
-    print("\nHistogram contents (q2 - quasi-elastic):")
+    print("\nHistogram contents (q2 - inelastic):")
     hist_q2_QE.Print()
 
     print("\nHistogram contents (Ptll - elastic):")
     hist_Ptll_E.Print()
-    print("\nHistogram contents (Ptll - quasi-elastic):")
+    print("\nHistogram contents (Ptll - inelastic):")
     hist_Ptll_QE.Print()
+
+
+##################################################################
 
 
     # Plot histograms for Mll
@@ -141,9 +165,11 @@ def compare_distributions(filename):
     canvas_Mll.SetLogx()
 
     # Add legend for Mll
-    legend_Mll = ROOT.TLegend(0.7, 0.7, 0.85, 0.85)
-    legend_Mll.AddEntry(hist_Mll_E, "elastic", "l")
-    legend_Mll.AddEntry(hist_Mll_QE, "quasi-elastic", "l")
+    legend_Mll = ROOT.TLegend(0.65, 0.65, 0.80, 0.80)
+    legend_Mll.AddEntry(hist_Mll_E, "elastic (cepgen)", "l")
+    legend_Mll.AddEntry(hist_Mll_QE, "inelastic (cepgen)", "l")
+    legend_Mll.SetTextFont(42)
+    legend_Mll.SetTextSize(0.035)    
     legend_Mll.SetBorderSize(0)  # Remove the border around the legend
     legend_Mll.Draw()
 
@@ -153,10 +179,19 @@ def compare_distributions(filename):
     latex_Mll.SetTextFont(42)
     latex_Mll.SetTextSize(0.035)
     latex_Mll.DrawLatex(0.15, 0.8,
-                        "Q^{2}_{e,max}<10^{2} GeV^{2};  Q^{2}_{p,max}<10^{2} GeV^{2}; #color[2]{(#tau^{+}#tau^{-}) cepgen}")
+                        "Q^{2}_{e,max}<10^{2} GeV^{2},  Q^{2}_{p,max}<10^{2} GeV^{2}, M_{N} < 10 GeV")
+
+    latex_Mll.DrawLatex(0.15, 0.2,
+                        "#color[2]{(#tau^{+}#tau^{-}) cepgen}")
 
     # Save the plot for Mll as a PDF file
     canvas_Mll.SaveAs("Mll_Comparison.pdf")
+    
+    # Draw the canvas
+    canvas_Mll.Draw()  
+
+
+##################################################################
 
 
 
@@ -170,22 +205,36 @@ def compare_distributions(filename):
     hist_Yll_QE.Draw("SAME")
 
     # Add legend for Yll
-    legend_Yll = ROOT.TLegend(0.7, 0.7, 0.85, 0.85)
-    legend_Yll.AddEntry(hist_Yll_E, "elastic", "l")
-    legend_Yll.AddEntry(hist_Yll_QE, "quasi-elastic", "l")
+    legend_Yll = ROOT.TLegend(0.7, 0.7, 0.80, 0.80)
+    legend_Yll.AddEntry(hist_Yll_E, "elastic (cepgen)", "l")
+    legend_Yll.AddEntry(hist_Yll_QE, "inelastic (cepgen)", "l")
+    legend_Yll.SetTextFont(42)
+    legend_Yll.SetTextSize(0.035)  
     legend_Yll.SetBorderSize(0)  # Remove the border around the legend
     legend_Yll.Draw()
 
     # Add information for Yll
     latex_Yll = ROOT.TLatex()
     latex_Yll.SetNDC()
-    latex_Mll.SetTextFont(42)
-    latex_Mll.SetTextSize(0.035)
-    latex_Mll.DrawLatex(0.15, 0.8,
-                        "Q^{2}_{e,max}<10^{2} GeV^{2};  Q^{2}_{p,max}<10^{2} GeV^{2}; #color[2]{(#tau^{+}#tau^{-}) cepgen}")
+    latex_Yll.SetTextFont(42)
+    latex_Yll.SetTextSize(0.035)
+    latex_Yll.DrawLatex(0.15, 0.8,
+                        "Q^{2}_{e,max}<10^{2} GeV^{2},  Q^{2}_{p,max}<10^{2} GeV^{2}, M_{N} < 10 GeV")
+
+    latex_Yll.DrawLatex(0.15, 0.2,
+                        "#color[2]{(#tau^{+}#tau^{-}) cepgen}")
 
     # Save the plot for Yll as a PDF file
     canvas_Yll.SaveAs("Yll_Comparison.pdf")
+    
+    # Draw the canvas
+    canvas_Yll.Draw()  
+    
+    
+
+##################################################################
+
+    
 
     # Plot histograms for q2prime
     canvas_q2prime = ROOT.TCanvas("canvas_q2prime", "q2prime Comparison", 800, 600)
@@ -200,23 +249,30 @@ def compare_distributions(filename):
     canvas_q2prime.SetLogy()
 
     # Add legend for q2prime
-    legend_q2prime = ROOT.TLegend(0.7, 0.7, 0.85, 0.85)
-    legend_q2prime.AddEntry(hist_q2prime_E, "elastic", "l")
-    legend_q2prime.AddEntry(hist_q2prime_QE, "quasi-elastic", "l")
+    legend_q2prime = ROOT.TLegend(0.7, 0.7, 0.80, 0.80)
+    legend_q2prime.AddEntry(hist_q2prime_E, "elastic (cepgen)", "l")
+    legend_q2prime.AddEntry(hist_q2prime_QE, "inelastic (cepgen)", "l")
+    legend_q2prime.SetTextFont(42)
+    legend_q2prime.SetTextSize(0.035)  
     legend_q2prime.SetBorderSize(0)  # Remove the border around the legend
     legend_q2prime.Draw()
 
     # Add information for q2prime
     latex_q2prime = ROOT.TLatex()
     latex_q2prime.SetNDC()
-    latex_Mll.SetTextFont(42)
-    latex_Mll.SetTextSize(0.035)
-    latex_Mll.DrawLatex(0.15, 0.8,
-                        "Q^{2}_{e,max}<10^{2} GeV^{2};  Q^{2}_{p,max}<10^{2} GeV^{2}; #color[2]{(#tau^{+}#tau^{-}) cepgen}")
+    latex_q2prime.SetTextFont(42)
+    latex_q2prime.SetTextSize(0.035)
+    latex_q2prime.DrawLatex(0.15, 0.8,
+                        "Q^{2}_{e,max}<10^{2} GeV^{2},  Q^{2}_{p,max}<10^{2} GeV^{2}, M_{N} < 10 GeV")
+
+    latex_q2prime.DrawLatex(0.15, 0.2,
+                        "#color[2]{(#tau^{+}#tau^{-}) cepgen}")
 
     # Save the plot for q2prime as a PDF file
-    canvas_q2prime.SaveAs("q2prime_Comparison.pdf")
+    canvas_q2prime.SaveAs("q2proton_Comparison.pdf")
 
+    # Draw the canvas
+    canvas_q2prime.Draw()  
 
 
 
@@ -233,9 +289,11 @@ def compare_distributions(filename):
     canvas_q2.SetLogy()
 
     # Add legend for q2
-    legend_q2 = ROOT.TLegend(0.7, 0.7, 0.85, 0.85)
-    legend_q2.AddEntry(hist_q2_E, "elastic", "l")
-    legend_q2.AddEntry(hist_q2_QE, "quasi-elastic", "l")
+    legend_q2 = ROOT.TLegend(0.7, 0.7, 0.80, 0.80)
+    legend_q2.AddEntry(hist_q2_E, "elastic (cepgen)", "l")
+    legend_q2.AddEntry(hist_q2_QE, "inelastic (cepgen)", "l")
+    legend_q2.SetTextFont(42)
+    legend_q2.SetTextSize(0.035)  
     legend_q2.SetBorderSize(0)
     legend_q2.Draw()
 
@@ -245,10 +303,22 @@ def compare_distributions(filename):
     latex_q2.SetTextFont(42)
     latex_q2.SetTextSize(0.035)
     latex_q2.DrawLatex(0.15, 0.8,
-                       "Q^{2}_{e,max}<10^{2} GeV^{2};  Q^{2}_{p,max}<10^{2} GeV^{2}; #color[2]{(#tau^{+}#tau^{-}) cepgen}")
+                        "Q^{2}_{e,max}<10^{2} GeV^{2},  Q^{2}_{p,max}<10^{2} GeV^{2}, M_{N} < 10 GeV")
+
+    latex_q2.DrawLatex(0.15, 0.2,
+                        "#color[2]{(#tau^{+}#tau^{-}) cepgen}")
 
     # Save the plot for q2 as a PDF file
-    canvas_q2.SaveAs("q2_Comparison.pdf")
+    canvas_q2.SaveAs("q2_electron_Comparison.pdf")
+    
+    # Draw the canvas
+    canvas_q2.Draw()    
+    
+    
+##################################################################
+
+
+
 
     # Plot histograms for Ptll
     canvas_Ptll = ROOT.TCanvas("canvas_Ptll", "Ptll Comparison", 800, 600)
@@ -263,9 +333,11 @@ def compare_distributions(filename):
     canvas_Ptll.SetLogy()
 
     # Add legend for Ptll
-    legend_Ptll = ROOT.TLegend(0.7, 0.7, 0.85, 0.85)
+    legend_Ptll = ROOT.TLegend(0.7, 0.7, 0.80, 0.80)
     legend_Ptll.AddEntry(hist_Ptll_E, "elastic", "l")
-    legend_Ptll.AddEntry(hist_Ptll_QE, "quasi-elastic", "l")
+    legend_Ptll.AddEntry(hist_Ptll_QE, "inelastic", "l")
+    legend_Ptll.SetTextFont(42)
+    legend_Ptll.SetTextSize(0.035)  
     legend_Ptll.SetBorderSize(0)
     legend_Ptll.Draw()
 
@@ -275,11 +347,16 @@ def compare_distributions(filename):
     latex_Ptll.SetTextFont(42)
     latex_Ptll.SetTextSize(0.035)
     latex_Ptll.DrawLatex(0.15, 0.8,
-                       "Q^{2}_{e,max}<10^{2} GeV^{2};  Q^{2}_{p,max}<10^{2} GeV^{2}; #color[2]{(#tau^{+}#tau^{-}) cepgen}")
+                        "Q^{2}_{e,max}<10^{2} GeV^{2},  Q^{2}_{p,max}<10^{2} GeV^{2}, M_{N} < 10 GeV")
+
+    latex_Ptll.DrawLatex(0.15, 0.2,
+                        "#color[2]{(#tau^{+}#tau^{-}) cepgen}")
 
     # Save the plot for Ptll as a PDF file
     canvas_Ptll.SaveAs("Ptll_Comparison.pdf")
 
+    # Draw the canvas
+    canvas_Ptll.Draw()
 
 
     # Cleanup
@@ -287,3 +364,9 @@ def compare_distributions(filename):
 
 # Call the function with the filename of the ROOT file
 compare_distributions("LHeC_Compare.root")
+
+
+##################################################################
+
+
+
