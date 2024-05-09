@@ -269,7 +269,7 @@ void lpair_tau_tau::Loop()
    }  // end events loop
 
 
-     target = new TFile ("LHeC_QE.root","recreate");
+     target = new TFile ("LHeC_QE_1000_1000_10.root","recreate");
      target->cd();
 
      Tsignal_LHeC->Write();
