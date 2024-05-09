@@ -64,16 +64,16 @@ def compare_distributions(filename):
     tree_QE.SetBranchAddress("Ptll", Ptll_QE)  # Add Ptll branch address
 
     # Create histograms for Mll, Yll, q2prime, q2, and Ptll
-    hist_Mll_E = ROOT.TH1F("hist_Mll_E", "Mll distribution", 500, 10, 500)
-    hist_Mll_QE = ROOT.TH1F("hist_Mll_QE", "Mll distribution", 500, 10, 500)
-    hist_Yll_E = ROOT.TH1F("hist_Yll_E", "Yll distribution", 100, -10.0, 10.0)
-    hist_Yll_QE = ROOT.TH1F("hist_Yll_QE", "Yll distribution", 100, -10.0, 10.0)
-    hist_q2prime_E = ROOT.TH1F("hist_q2prime_E", "q2proton distribution", 100, 0.0, 300.0)
-    hist_q2prime_QE = ROOT.TH1F("hist_q2prime_QE", "q2proton distribution", 100, 0.0, 300.0)
+    hist_Mll_E = ROOT.TH1F("hist_Mll_E", "Mll distribution", 300, 200, 500)
+    hist_Mll_QE = ROOT.TH1F("hist_Mll_QE", "Mll distribution", 300, 200, 500)
+    hist_Yll_E = ROOT.TH1F("hist_Yll_E", "Yll distribution", 100, 0.0, 10.0)
+    hist_Yll_QE = ROOT.TH1F("hist_Yll_QE", "Yll distribution", 100, 0.0, 10.0)
+    hist_q2prime_E = ROOT.TH1F("hist_q2prime_E", "q2 proton distribution", 100, 0.0, 1000.0)
+    hist_q2prime_QE = ROOT.TH1F("hist_q2prime_QE", "q2 proton distribution", 100, 0.0, 1000.0)
     hist_q2_E = ROOT.TH1F("hist_q2_E", "q2 electron distribution", 100, 0.0, 1000.0)
     hist_q2_QE = ROOT.TH1F("hist_q2_QE", "q2 electron distribution", 100, 0.0, 1000.0)
-    hist_Ptll_E = ROOT.TH1F("hist_Ptll_E", "Ptll distribution", 50, 0.0, 50.0)
-    hist_Ptll_QE = ROOT.TH1F("hist_Ptll_QE", "Ptll distribution", 50, 0.0, 50.0)
+    hist_Ptll_E = ROOT.TH1F("hist_Ptll_E", "Ptll distribution", 100, 0.0, 100.0)
+    hist_Ptll_QE = ROOT.TH1F("hist_Ptll_QE", "Ptll distribution", 100, 0.0, 100.0)
 
 
     # Fill histograms for Mll, Yll, q2prime, q2, and Ptll
@@ -153,10 +153,10 @@ def compare_distributions(filename):
     # Plot histograms for Mll
     canvas_Mll = ROOT.TCanvas("canvas_Mll", "Mll Comparison", 800, 600)
     hist_Mll_E.SetLineColor(ROOT.kBlue)
-    hist_Mll_E.SetMinimum(1e-4)  # Set minimum y-axis value
-    hist_Mll_E.SetMaximum(100)  # Set maximum y-axis value
-    hist_Mll_E.GetYaxis().SetTitle("d#sigma/dM_{#tau^{+}#tau^{-}} [pb/GeV]")  # Y-axis title
-    hist_Mll_E.GetXaxis().SetTitle("M_{#tau^{+}#tau^{-}} [GeV] = W_{#gamma#gamma} [GeV]")  # X-axis title
+    hist_Mll_E.SetMinimum(1e-6)  # Set minimum y-axis value
+    hist_Mll_E.SetMaximum(1e-4)  # Set maximum y-axis value
+    hist_Mll_E.GetYaxis().SetTitle("d#sigma/dM_{higgsinos} [pb/GeV]")  # Y-axis title
+    hist_Mll_E.GetXaxis().SetTitle("M_{higgsinos} [GeV] = W_{#gamma#gamma} [GeV]")  # X-axis title
     hist_Mll_E.Draw()
     hist_Mll_QE.SetLineColor(ROOT.kRed)
     hist_Mll_QE.Draw("SAME")
@@ -183,7 +183,7 @@ def compare_distributions(filename):
                         "Q^{2}_{e,max}<10^{3} GeV^{2},  Q^{2}_{p,max}<10^{3} GeV^{2}, M_{N} < 10 GeV")
 
     latex_Mll.DrawLatex(0.15, 0.2,
-                        "#color[2]{(#tau^{+}#tau^{-}) cepgen}")
+                        "#color[2]{(higgsinos) cepgen}")
 
     # Save the plot for Mll as a PDF file
     canvas_Mll.SaveAs("Mll_Comparison_1000.pdf")
@@ -199,8 +199,8 @@ def compare_distributions(filename):
     # Plot histograms for Yll
     canvas_Yll = ROOT.TCanvas("canvas_Yll", "Yll Comparison", 800, 600)
     hist_Yll_E.SetLineColor(ROOT.kBlue)
-    hist_Yll_E.GetYaxis().SetTitle("d#sigma/dY_{#tau^{+}#tau^{-}} [pb/GeV]")  # Y-axis title
-    hist_Yll_E.GetXaxis().SetTitle("Y_{#tau^{+}#tau^{-}}")  # X-axis title
+    hist_Yll_E.GetYaxis().SetTitle("d#sigma/dY_{higgsinos} [pb/GeV]")  # Y-axis title
+    hist_Yll_E.GetXaxis().SetTitle("Y_{higgsinos}")  # X-axis title
     hist_Yll_E.Draw()
     hist_Yll_QE.SetLineColor(ROOT.kRed)
     hist_Yll_QE.Draw("SAME")
@@ -223,7 +223,7 @@ def compare_distributions(filename):
                         "Q^{2}_{e,max}<10^{3} GeV^{2},  Q^{2}_{p,max}<10^{3} GeV^{2}, M_{N} < 10 GeV")
 
     latex_Yll.DrawLatex(0.15, 0.2,
-                        "#color[2]{(#tau^{+}#tau^{-}) cepgen}")
+                        "#color[2]{(higgsinos) cepgen}")
 
     # Save the plot for Yll as a PDF file
     canvas_Yll.SaveAs("Yll_Comparison_1000.pdf")
@@ -240,8 +240,8 @@ def compare_distributions(filename):
     # Plot histograms for q2prime
     canvas_q2prime = ROOT.TCanvas("canvas_q2prime", "q2prime Comparison", 800, 600)
     hist_q2prime_E.SetLineColor(ROOT.kBlue)
-    hist_q2prime_E.SetMinimum(1e-4)  # Set minimum y-axis value
-    hist_q2prime_E.SetMaximum(100)  # Set maximum y-axis value
+    hist_q2prime_E.SetMinimum(1e-6)  # Set minimum y-axis value
+    hist_q2prime_E.SetMaximum(1e-6)  # Set maximum y-axis value
     hist_q2prime_E.GetYaxis().SetTitle("d#sigma/dq^{2}_{p} [pb/GeV]")  # Y-axis title
     hist_q2prime_E.GetXaxis().SetTitle("q^{2}_{p} [GeV^{2}]")  # X-axis title
     hist_q2prime_E.Draw()
@@ -270,7 +270,7 @@ def compare_distributions(filename):
                         "Q^{2}_{e,max}<10^{3} GeV^{2},  Q^{2}_{p,max}<10^{3} GeV^{2}, M_{N} < 10 GeV")
 
     latex_q2prime.DrawLatex(0.15, 0.2,
-                        "#color[2]{(#tau^{+}#tau^{-}) cepgen}")
+                        "#color[2]{(higgsinos) cepgen}")
 
     # Save the plot for q2prime as a PDF file
     canvas_q2prime.SaveAs("q2proton_Comparison_1000.pdf")
@@ -286,8 +286,8 @@ def compare_distributions(filename):
     # Plot histograms for q2
     canvas_q2 = ROOT.TCanvas("canvas_q2", "q2 Comparison", 800, 600)
     hist_q2_E.SetLineColor(ROOT.kBlue)
-    hist_q2_E.SetMinimum(1e-4)  # Set minimum y-axis value
-    hist_q2_E.SetMaximum(100)  # Set maximum y-axis value
+    hist_q2_E.SetMinimum(1e-6)  # Set minimum y-axis value
+    hist_q2_E.SetMaximum(1e-4)  # Set maximum y-axis value
     hist_q2_E.GetYaxis().SetTitle("d#sigma/dq^{2}_{e} [pb/GeV]")
     hist_q2_E.GetXaxis().SetTitle("q^{2}_{e} [GeV^{2}]")
     hist_q2_E.Draw()
@@ -316,7 +316,7 @@ def compare_distributions(filename):
                         "Q^{2}_{e,max}<10^{3} GeV^{2},  Q^{2}_{p,max}<10^{3} GeV^{2}, M_{N} < 10 GeV")
 
     latex_q2.DrawLatex(0.15, 0.2,
-                        "#color[2]{(#tau^{+}#tau^{-}) cepgen}")
+                        "#color[2]{(higgsinos) cepgen}")
 
     # Save the plot for q2 as a PDF file
     canvas_q2.SaveAs("q2_electron_Comparison_1000.pdf")
@@ -333,10 +333,10 @@ def compare_distributions(filename):
     # Plot histograms for Ptll
     canvas_Ptll = ROOT.TCanvas("canvas_Ptll", "Ptll Comparison", 800, 600)
     hist_Ptll_E.SetLineColor(ROOT.kBlue)
-    hist_Ptll_E.SetMinimum(1e-4)  # Set minimum y-axis value
-    hist_Ptll_E.SetMaximum(100)  # Set maximum y-axis value
-    hist_Ptll_E.GetYaxis().SetTitle("d#sigma/dP^{T}_{#tau^{+}#tau^{-}} [pb/GeV]")
-    hist_Ptll_E.GetXaxis().SetTitle("P_{T}^{#tau^{+}#tau^{-}} [GeV]")
+    hist_Ptll_E.SetMinimum(1e-6)  # Set minimum y-axis value
+    hist_Ptll_E.SetMaximum(1e-4)  # Set maximum y-axis value
+    hist_Ptll_E.GetYaxis().SetTitle("d#sigma/dP^{T}_{higgsinos} [pb/GeV]")
+    hist_Ptll_E.GetXaxis().SetTitle("P_{T}^{higgsinos} [GeV]")
     hist_Ptll_E.Draw()
     hist_Ptll_QE.SetLineColor(ROOT.kRed)
     hist_Ptll_QE.Draw("SAME")
@@ -362,7 +362,7 @@ def compare_distributions(filename):
                         "Q^{2}_{e,max}<10^{3} GeV^{2},  Q^{2}_{p,max}<10^{3} GeV^{2}, M_{N} < 10 GeV")
 
     latex_Ptll.DrawLatex(0.15, 0.2,
-                        "#color[2]{(#tau^{+}#tau^{-}) cepgen}")
+                        "#color[2]{(higgsinos) cepgen}")
 
     # Save the plot for Ptll as a PDF file
     canvas_Ptll.SaveAs("Ptll_Comparison_1000.pdf")
