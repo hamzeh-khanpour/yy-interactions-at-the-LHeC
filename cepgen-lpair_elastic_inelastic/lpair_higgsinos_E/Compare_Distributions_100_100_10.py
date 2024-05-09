@@ -14,8 +14,8 @@ import math
 
 ROOT.gStyle.SetOptStat(0)  # Remove the statistics box from the plots
 
-integrated_cross_section_value_E  = 4.88223395e+01  # pb
-integrated_cross_section_value_QE = 2.81581841e+01  # pb
+integrated_cross_section_value_E  = 1.01516903e-03  # pb
+integrated_cross_section_value_QE = 9.35686193e-04  # pb
 
 
 bin_width_correction = 1.0

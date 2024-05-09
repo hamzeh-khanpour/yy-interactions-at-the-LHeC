@@ -116,9 +116,9 @@ lpair_tau_tau::lpair_tau_tau(TTree *tree) : fChain(0)
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
-      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("/home/hamzeh-khanpour/hepmc3-build/event_higgsinos_QE_100_100_M100GeV_SuriYennie.root");
+      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("/home/hamzeh-khanpour/hepmc3-build/event_higgsinos_QE_1000_1000_M100GeV_SuriYennie.root");
       if (!f || !f->IsOpen()) {
-         f = new TFile("/home/hamzeh-khanpour/hepmc3-build/event_higgsinos_QE_100_100_M100GeV_SuriYennie.root");
+         f = new TFile("/home/hamzeh-khanpour/hepmc3-build/event_higgsinos_QE_1000_1000_M100GeV_SuriYennie.root");
       }
       f->GetObject("hepmc3_tree",tree);
 
