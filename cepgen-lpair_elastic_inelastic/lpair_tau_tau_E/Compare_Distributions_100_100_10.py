@@ -69,10 +69,10 @@ def compare_distributions(filename):
     hist_Mll_QE = ROOT.TH1F("hist_Mll_QE", "Mll distribution", 500, 10, 500)
     hist_Yll_E = ROOT.TH1F("hist_Yll_E", "Yll distribution", 100, -10.0, 10.0)
     hist_Yll_QE = ROOT.TH1F("hist_Yll_QE", "Yll distribution", 100, -10.0, 10.0)
-    hist_q2prime_E = ROOT.TH1F("hist_q2prime_E", "q2prime distribution", 100, 0.0, 100.0)
-    hist_q2prime_QE = ROOT.TH1F("hist_q2prime_QE", "q2prime distribution", 100, 0.0, 100.0)
-    hist_q2_E = ROOT.TH1F("hist_q2_E", "q2 distribution (elastic)", 100, 0.0, 100.0)
-    hist_q2_QE = ROOT.TH1F("hist_q2_QE", "q2 distribution (inelastic)", 100, 0.0, 100.0)
+    hist_q2prime_E = ROOT.TH1F("hist_q2prime_E", "q2 proton distribution", 100, 0.0, 100.0)
+    hist_q2prime_QE = ROOT.TH1F("hist_q2prime_QE", "q2 proton distribution", 100, 0.0, 100.0)
+    hist_q2_E = ROOT.TH1F("hist_q2_E", "q2 electron distribution", 100, 0.0, 100.0)
+    hist_q2_QE = ROOT.TH1F("hist_q2_QE", "q2 electron distribution", 100, 0.0, 100.0)
     hist_Ptll_E = ROOT.TH1F("hist_Ptll_E", "Ptll distribution", 50, 0.0, 10.0)
     hist_Ptll_QE = ROOT.TH1F("hist_Ptll_QE", "Ptll distribution", 50, 0.0, 10.0)
 
@@ -114,10 +114,10 @@ def compare_distributions(filename):
     print("Area under the curve for Mll (inelastic):", area_Mll_QE)
     print("Area under the curve for Yll (elastic):", area_Yll_E)
     print("Area under the curve for Yll (inelastic):", area_Yll_QE)
-    print("Area under the curve for q2prime (elastic):", area_q2prime_E)
-    print("Area under the curve for q2prime (inelastic):", area_q2prime_QE)
-    print("Area under the curve for q2 (elastic):", area_q2_E)
-    print("Area under the curve for q2 (inelastic):", area_q2_QE)
+    print("Area under the curve for q2 proton (elastic):", area_q2prime_E)
+    print("Area under the curve for q2 proton (inelastic):", area_q2prime_QE)
+    print("Area under the curve for q2 electron (elastic):", area_q2_E)
+    print("Area under the curve for q2 electron (inelastic):", area_q2_QE)
     print("Area under the curve for Ptll (elastic):", area_Ptll_E)
     print("Area under the curve for Ptll (inelastic):", area_Ptll_QE)
     
@@ -200,6 +200,8 @@ def compare_distributions(filename):
     # Plot histograms for Yll
     canvas_Yll = ROOT.TCanvas("canvas_Yll", "Yll Comparison", 800, 600)
     hist_Yll_E.SetLineColor(ROOT.kBlue)
+#    hist_Yll_E.SetMinimum(1e-4)  # Set minimum y-axis value
+#    hist_Yll_E.SetMaximum(100)  # Set maximum y-axis value
     hist_Yll_E.GetYaxis().SetTitle("d#sigma/dY_{#tau^{+}#tau^{-}} [pb/GeV]")  # Y-axis title
     hist_Yll_E.GetXaxis().SetTitle("Y_{#tau^{+}#tau^{-}}")  # X-axis title
     hist_Yll_E.Draw()
@@ -241,6 +243,8 @@ def compare_distributions(filename):
     # Plot histograms for q2prime
     canvas_q2prime = ROOT.TCanvas("canvas_q2prime", "q2prime Comparison", 800, 600)
     hist_q2prime_E.SetLineColor(ROOT.kBlue)
+    hist_q2prime_E.SetMinimum(1e-4)  # Set minimum y-axis value
+    hist_q2prime_E.SetMaximum(100)  # Set maximum y-axis value
     hist_q2prime_E.GetYaxis().SetTitle("d#sigma/dq^{2}_{p} [pb/GeV]")  # Y-axis title
     hist_q2prime_E.GetXaxis().SetTitle("q^{2}_{p} [GeV^{2}]")  # X-axis title
     hist_q2prime_E.Draw()
@@ -285,6 +289,8 @@ def compare_distributions(filename):
     # Plot histograms for q2
     canvas_q2 = ROOT.TCanvas("canvas_q2", "q2 Comparison", 800, 600)
     hist_q2_E.SetLineColor(ROOT.kBlue)
+    hist_q2_E.SetMinimum(1e-3)  # Set minimum y-axis value
+    hist_q2_E.SetMaximum(100)  # Set maximum y-axis value
     hist_q2_E.GetYaxis().SetTitle("d#sigma/dq^{2}_{e} [pb/GeV]")
     hist_q2_E.GetXaxis().SetTitle("q^{2}_{e} [GeV^{2}]")
     hist_q2_E.Draw()
@@ -330,6 +336,8 @@ def compare_distributions(filename):
     # Plot histograms for Ptll
     canvas_Ptll = ROOT.TCanvas("canvas_Ptll", "Ptll Comparison", 800, 600)
     hist_Ptll_E.SetLineColor(ROOT.kBlue)
+    hist_Ptll_E.SetMinimum(1e-3)  # Set minimum y-axis value
+    hist_Ptll_E.SetMaximum(100)  # Set maximum y-axis value
     hist_Ptll_E.GetYaxis().SetTitle("d#sigma/dP^{T}_{#tau^{+}#tau^{-}} [pb/GeV]")
     hist_Ptll_E.GetXaxis().SetTitle("P_{T}^{#tau^{+}#tau^{-}} [GeV]")
     hist_Ptll_E.Draw()
