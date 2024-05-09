@@ -65,16 +65,16 @@ def compare_distributions(filename):
     tree_QE.SetBranchAddress("Ptll", Ptll_QE)  # Add Ptll branch address
 
     # Create histograms for Mll, Yll, q2prime, q2, and Ptll
-    hist_Mll_E = ROOT.TH1F("hist_Mll_E", "Mll distribution", 500, 10, 500)
-    hist_Mll_QE = ROOT.TH1F("hist_Mll_QE", "Mll distribution", 500, 10, 500)
-    hist_Yll_E = ROOT.TH1F("hist_Yll_E", "Yll distribution", 100, -10.0, 10.0)
-    hist_Yll_QE = ROOT.TH1F("hist_Yll_QE", "Yll distribution", 100, -10.0, 10.0)
+    hist_Mll_E = ROOT.TH1F("hist_Mll_E", "Mll distribution", 300, 200, 500)
+    hist_Mll_QE = ROOT.TH1F("hist_Mll_QE", "Mll distribution", 300, 200, 500)
+    hist_Yll_E = ROOT.TH1F("hist_Yll_E", "Yll distribution", 10, 0.0, 10.0)
+    hist_Yll_QE = ROOT.TH1F("hist_Yll_QE", "Yll distribution", 10, 0.0, 10.0)
     hist_q2prime_E = ROOT.TH1F("hist_q2prime_E", "q2 proton distribution", 100, 0.0, 100.0)
     hist_q2prime_QE = ROOT.TH1F("hist_q2prime_QE", "q2 proton distribution", 100, 0.0, 100.0)
     hist_q2_E = ROOT.TH1F("hist_q2_E", "q2 electron distribution", 100, 0.0, 100.0)
     hist_q2_QE = ROOT.TH1F("hist_q2_QE", "q2 electron distribution", 100, 0.0, 100.0)
-    hist_Ptll_E = ROOT.TH1F("hist_Ptll_E", "Ptll distribution", 50, 0.0, 10.0)
-    hist_Ptll_QE = ROOT.TH1F("hist_Ptll_QE", "Ptll distribution", 50, 0.0, 10.0)
+    hist_Ptll_E = ROOT.TH1F("hist_Ptll_E", "Ptll distribution", 100, 0.0, 10.0)
+    hist_Ptll_QE = ROOT.TH1F("hist_Ptll_QE", "Ptll distribution", 100, 0.0, 10.0)
 
 
     # Fill histograms for Mll, Yll, q2prime, q2, and Ptll
@@ -154,8 +154,8 @@ def compare_distributions(filename):
     # Plot histograms for Mll
     canvas_Mll = ROOT.TCanvas("canvas_Mll", "Mll Comparison", 800, 600)
     hist_Mll_E.SetLineColor(ROOT.kBlue)
-    hist_Mll_E.SetMinimum(1e-4)  # Set minimum y-axis value
-    hist_Mll_E.SetMaximum(100)  # Set maximum y-axis value
+    hist_Mll_E.SetMinimum(1e-6)  # Set minimum y-axis value
+    hist_Mll_E.SetMaximum(1e-4)  # Set maximum y-axis value
     hist_Mll_E.GetYaxis().SetTitle("d#sigma/dM_{#tau^{+}#tau^{-}} [pb/GeV]")  # Y-axis title
     hist_Mll_E.GetXaxis().SetTitle("M_{#tau^{+}#tau^{-}} [GeV] = W_{#gamma#gamma} [GeV]")  # X-axis title
     hist_Mll_E.Draw()
@@ -243,8 +243,8 @@ def compare_distributions(filename):
     # Plot histograms for q2prime
     canvas_q2prime = ROOT.TCanvas("canvas_q2prime", "q2prime Comparison", 800, 600)
     hist_q2prime_E.SetLineColor(ROOT.kBlue)
-    hist_q2prime_E.SetMinimum(1e-4)  # Set minimum y-axis value
-    hist_q2prime_E.SetMaximum(100)  # Set maximum y-axis value
+    hist_q2prime_E.SetMinimum(1e-6)  # Set minimum y-axis value
+    hist_q2prime_E.SetMaximum(1e-4)  # Set maximum y-axis value
     hist_q2prime_E.GetYaxis().SetTitle("d#sigma/dq^{2}_{p} [pb/GeV]")  # Y-axis title
     hist_q2prime_E.GetXaxis().SetTitle("q^{2}_{p} [GeV^{2}]")  # X-axis title
     hist_q2prime_E.Draw()
@@ -289,8 +289,8 @@ def compare_distributions(filename):
     # Plot histograms for q2
     canvas_q2 = ROOT.TCanvas("canvas_q2", "q2 Comparison", 800, 600)
     hist_q2_E.SetLineColor(ROOT.kBlue)
-    hist_q2_E.SetMinimum(1e-3)  # Set minimum y-axis value
-    hist_q2_E.SetMaximum(100)  # Set maximum y-axis value
+    hist_q2_E.SetMinimum(1e-6)  # Set minimum y-axis value
+    hist_q2_E.SetMaximum(1e-3)  # Set maximum y-axis value
     hist_q2_E.GetYaxis().SetTitle("d#sigma/dq^{2}_{e} [pb/GeV]")
     hist_q2_E.GetXaxis().SetTitle("q^{2}_{e} [GeV^{2}]")
     hist_q2_E.Draw()
@@ -336,8 +336,8 @@ def compare_distributions(filename):
     # Plot histograms for Ptll
     canvas_Ptll = ROOT.TCanvas("canvas_Ptll", "Ptll Comparison", 800, 600)
     hist_Ptll_E.SetLineColor(ROOT.kBlue)
-    hist_Ptll_E.SetMinimum(1e-3)  # Set minimum y-axis value
-    hist_Ptll_E.SetMaximum(100)  # Set maximum y-axis value
+    hist_Ptll_E.SetMinimum(1e-6)  # Set minimum y-axis value
+    hist_Ptll_E.SetMaximum(1e-3)  # Set maximum y-axis value
     hist_Ptll_E.GetYaxis().SetTitle("d#sigma/dP^{T}_{#tau^{+}#tau^{-}} [pb/GeV]")
     hist_Ptll_E.GetXaxis().SetTitle("P_{T}^{#tau^{+}#tau^{-}} [GeV]")
     hist_Ptll_E.Draw()
