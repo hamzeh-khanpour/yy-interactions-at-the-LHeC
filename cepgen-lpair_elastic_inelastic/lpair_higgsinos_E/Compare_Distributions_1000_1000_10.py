@@ -68,8 +68,8 @@ def compare_distributions(filename):
     hist_Mll_QE = ROOT.TH1F("hist_Mll_QE", "Mll distribution", 300, 200, 500)
     hist_Yll_E = ROOT.TH1F("hist_Yll_E", "Yll distribution", 100, 0.0, 10.0)
     hist_Yll_QE = ROOT.TH1F("hist_Yll_QE", "Yll distribution", 100, 0.0, 10.0)
-    hist_q2prime_E = ROOT.TH1F("hist_q2prime_E", "q2 proton distribution", 100, 0.0, 1000.0)
-    hist_q2prime_QE = ROOT.TH1F("hist_q2prime_QE", "q2 proton distribution", 100, 0.0, 1000.0)
+    hist_q2prime_E = ROOT.TH1F("hist_q2prime_E", "q2 proton distribution", 100, 0.0, 500.0)
+    hist_q2prime_QE = ROOT.TH1F("hist_q2prime_QE", "q2 proton distribution", 100, 0.0, 500.0)
     hist_q2_E = ROOT.TH1F("hist_q2_E", "q2 electron distribution", 100, 0.0, 1000.0)
     hist_q2_QE = ROOT.TH1F("hist_q2_QE", "q2 electron distribution", 100, 0.0, 1000.0)
     hist_Ptll_E = ROOT.TH1F("hist_Ptll_E", "Ptll distribution", 100, 0.0, 100.0)
@@ -240,8 +240,8 @@ def compare_distributions(filename):
     # Plot histograms for q2prime
     canvas_q2prime = ROOT.TCanvas("canvas_q2prime", "q2prime Comparison", 800, 600)
     hist_q2prime_E.SetLineColor(ROOT.kBlue)
-    hist_q2prime_E.SetMinimum(1e-6)  # Set minimum y-axis value
-    hist_q2prime_E.SetMaximum(1e-6)  # Set maximum y-axis value
+    hist_q2prime_E.SetMinimum(1e-8)  # Set minimum y-axis value
+    hist_q2prime_E.SetMaximum(1e-4)  # Set maximum y-axis value
     hist_q2prime_E.GetYaxis().SetTitle("d#sigma/dq^{2}_{p} [pb/GeV]")  # Y-axis title
     hist_q2prime_E.GetXaxis().SetTitle("q^{2}_{p} [GeV^{2}]")  # X-axis title
     hist_q2prime_E.Draw()
