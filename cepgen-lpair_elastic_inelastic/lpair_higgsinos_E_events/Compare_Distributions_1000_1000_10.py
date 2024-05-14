@@ -186,7 +186,7 @@ def compare_distributions(filename):
                         "#color[2]{(higgsinos) cepgen}")
 
     # Save the plot for Mll as a PDF file
-    canvas_Mll.SaveAs("Mll_Comparison_1000.pdf")
+#    canvas_Mll.SaveAs("Mll_Comparison_1000.pdf")
     
     # Draw the canvas
     canvas_Mll.Draw()  
@@ -226,7 +226,7 @@ def compare_distributions(filename):
                         "#color[2]{(higgsinos) cepgen}")
 
     # Save the plot for Yll as a PDF file
-    canvas_Yll.SaveAs("Yll_Comparison_1000.pdf")
+#    canvas_Yll.SaveAs("Yll_Comparison_1000.pdf")
     
     # Draw the canvas
     canvas_Yll.Draw()  
@@ -240,8 +240,8 @@ def compare_distributions(filename):
     # Plot histograms for q2prime
     canvas_q2prime = ROOT.TCanvas("canvas_q2prime", "q2prime Comparison", 800, 600)
     hist_q2prime_E.SetLineColor(ROOT.kBlue)
-    hist_q2prime_E.SetMinimum(1e-8)  # Set minimum y-axis value
-    hist_q2prime_E.SetMaximum(1e-4)  # Set maximum y-axis value
+#    hist_q2prime_E.SetMinimum(1e-8)  # Set minimum y-axis value
+#    hist_q2prime_E.SetMaximum(1e-4)  # Set maximum y-axis value
     hist_q2prime_E.GetYaxis().SetTitle("# Events")  # Y-axis title
     hist_q2prime_E.GetXaxis().SetTitle("q^{2}_{p} [GeV^{2}]")  # X-axis title
     hist_q2prime_E.Draw()
@@ -286,8 +286,8 @@ def compare_distributions(filename):
     # Plot histograms for q2
     canvas_q2 = ROOT.TCanvas("canvas_q2", "q2 Comparison", 800, 600)
     hist_q2_E.SetLineColor(ROOT.kBlue)
-    hist_q2_E.SetMinimum(1e-6)  # Set minimum y-axis value
-    hist_q2_E.SetMaximum(1e-4)  # Set maximum y-axis value
+#    hist_q2_E.SetMinimum(1e-6)  # Set minimum y-axis value
+#    hist_q2_E.SetMaximum(1e-4)  # Set maximum y-axis value
     hist_q2_E.GetYaxis().SetTitle("# Events")
     hist_q2_E.GetXaxis().SetTitle("q^{2}_{e} [GeV^{2}]")
     hist_q2_E.Draw()
@@ -365,7 +365,7 @@ def compare_distributions(filename):
                         "#color[2]{(higgsinos) cepgen}")
 
     # Save the plot for Ptll as a PDF file
-    canvas_Ptll.SaveAs("Ptll_Comparison_1000.pdf")
+#    canvas_Ptll.SaveAs("Ptll_Comparison_1000.pdf")
 
     # Draw the canvas
     canvas_Ptll.Draw()
