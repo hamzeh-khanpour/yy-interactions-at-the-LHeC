@@ -85,8 +85,8 @@ plt.ylabel("S$_{\gamma \gamma}$ [GeV$^{-1}$]", fontdict = font2)
 
 
 
-plt.savefig("syy_with_MN2_mMin2_q2min_Final_20April.pdf")
-plt.savefig("syy_with_MN2_mMin2_q2min_Final_20April.jpg")
+plt.savefig("syy_with_MN2_mMin2_q2min_Final_25April.pdf")
+plt.savefig("syy_with_MN2_mMin2_q2min_Final_25April.jpg")
 
 plt.show()
 
