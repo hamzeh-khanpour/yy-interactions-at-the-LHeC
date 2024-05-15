@@ -33,7 +33,7 @@ from wgrid_10_100000_10 import *
 
 fig, ax = plt.subplots(figsize = (9.0, 8.0))
 ax.set_xlim(10.0, 1000.0)
-ax.set_ylim(2.e-7, 1.e-1)
+ax.set_ylim(1.e-7, 1.e-1)
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
 title_label = ('$Q^2_e<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$').format(10,np.log10(inel[1]))

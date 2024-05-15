@@ -122,8 +122,8 @@ plt.ylabel("Integrated S$_{\gamma \gamma}$ (W > W$_0$)", fontdict = font2)
 
 
 
-plt.savefig("yy_int_with_MN2_mMin2_q2min_Final_20April.pdf")
-plt.savefig("yy_int_with_MN2_mMin2_q2min_Final_20April.jpg")
+plt.savefig("yy_int_with_MN2_mMin2_q2min_Final_25April.pdf")
+plt.savefig("yy_int_with_MN2_mMin2_q2min_Final_25April.jpg")
 
 
 
