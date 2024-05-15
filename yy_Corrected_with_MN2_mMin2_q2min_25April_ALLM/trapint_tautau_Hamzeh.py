@@ -115,7 +115,7 @@ def trap_integ(wv, fluxv):
 
 sys.path.append('./values')
 
-from wgrid_10_100000_10 import *
+from wgrid_10_100000_10_elastic_tagged import *
 
 wv = np.array(wvalues[3])
 ie = np.array(inel[3])
@@ -146,7 +146,7 @@ plt.legend(title = title_label)
 
 
 
-from wgrid_50_100000_1000 import *
+from wgrid_50_100000_1000_elastic_tagged import *
 
 wv = np.array(wvalues[3])
 ie = np.array(inel[3])
@@ -165,7 +165,7 @@ plt.legend(title = title_label)
 
 
 
-from wgrid_300_100000_100000 import *
+from wgrid_300_100000_100000_elastic_tagged import *
 
 wv = np.array(wvalues[3])
 ie = np.array(inel[3])
@@ -201,8 +201,8 @@ plt.ylabel("$\sigma_{\\tau^+\\tau^-}$ (W > W$_0$) [pb]", fontdict=font2)
 
 
 
-plt.savefig("cs_tautau_MN2_mMin2_q2min_Final_20April.pdf")
-plt.savefig("cs_tautau_MN2_mMin2_q2min_Final_20April.jpg")
+plt.savefig("cs_tautau_MN2_mMin2_q2min_Final_25April.pdf")
+plt.savefig("cs_tautau_MN2_mMin2_q2min_Final_25April.jpg")
 
 
 

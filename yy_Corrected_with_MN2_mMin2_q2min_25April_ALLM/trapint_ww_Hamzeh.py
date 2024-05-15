@@ -99,7 +99,7 @@ sys.path.append('./values')
 
 
 
-from wgrid_10_100000_10 import *
+from wgrid_10_100000_10_elastic_tagged import *
 
 wv = np.array(wvalues[3])
 ie = np.array(inel[3])
@@ -111,7 +111,7 @@ wv2, int_el = trap_integ(wv, el)
 fig, ax = plt.subplots(figsize = (9.0, 8.0))
 # ax.set_xlim(10., 1000.)
 ax.set_xlim(161.0, 1000.0)
-ax.set_ylim(1.0e-4, 1.0e1)
+ax.set_ylim(1.0e-4, 1.0e0)
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
 title_label = ('$Q^2_e<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$').format(10,np.log10(inel[1]))
@@ -127,7 +127,7 @@ plt.legend(title = title_label)
 
 
 
-from wgrid_50_100000_1000 import *
+from wgrid_50_100000_1000_elastic_tagged import *
 
 wv = np.array(wvalues[3])
 ie = np.array(inel[3])
@@ -144,7 +144,7 @@ plt.legend(title = title_label)
 
 
 
-from wgrid_300_100000_100000 import *
+from wgrid_300_100000_100000_elastic_tagged import *
 
 wv = np.array(wvalues[3])
 ie = np.array(inel[3])
@@ -174,8 +174,8 @@ plt.xlabel("W$_0$ [GeV]",  fontdict = font2)
 plt.ylabel("$\sigma_{W^+W^-}$ (W > W$_0$) [pb]", fontdict = font2)
 
 
-plt.savefig("cs_WW_MN2_mMin2_q2min_Final_20April.pdf")
-plt.savefig("cs_WW_MN2_mMin2_q2min_Final_20April.jpg")
+plt.savefig("cs_WW_MN2_mMin2_q2min_Final_25April.pdf")
+plt.savefig("cs_WW_MN2_mMin2_q2min_Final_25April.jpg")
 
 
 plt.show()

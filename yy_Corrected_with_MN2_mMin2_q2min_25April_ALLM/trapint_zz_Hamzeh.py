@@ -67,7 +67,7 @@ sys.path.append('./values')
 
 
 
-from wgrid_10_100000_10 import *
+from wgrid_10_100000_10_elastic_tagged import *
 
 wv = np.array(wvalues[3])
 ie = np.array(inel[3])
@@ -78,7 +78,7 @@ wv2, int_el = trap_integ(wv, el)
 
 fig, ax = plt.subplots(figsize = (9.0, 8.0))
 ax.set_xlim(200.0, 1000.0)
-ax.set_ylim(1.e-6, 1.e-2)
+ax.set_ylim(1.e-6, 1.e-3)
 
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
@@ -96,7 +96,7 @@ plt.legend(title = title_label)
 
 
 
-from wgrid_50_100000_1000 import *
+from wgrid_50_100000_1000_elastic_tagged import *
 
 wv = np.array(wvalues[3])
 ie = np.array(inel[3])
@@ -115,7 +115,7 @@ plt.legend(title = title_label)
 
 
 
-from wgrid_300_100000_100000 import *
+from wgrid_300_100000_100000_elastic_tagged import *
 
 wv = np.array(wvalues[3])
 ie = np.array(inel[3])
