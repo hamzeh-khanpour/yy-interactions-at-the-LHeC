@@ -148,20 +148,22 @@ def flux_y_q2_inel_mN2(lnq2, yp, mMin2, nMmax, qmin2v, pout=False):
 
 ##################################################################
 
-# Sigma_{gamma_gamma} for higgsionos
+# Sigma_{gamma_gamma} for b bbar
 
-def cs_higgsionos_w_condition_Hamzeh(wvalue):
+def csbbbar(wvalue):
 
-    mhiggsionos = 100.0
+    mbquark = 4.50
+    chargbqaurk = 1.0/3.0;
+    Nc = 3.0;
 
     hbarc2 =  0.389
     alpha2 = (1.0/137.0)*(1.0/137.0)
 
     # Element-wise calculation of beta using np.where
-    beta = np.sqrt(np.where(1.0 - 4.0 * mhiggsionos * mhiggsionos / wvalue**2.0 >= 0, 1.0 - 4.0 * mhiggsionos * mhiggsionos / wvalue**2.0, np.nan))
+    beta = np.sqrt(np.where(1.0 - 4.0 * mbquark * mbquark / wvalue**2.0 >= 0, 1.0 - 4.0 * mbquark * mbquark / wvalue**2.0, np.nan))
 
     # Element-wise calculation of cs using np.where
-    cs = np.where(wvalue > mhiggsionos, (4.0 * np.pi * alpha2 * hbarc2 ) / wvalue**2.0 * (beta) * \
+    cs = np.where(wvalue > mbquark, chargbqaurk**4.0 * Nc* (4.0 * np.pi * alpha2 * hbarc2 ) / wvalue**2.0 * (beta) * \
              ( (3.0 - (beta**4.0))/(2.0 * beta) * np.log((1.0+beta)/(1.0-beta)) - 2.0 + beta**2.0), 0.) * 1e9
 
     return cs
@@ -180,7 +182,7 @@ def flux_yy_atye(w, Y, qmax2e, qmax2p, s_cms, eEbeam, pEbeam, pout=False):
     yp = w * math.exp(Y)  / (2.0*pEbeam)
     ye = w * math.exp(-Y) / (2.0*eEbeam)
 
-    if (yp <= 0.0 or yp >= 1.0 or ye <= 0.0 or ye >= 1.0):                                 # Hamzeh take care of tagged elastic
+    if (yp <= 0.01 or yp >= 0.20 or ye <= 0.0 or ye >= 1.0):                 # Hamzeh take care of tagged elastic   if (yp <= 0.01 or yp >= 0.20):
         print('invalid yp value: ', yp)
         print('invalid ye value: ', ye)
         return 0.0
@@ -188,7 +190,7 @@ def flux_yy_atye(w, Y, qmax2e, qmax2p, s_cms, eEbeam, pEbeam, pout=False):
 
     if pout:
         print(emass, pmass, w, Y, qmax2e, s_cms)
-    flux_prod = cs_higgsionos_w_condition_Hamzeh(w) * flux_y_dipole(yp, pmass, qmax2p) \
+    flux_prod = csbbbar(w) * flux_y_dipole(yp, pmass, qmax2p) \
                 * w * flux_y_pl(ye, emass, qmax2e)
 
 
@@ -222,7 +224,7 @@ def flux_yyinel_atye(w, Y, qmax2e, qmax2p, mNmax, s_cms, eEbeam, pEbeam, pout=Fa
     #   and: minimum mass M_N, to pass
     # point-like on the electron side
     # according to Eq.(A.1)
-    flux_prod = cs_higgsionos_w_condition_Hamzeh(w) * flux_y_inel(yp, minM2, qmax2p, mNmax) \
+    flux_prod = csbbbar(w) * flux_y_inel(yp, minM2, qmax2p, mNmax) \
                 * w * flux_y_pl(ye, emass, qmax2e)
     if pout:
         print(emass, pmass, w, Y, qmax2e, s_cms, flux_prod)
@@ -241,7 +243,7 @@ def flux_el_yy_atW(Y, eEbeam, pEbeam, qmax2e, qmax2p):
     s_cms = 4.0 * eEbeam * pEbeam
     sqrt_cms = math.sqrt(4.0 * eEbeam * pEbeam)
 
-    w0 = 200.000001
+    w0 = 125.000001
 
 #    ymin = w * w / s_cms
 
@@ -262,7 +264,7 @@ def flux_inel_yy_atW(Y, eEbeam, pEbeam, qmax2e, mNmax, qmax2p):
     s_cms = 4.0 * eEbeam * pEbeam
     sqrt_cms = math.sqrt(4.0 * eEbeam * pEbeam)
 
-    w0 = 200.000001
+    w0 = 125.000001
 
 #    ymin = w * w / s_cms
 

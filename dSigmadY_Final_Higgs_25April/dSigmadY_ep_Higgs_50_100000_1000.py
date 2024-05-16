@@ -1,0 +1,4 @@
+wvalues =
+inel =
+elas =
+
