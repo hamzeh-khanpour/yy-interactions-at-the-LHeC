@@ -20,17 +20,17 @@ plt.rcParams['legend.title_fontsize'] = 'x-large'
 
 sys.path.append('./values')
 
-from dSigmadY_10_100_100_higgsinos_MN100 import *
+from dSigmadY_10_100000_10_higgsinos_MN100 import *
 
 fig, ax = plt.subplots(figsize=(11.0, 9.0))
 ax.set_xlim(0.0, 5.0)
-ax.set_ylim(0.00001, 0.001)
+ax.set_ylim(0.00003, 0.002)
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
 title_label = ('$Q^2_e<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$').format(10, np.log10(inel[1]))
 
 # Plot elastic and inelastic cross-sections
-elastic_plot, = plt.plot(wvalues[3][:202], elas[3][:202], linestyle='dashed', linewidth=2, color='blue', label='elastic')
+elastic_plot, = plt.plot(wvalues[3][:202], elas[3][:202], linestyle='dashed', linewidth=2, color='blue', label='tagged elastic')
 inelastic_plot, = plt.plot(wvalues[3][:202], inel[3][:202], linestyle='dashdot', linewidth=2, color='red', label=inel_label)
 
 # Calculate the area under the plots
@@ -59,8 +59,8 @@ plt.xlabel("$Y_{higgsinos}$", fontdict={'family': 'serif', 'color': 'black', 'si
 plt.ylabel("$d\sigma/dY_{higgsinos}$ [pb]", fontdict={'family': 'serif', 'color': 'black', 'size': 24})
 
 # Save the plot
-plt.savefig("dSigmadY_higgsinos100GeV.pdf")
-plt.savefig("dSigmadY_higgsinos100GeV.jpg")
+plt.savefig("dSigmadY_higgsinos100GeV_25April.pdf")
+plt.savefig("dSigmadY_higgsinos100GeV_25April.jpg")
 
 # Show the plot
 plt.show()

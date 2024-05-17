@@ -30,15 +30,15 @@ sys.path.append('./values')
 # from syy_1_3_4_0805 import *
 # from syy_1_4_4_0907 import *
 
-from dSigmadY_sleptons200_MN300 import *
+from dSigmadY_sleptons_10_100000_10_tagged_elastic import *
 
 fig, ax = plt.subplots(figsize = (11.0, 9.0))
 ax.set_xlim(0.0, 5.0)
-ax.set_ylim(0.000001, 0.0005)
+ax.set_ylim(0.00001, 0.0002)
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
 title_label = ('$Q^2_e<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$').format(10,np.log10(inel[1]))
-plt.plot(wvalues[3][:202], elas[3][:202], linestyle = 'dashed',  linewidth=2, color='blue', label = 'elastic')
+plt.plot(wvalues[3][:202], elas[3][:202], linestyle = 'dashed',  linewidth=2, color='blue', label = 'tagged elastic')
 plt.plot(wvalues[3][:202], inel[3][:202], linestyle = 'dashdot', linewidth=2, color='red', label = inel_label)
 #plt.grid()
 plt.legend(title = title_label)
@@ -55,7 +55,7 @@ plt.text(0.2, 0.85, info_text_2, transform=ax.transAxes, ha='center', va='center
 
 
 # Setting y-axis to log scale
-plt.yscale('log')
+# plt.yscale('log')
 
 
 
