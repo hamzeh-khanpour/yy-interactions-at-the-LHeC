@@ -30,12 +30,12 @@ sys.path.append('./values')
 # from syy_1_3_4_0805 import *
 # from syy_1_4_4_0907 import *
 
-from dSigmadY_ep_bbbar_10_100000_100000_tagged_elastic import *
+from dSigmadY_ep_bbbar_10_100000_10_tagged_elastic import *
 
 
 fig, ax = plt.subplots(figsize = (11.0, 9.0))
 ax.set_xlim(0.0, 5.0)
-ax.set_ylim(0.0001, 0.001)
+ax.set_ylim(0.0001, 0.002)
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
 title_label = ('$Q^2_e<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$').format(10,np.log10(inel[1]))
