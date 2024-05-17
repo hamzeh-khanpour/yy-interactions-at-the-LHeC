@@ -39,7 +39,7 @@ def flux_y_pl(y, mass, qmax2):
         qmin2v = qmin2(mass, y)
         # print('qmin2v', qmin2v)
         y1 = (1./2.) * (1. + (1. - y) * (1. - y)) / y                         # Hamzeh  1 -> 1/2
-        y2 = 1. * (1. - y) / y                                                # Hamzeh  2 -> 1                                                         
+        y2 = 1. * (1. - y) / y                                                # Hamzeh  2 -> 1
         flux1 = y1 * math.log(qmax2 / qmin2v)
         flux2 = y2 * (1. - qmin2v / qmax2)
         # print(flux1, flux2)
@@ -52,7 +52,7 @@ def flux_y_pl(y, mass, qmax2):
 
 
 # flux at given y with q2max with dipole form factor
-def flux_y_dipole(y, mass, qmax2): 
+def flux_y_dipole(y, mass, qmax2):
     if (y <= 0 or y >= 1):
         print('invalid y value: ', y)
         return -1.0
@@ -71,7 +71,7 @@ def flux_y_dipole(y, mass, qmax2):
 
 
 
-def flux_y_inel(y, mMin2, qmax2, mNmax, pout=False): 
+def flux_y_inel(y, mMin2, qmax2, mNmax, pout=False):
     if (y <= 0 or y >= 1):
         print('invalid y value: ', y)
         return -1.0
@@ -123,14 +123,14 @@ def flux_y_q2_inel_mN2(lnq2, yp, mMin2, nMmax, qmin2v, pout=False):
         # integration variable: q2
 	#
 
-        qmin2 = (mMin2*mMin2 / (1 - yp) - pmass * pmass) * yp                                  # Hamzeh
+        qmin2v = (mMin2*mMin2 / (1 - yp) - pmass * pmass) * yp                                    # Hamzeh
 
         formE = ALLM.allm_formE_qmin2(math.exp(lnq2), yp, mMin2, nMmax)[0]
         formMq2 = ALLM.allm_formM_mN2(math.exp(lnq2), yp, mMin2, nMmax)[0]
 
         # formM was divided by q2*q2 -> should be q2?? Why?
-        formMNew = formMq2 / ( math.exp(lnq2) * math.exp(lnq2) )  #                            # Hamzeh
-        formENew = formE * ( 1.0 - qmin2 / math.exp(lnq2) )       #  / ( math.exp(lnq2) )      # Hamzeh
+        formMNew = formMq2 / ( math.exp(lnq2) * math.exp(lnq2) )  #                               # Hamzeh
+        formENew = formE # * ( 1.0 - qmin2v / math.exp(lnq2) )       #  / ( math.exp(lnq2) )      # Hamzeh
 
         flux_tmp = (1 - yp) * formENew \
                     + yp * yp * 0.5 * formMNew
@@ -138,7 +138,7 @@ def flux_y_q2_inel_mN2(lnq2, yp, mMin2, nMmax, qmin2v, pout=False):
         if pout:
             print('inel q2, y, E M flux: {:.4e} {:.4e} {:.4e} {:.4e} {:.4e}'
 #                  .format(q2, yp, formE, formM / math.exp(lnq2), flux_tmp))
-                  .format(q2, yp, formENew, formMNew, flux_tmp))                               # Hamzeh
+                  .format(q2, yp, formENew, formMNew, flux_tmp))                                  # Hamzeh
         return flux_tmp
 
 
@@ -152,7 +152,7 @@ def flux_y_q2_inel_mN2(lnq2, yp, mMin2, nMmax, qmin2v, pout=False):
 
 def cs_sleptons_w_Draft(wvalue):
 
-    msleptons = 200.0
+    msleptons = 100.0
 
     hbarc2 =  0.389
     alpha2 = (1.0/137.0)*(1.0/137.0)
@@ -180,7 +180,7 @@ def flux_yy_atye(w, Y, qmax2e, qmax2p, s_cms, eEbeam, pEbeam, pout=False):
     yp = w * math.exp(Y)  / (2.0*pEbeam)
     ye = w * math.exp(-Y) / (2.0*eEbeam)
 
-    if (yp <= 0.0 or yp >= 1.0 or ye <= 0.0 or ye >= 1.0):               # Hamzeh take care for the case of untagged elastic
+    if (yp <= 0.01 or yp >= 0.20 or ye <= 0.0 or ye >= 1.0):                    # Hamzeh take care of tagged elastic    if (yp <= 0.01 or yp >= 0.20):
         print('invalid yp value: ', yp)
         print('invalid ye value: ', ye)
         return 0.0
@@ -241,7 +241,7 @@ def flux_el_yy_atW(Y, eEbeam, pEbeam, qmax2e, qmax2p):
     s_cms = 4.0 * eEbeam * pEbeam
     sqrt_cms = math.sqrt(4.0 * eEbeam * pEbeam)
 
-    w0 = 400.0001
+    w0 = 200.0000001
 
 #    ymin = w * w / s_cms
 
@@ -262,7 +262,7 @@ def flux_inel_yy_atW(Y, eEbeam, pEbeam, qmax2e, mNmax, qmax2p):
     s_cms = 4.0 * eEbeam * pEbeam
     sqrt_cms = math.sqrt(4.0 * eEbeam * pEbeam)
 
-    w0 = 400.0001
+    w0 = 200.0000001
 
 #    ymin = w * w / s_cms
 

@@ -7,14 +7,14 @@ import numpy as np
 
 # last two arguments: mNmax (not squared), Q2max (squared)
 
-mNmax  = 300.0
+mNmax  = 10.0
 q2emax = 100000.0
-q2pmax = 100000.0
+q2pmax = 10.0
 
 # wlist = [10., 20., 50., 100., 200., 500.]
 # wlist = [200.]
 # wln = np.linspace(1., 3., 41)
-wln = np.linspace(0.0, 5.0, 202)
+wln = np.linspace(0.0, 5.0, 303)
 # wln = np.linspace(1., 2.5, 76)
 # wln = np.linspace(3., 3.25, 13)
 wlist = [1.0*x for x in wln]
@@ -58,7 +58,7 @@ for Y in wlist:
 
 
 
-with open('300_100000_100000_dSigmadY_sleptons_200GeV.dat', 'w') as f:
+with open('10_100000_10_dSigmadY_sleptons_100GeV_tagged_elastic.dat', 'w') as f:
     print(res_param, file = f)
     print(res_inel, file = f)
     print(res_el, file = f)
