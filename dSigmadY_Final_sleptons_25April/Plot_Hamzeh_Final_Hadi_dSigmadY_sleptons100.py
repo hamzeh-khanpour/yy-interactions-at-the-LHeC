@@ -80,8 +80,8 @@ plt.xlabel("$Y_{\widetilde{\ell}}$",  fontdict = font2)
 plt.ylabel("$d\sigma/dY_{\widetilde{\ell}}$ [pb]", fontdict = font2)
 
 
-plt.savefig("dSigmadY_sleptons200GeV_MN100_25April_m100GeV.pdf")
-plt.savefig("dSigmadY_sleptons200GeV_MN100_25April_m100GeV.jpg")
+plt.savefig("dSigmadY_sleptons100GeV_MN100_25April_m100GeV.pdf")
+plt.savefig("dSigmadY_sleptons100GeV_MN100_25April_m100GeV.jpg")
 
 plt.show()
 
