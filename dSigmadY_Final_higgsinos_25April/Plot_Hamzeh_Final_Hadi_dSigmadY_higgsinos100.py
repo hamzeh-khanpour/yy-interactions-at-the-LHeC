@@ -20,7 +20,7 @@ plt.rcParams['legend.title_fontsize'] = 'x-large'
 
 sys.path.append('./values')
 
-from dSigmadY_10_100000_10_higgsinos_MN100 import *
+from dSigmadY_10_100000_10_higgsinos_MN10_tagged_elastic_m100GeV import *
 
 fig, ax = plt.subplots(figsize=(11.0, 9.0))
 ax.set_xlim(0.0, 5.0)

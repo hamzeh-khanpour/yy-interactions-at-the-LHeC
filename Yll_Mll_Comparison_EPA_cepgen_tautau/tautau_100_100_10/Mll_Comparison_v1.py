@@ -11,8 +11,8 @@ import math
 ROOT.gStyle.SetOptStat(0)  # Remove the statistics box from the plots
 
 # Integrated cross-section values
-integrated_cross_section_value_E  = 1.01516903e-03  # pb
-integrated_cross_section_value_QE = 9.35686193e-04  # pb
+integrated_cross_section_value_E = 48.8223395  # pb
+integrated_cross_section_value_QE = 28.167   #  24.703  # pb
 
 bin_width_correction = 1.0
 
@@ -41,8 +41,8 @@ def compare_Mll_distributions(filename_root):
     tree_QE.SetBranchAddress("Mll", Mll_QE)
 
     # Create histograms for Mll from ROOT
-    hist_Mll_E = ROOT.TH1F("hist_Mll_E", "Mll distribution", 300, 200, 500)
-    hist_Mll_QE = ROOT.TH1F("hist_Mll_QE", "Mll distribution", 300, 200, 500)
+    hist_Mll_E = ROOT.TH1F("hist_Mll_E", "Mll distribution", 500, 10, 500)
+    hist_Mll_QE = ROOT.TH1F("hist_Mll_QE", "Mll distribution", 500, 10, 500)
 
     # Fill histograms for Mll from ROOT
     for i in range(tree_E.GetEntries()):
@@ -58,8 +58,8 @@ def compare_Mll_distributions(filename_root):
     # Plot histograms for Mll using ROOT
     canvas_Mll = ROOT.TCanvas("canvas_Mll", "Mll Comparison", 800, 600)
     hist_Mll_E.SetLineColor(ROOT.kBlue)
-    hist_Mll_E.SetMinimum(1e-6)  # Set minimum y-axis value
-    hist_Mll_E.SetMaximum(1e-4)  # Set maximum y-axis value
+    hist_Mll_E.SetMinimum(1e-4)  # Set minimum y-axis value
+    hist_Mll_E.SetMaximum(100)  # Set maximum y-axis value
     hist_Mll_E.GetYaxis().SetTitle("d#sigma/dM_{#tau^{+}#tau^{-}} [pb/GeV]")  # Y-axis title
     hist_Mll_E.GetXaxis().SetTitle("M_{#tau^{+}#tau^{-}} [GeV] = W_{#gamma#gamma} [GeV]")  # X-axis title
     hist_Mll_E.Draw()
@@ -72,8 +72,8 @@ def compare_Mll_distributions(filename_root):
 
     # Add legend for Mll
     legend_Mll = ROOT.TLegend(0.7, 0.7, 0.85, 0.85)
-    legend_Mll.AddEntry(hist_Mll_E, "elastic (cepgen)", "l")
-    legend_Mll.AddEntry(hist_Mll_QE, "quasi-elastic (cepgen)", "l")
+    legend_Mll.AddEntry(hist_Mll_E, "EPA elastic", "l")
+    legend_Mll.AddEntry(hist_Mll_QE, "EPA quasi-elastic", "l")
     legend_Mll.SetBorderSize(0)  # Remove the border around the legend
     legend_Mll.Draw()
 
@@ -86,7 +86,7 @@ def compare_Mll_distributions(filename_root):
                         "Q^{2}_{e,max}<10^{2} GeV^{2};  Q^{2}_{p,max}<10^{2} GeV^{2}; #color[2]{(#tau^{+}#tau^{-}) cepgen}")
 
     # Save the plot for Mll as a PDF file
-    canvas_Mll.SaveAs("Mll_Comparison_root_mathplotlib_v1_higgsinos.pdf")
+    canvas_Mll.SaveAs("Mll_Comparison_root_mathplotlib_v1_tautau_100_100_10.pdf")
 
     # Draw the canvas
     canvas_Mll.Draw()    
@@ -102,7 +102,7 @@ def compare_Mll_distributions(filename_root):
     
 
     # Load data from text file
-    data = np.loadtxt("dSigmadW_ep_higgsinos_elastic_inelastic.txt", delimiter='\t', skiprows=1)
+    data = np.loadtxt("dSigmadW_ep_tautau_elastic_inelastic.txt", delimiter='\t', skiprows=1)
     wv = data[:, 0]
     int_el = data[:, 1]
     int_inel = data[:, 2]
@@ -116,21 +116,21 @@ def compare_Mll_distributions(filename_root):
 
     # Matplotlib plot for elastic and inelastic cross-sections
     fig, ax = plt.subplots(figsize=(9.0, 8.0))
-    ax.set_xlim(200.0, 500.0)
-    ax.set_ylim(1.0e-6, 1.0e-4)
+    ax.set_xlim(10.0, 500.0)
+    ax.set_ylim(1.0e-4, 1.0e2)
 
     # Plot elastic and inelastic cross-sections
-    ax.loglog(wv, int_el, linestyle='solid', linewidth=2, label='elastic (EPA)')
-    ax.loglog(wv, int_inel, linestyle='dotted', linewidth=2, label='inelastic (EPA)')
+    ax.loglog(wv, int_el, linestyle='solid', linewidth=2, label='EPA elastic')
+    ax.loglog(wv, int_inel, linestyle='dotted', linewidth=2, label='EPA inelastic')
 
     # Convert ROOT histograms to numpy arrays
     Mll_E_array = np.array([hist_Mll_E.GetBinContent(i) for i in range(1, hist_Mll_E.GetNbinsX() + 1)])
     Mll_QE_array = np.array([hist_Mll_QE.GetBinContent(i) for i in range(1, hist_Mll_QE.GetNbinsX() + 1)])
-    bin_edges = np.linspace(200, 500, 301)
+    bin_edges = np.linspace(10, 500, 501)
 
     # Plot ROOT histograms on the matplotlib plot
-    ax.hist(bin_edges[:-1], bin_edges, weights=Mll_E_array, histtype='step', color='blue', linestyle='-', label='elastic (cepgen)')
-    ax.hist(bin_edges[:-1], bin_edges, weights=Mll_QE_array, histtype='step', color='red', linestyle='-', label='quasi-elastic (cepgen)')
+    ax.hist(bin_edges[:-1], bin_edges, weights=Mll_E_array, histtype='step', color='blue', linestyle='-', label='cepgen elastic')
+    ax.hist(bin_edges[:-1], bin_edges, weights=Mll_QE_array, histtype='step', color='red', linestyle='-', label='cepgen quasi-elastic')
 
     # Set labels and legend
     ax.set_xlabel("W [GeV]", fontdict={'family': 'serif', 'color': 'black', 'size': 24})
@@ -138,7 +138,7 @@ def compare_Mll_distributions(filename_root):
     ax.legend(title='Inelastic: $M_N<10$ GeV ($Q^2_p<10^2$ GeV$^2$)', fontsize=15)
 
     # Save the plot
-    plt.savefig("Mll_Comparison_matplotlib_v1_higgsinos.pdf")
+    plt.savefig("Mll_Comparison_matplotlib_v1_tautau_100_100_10.pdf")
 
     # Show the plot
     plt.show()
@@ -148,4 +148,4 @@ def compare_Mll_distributions(filename_root):
 
 
 # Call the function with the filename of the ROOT file
-compare_Mll_distributions("LHeC_higgsino_Compare.root")
+compare_Mll_distributions("LHeC_Compare.root")

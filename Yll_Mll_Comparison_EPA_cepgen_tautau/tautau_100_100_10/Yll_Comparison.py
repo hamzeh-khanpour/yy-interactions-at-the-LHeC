@@ -9,10 +9,10 @@ import sys
 
 ROOT.gStyle.SetOptStat(0)  # Remove the statistics box from the plots
 
-integrated_cross_section_value_E  = 1.01516903e-03  # pb
-integrated_cross_section_value_QE = 9.35686193e-04  # pb
+integrated_cross_section_value_E = 48.8223395  # pb
+integrated_cross_section_value_QE = 28.167   #  24.703  # pb
 
-bin_width_correction = 10.0
+bin_width_correction = 5.0
 
 ##################################################################
 
@@ -44,8 +44,8 @@ def compare_distributions(filename):
         Yll_QE.append(event.Yll)
 
     # Create ROOT histograms for Yll
-    hist_Yll_E = ROOT.TH1F("hist_Yll_E", "Yll distribution", 100, 0.0, 10.0)
-    hist_Yll_QE = ROOT.TH1F("hist_Yll_QE", "Yll distribution", 100, 0.0, 10.0)
+    hist_Yll_E = ROOT.TH1F("hist_Yll_E", "Yll distribution (elastic)", 100, -10.0, 10.0)
+    hist_Yll_QE = ROOT.TH1F("hist_Yll_QE", "Yll distribution (quasi-elastic)", 100, -10.0, 10.0)
 
     # Fill histograms with Yll values with weights
     for y in Yll_E:
@@ -54,7 +54,7 @@ def compare_distributions(filename):
         hist_Yll_QE.Fill(y, bin_width_correction*integrated_cross_section_value_QE / len(Yll_QE))
 
     # Load Yll data from Matplotlib
-    from dSigmadY_10_100_100_higgsinos_MN100 import wvalues, elas, inel
+    from dSigmadY_ep_tautau_10_100_100 import wvalues, elas, inel
     Yll_MPL = wvalues[3][:303]
 
     # Create ROOT graphs for Yll from Matplotlib data
@@ -64,10 +64,10 @@ def compare_distributions(filename):
     # Plot histograms and graphs for Yll
     canvas_Yll = ROOT.TCanvas("canvas_Yll", "Yll Comparison", 800, 600)
     hist_Yll_E.SetLineColor(ROOT.kBlue)
-    hist_Yll_E.GetYaxis().SetTitle("d#sigma/dY_{higgsinos} [pb/GeV]")  # Y-axis title
-    hist_Yll_E.GetXaxis().SetTitle("Y_{higgsinos}")  # X-axis title
+    hist_Yll_E.GetYaxis().SetTitle("d#sigma/dY_{#tau^{+}#tau^{-}} [pb/GeV]")  # Y-axis title
+    hist_Yll_E.GetXaxis().SetTitle("Y_{#tau^{+}#tau^{-}}")  # X-axis title
     hist_Yll_E.SetMinimum(0)  # Set y-axis minimum to 0
-    hist_Yll_E.SetMaximum(0.001)  # Set y-axis maximum to 10
+    hist_Yll_E.SetMaximum(10)  # Set y-axis maximum to 10
     hist_Yll_E.Draw()
     hist_Yll_QE.SetLineColor(ROOT.kRed)
     hist_Yll_QE.Draw("SAME")
@@ -80,8 +80,8 @@ def compare_distributions(filename):
     legend_Yll = ROOT.TLegend(0.7, 0.7, 0.85, 0.85)
     legend_Yll.AddEntry(hist_Yll_E, "elastic (cepgen)", "l")
     legend_Yll.AddEntry(hist_Yll_QE, "quasi-elastic (cepgen)", "l")
-    legend_Yll.AddEntry(graph_Yll_MPL_elastic, "elastic (EPA)", "l")
-    legend_Yll.AddEntry(graph_Yll_MPL_inelastic, "inelastic (EPA)", "l")
+    legend_Yll.AddEntry(graph_Yll_MPL_elastic, "EPA (elastic)", "l")
+    legend_Yll.AddEntry(graph_Yll_MPL_inelastic, "EPA (inelastic)", "l")
     legend_Yll.SetBorderSize(0)  # Remove the border around the legend
     legend_Yll.Draw()
 
@@ -91,27 +91,24 @@ def compare_distributions(filename):
     latex_Yll.SetTextFont(42)
     latex_Yll.SetTextSize(0.035)
     latex_Yll.DrawLatex(0.15, 0.8,
-                        "Q^{2}_{e,max}<10^{2} GeV^{2};  Q^{2}_{p,max}<10^{2} GeV^{2}; #color[2]{(higgsinos) cepgen}")
-
+                        "Q^{2}_{e,max}<10^{2} GeV^{2};  Q^{2}_{p,max}<10^{2} GeV^{2}; #color[2]{(#tau^{+}#tau^{-}) cepgen}")
+    
 
     # Save the plot for Yll as a PDF file
-    canvas_Yll.SaveAs("Yll_Comparison_higgsinos.pdf")
-
-#    canvas_Yll.SetLogy()
-#    canvas_Yll.SetLogx()
+    canvas_Yll.SaveAs("Yll_Comparison_tautau_100_100_10.pdf")
 
     # Draw the canvas
     canvas_Yll.Draw()
-
+    
 ##################################################################
-
+    
 
     # Calculate area under the curve for each distribution
     area_Yll_E = hist_Yll_E.Integral() / bin_width_correction
     area_Yll_QE = hist_Yll_QE.Integral() / bin_width_correction
 
-    print("Area under the curve for Yll (elastic (cepgen)):", area_Yll_E)
-    print("Area under the curve for Yll (quasi-elastic (cepgen)):", area_Yll_QE)
+    print("Area under the curve for Yll (elastic):", area_Yll_E)
+    print("Area under the curve for Yll (quasi-elastic):", area_Yll_QE)
 
 
     # Calculate area under the curve for Matplotlib data
@@ -121,14 +118,14 @@ def compare_distributions(filename):
         area_Yll_MPL_elastic += (Yll_MPL[i + 1] - Yll_MPL[i]) * (elas[3][i + 1] + elas[3][i]) / 2
         area_Yll_MPL_inelastic += (Yll_MPL[i + 1] - Yll_MPL[i]) * (inel[3][i + 1] + inel[3][i]) / 2
 
-    print("Area under the curve for Yll (elastic (EPA)):", area_Yll_MPL_elastic)
-    print("Area under the curve for Yll (inelastic (EPA)):", area_Yll_MPL_inelastic)
+    print("Area under the curve for Yll (Matplotlib elastic):", area_Yll_MPL_elastic)
+    print("Area under the curve for Yll (Matplotlib inelastic):", area_Yll_MPL_inelastic)
 
     # Cleanup
     file.Close()
 
 # Call the function with the filename of the ROOT file
-compare_distributions("LHeC_higgsino_Compare.root")
+compare_distributions("LHeC_Compare.root")
 
 ##################################################################
 
