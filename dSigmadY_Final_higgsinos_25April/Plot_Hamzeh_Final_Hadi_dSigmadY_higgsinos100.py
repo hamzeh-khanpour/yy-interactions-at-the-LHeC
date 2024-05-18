@@ -59,8 +59,8 @@ plt.xlabel("$Y_{higgsinos}$", fontdict={'family': 'serif', 'color': 'black', 'si
 plt.ylabel("$d\sigma/dY_{higgsinos}$ [pb]", fontdict={'family': 'serif', 'color': 'black', 'size': 24})
 
 # Save the plot
-plt.savefig("dSigmadY_higgsinos100GeV_25April.pdf")
-plt.savefig("dSigmadY_higgsinos100GeV_25April.jpg")
+plt.savefig("dSigmadY_higgsinos100GeV_25April_m100GeV.pdf")
+plt.savefig("dSigmadY_higgsinos100GeV_25April_m100GeV.jpg")
 
 # Show the plot
 plt.show()
