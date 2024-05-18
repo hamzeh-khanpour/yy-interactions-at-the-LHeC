@@ -152,7 +152,7 @@ def flux_y_q2_inel_mN2(lnq2, yp, mMin2, nMmax, qmin2v, pout=False):
 
 def cs_higgsionos_w_condition_Hamzeh(wvalue):
 
-    mhiggsionos = 100.0
+    mhiggsionos = 200.0
 
     hbarc2 =  0.389
     alpha2 = (1.0/137.0)*(1.0/137.0)
@@ -241,7 +241,7 @@ def flux_el_yy_atW(Y, eEbeam, pEbeam, qmax2e, qmax2p):
     s_cms = 4.0 * eEbeam * pEbeam
     sqrt_cms = math.sqrt(4.0 * eEbeam * pEbeam)
 
-    w0 = 200.000001
+    w0 = 400.000001
 
 #    ymin = w * w / s_cms
 
@@ -262,7 +262,7 @@ def flux_inel_yy_atW(Y, eEbeam, pEbeam, qmax2e, mNmax, qmax2p):
     s_cms = 4.0 * eEbeam * pEbeam
     sqrt_cms = math.sqrt(4.0 * eEbeam * pEbeam)
 
-    w0 = 200.000001
+    w0 = 400.000001
 
 #    ymin = w * w / s_cms
 
