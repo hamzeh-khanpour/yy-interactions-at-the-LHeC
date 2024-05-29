@@ -18,7 +18,7 @@ TFile *F;
     TH1 *histMassdilepton =  new TH1F("M_{inv}", "", 500, 0.0, 500.0);
     TH1 *histPtdilepton   =  new TH1F("Pt", "",      50, 0.0, 10.0);
 
-    TH1 *histq2           =  new TH1F("q2", "",      100, 0.0, 10000.0);
+    TH1 *histq2           =  new TH1F("q2", "",      100, 0.0, 100000.0);
 
     TH1 *histq2prime      =  new TH1F("q2prime", "", 50, 0.0, 100.0);
 
@@ -129,10 +129,10 @@ void lpair_tau_tau::Loop()
       Float_t  integrated_luminosity = 1.0; // fb^{-1}
 
 //      Float_t  integrated_cross_section_value_BH  = 8.96770125e-04;   //   pb  q2 = 10 GeV2
-//      Float_t  integrated_cross_section_value_BH  = 1.01516903e-03;   //   pb  q2 = 10 GeV2
-//      Float_t  integrated_cross_section_value_BH  = 1.13255790e-03;   //   pb  q2 = 10 GeV2
-      Float_t  integrated_cross_section_value_BH  = 48.8223395;   //   pb  q2 = 10 GeV2
-//      Float_t  integrated_cross_section_value_BH  = 48.8223395;   //   pb  q2 = 10 GeV2
+//      Float_t  integrated_cross_section_value_BH  = 1.01516903e-03;   //   pb  q2 = 100 GeV2
+//      Float_t  integrated_cross_section_value_BH  = 1.13255790e-03;   //   pb  q2 = 1000 GeV2
+//      Float_t  integrated_cross_section_value_BH  = 1.23467125e-03;   //   pb  q2 = 10000 GeV2
+      Float_t  integrated_cross_section_value_BH  = 1.27052701e-03;   //   pb  q2 = 100000 GeV2
 
 
       Float_t  event_weight_BH  = integrated_cross_section_value_BH  * integrated_luminosity / nentries;
@@ -310,7 +310,7 @@ TLatex *t2a = new TLatex(0.5,0.9,"#bf{LHeC}");
                 t2a->SetTextAlign(20);
 
 
-TLatex *t3a = new TLatex(0.40,0.80,"Q^{2}_{e,max}<10^{4} GeV^{2};  Q^{2}_{p,max}<10^{4} GeV^{2}");
+TLatex *t3a = new TLatex(0.40,0.80,"Q^{2}_{e,max}<10^{5} GeV^{2};  Q^{2}_{p,max}<10^{5} GeV^{2}");
                 t3a->SetNDC();
                 t3a->SetTextFont(42);
                 t3a->SetTextSize(0.04);
@@ -550,6 +550,9 @@ histThetall->GetYaxis()->SetTitleFont(22);
 
 
 
+
+
+
 // =======================================================================
 
 
@@ -587,7 +590,7 @@ histq2->GetYaxis()->SetTitleFont(22);
  c8->SetLogy(1);
 
 
-c8->SaveAs("q2e_LHeC_10000GeV2.pdf");
+c8->SaveAs("q2e_LHeC_100000GeV2.pdf");
 //c8->SaveAs("q2e_LHeC.C");
 //c8->SaveAs("q2e_LHeC.eps");
 //c8->SaveAs("q2e_LHeC.root");
