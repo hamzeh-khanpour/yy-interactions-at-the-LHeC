@@ -18,7 +18,7 @@ TFile *F;
     TH1 *histMassdilepton =  new TH1F("M_{inv}", "", 500, 0.0, 500.0);
     TH1 *histPtdilepton   =  new TH1F("Pt", "",      50, 0.0, 10.0);
 
-    TH1 *histq2           =  new TH1F("q2", "",      1000, 0.0, 1000.0);
+    TH1 *histq2           =  new TH1F("q2", "",      100, 0.0, 100.0);
 
     TH1 *histq2prime      =  new TH1F("q2prime", "", 50, 0.0, 100.0);
 
@@ -128,8 +128,8 @@ void lpair_tau_tau::Loop()
       Float_t  integrated_luminosity = 1.0; // fb^{-1}
 
 //      Float_t  integrated_cross_section_value_BH  = 4.55272144e+01;   //   pb  q2 = 10 GeV^2
-//      Float_t  integrated_cross_section_value_BH  = 4.88223395e+01;   //   pb  q2 = 100 GeV^2
-      Float_t  integrated_cross_section_value_BH  = 4.96239207e+01;   //   pb  q2 = 1000 GeV^2
+      Float_t  integrated_cross_section_value_BH  = 4.88223395e+01;   //   pb  q2 = 100 GeV^2
+//      Float_t  integrated_cross_section_value_BH  = 4.96239207e+01;   //   pb  q2 = 1000 GeV^2
 //      Float_t  integrated_cross_section_value_BH  = 4.95740596e+01;   //   pb  q2 = 10000 GeV^2
 //      Float_t  integrated_cross_section_value_BH  = 4.96574771e+01;   //   pb  q2 = 100000 GeV^2
 
@@ -308,7 +308,7 @@ TLatex *t2a = new TLatex(0.5,0.9,"#bf{LHeC}");
                 t2a->SetTextAlign(20);
 
 
-TLatex *t3a = new TLatex(0.40,0.80,"Q^{2}_{e,max}<10^{3} GeV^{2};  Q^{2}_{p,max}<10^{3} GeV^{2}");
+TLatex *t3a = new TLatex(0.40,0.80,"Q^{2}_{e,max}<10^{2} GeV^{2};  Q^{2}_{p,max}<10^{2} GeV^{2}");
                 t3a->SetNDC();
                 t3a->SetTextFont(42);
                 t3a->SetTextSize(0.04);
@@ -545,6 +545,11 @@ histThetall->GetYaxis()->SetTitleFont(22);
 
 
 
+
+
+
+
+
 // =======================================================================
 
 
@@ -566,7 +571,26 @@ histq2->GetYaxis()->SetTitleFont(22);
 
  cout<<"Integral(q2e) ="<<histq2->Integral() / bin_width_correction <<endl;
 
-   // histq2->SetFillStyle(3001);
+
+
+
+// Get the bin numbers for the range 100 to 1000
+    int bin_start = histq2->FindBin(100);
+    int bin_end   = histq2->FindBin(1000);
+
+// Perform the integration over the specified bin range
+    double integral = histq2->Integral(bin_start, bin_end);
+
+// Apply the bin width correction if necessary
+    integral /= bin_width_correction;
+
+// Output the result
+std::cout << "Integral(100 GeV^2 < q2 < 1000 GeV^2) = " << integral << std::endl;
+
+
+
+
+// histq2->SetFillStyle(3001);
 //    histq2->SetFillColor(kGreen+1);
     histq2->SetLineWidth(3);
     histq2->SetLineColor(kBlue+1);
@@ -582,11 +606,13 @@ histq2->GetYaxis()->SetTitleFont(22);
  c8->SetLogy(1);
 
 
-c8->SaveAs("q2e_LHeC_10GeV2.pdf");
+c8->SaveAs("q2e_LHeC_100GeV2.pdf");
 //c8->SaveAs("q2e_LHeC.C");
 //c8->SaveAs("q2e_LHeC.eps");
 //c8->SaveAs("q2e_LHeC.root");
 //c8->SaveAs("q2e_LHeC.jpg");
+
+
 
 
 
