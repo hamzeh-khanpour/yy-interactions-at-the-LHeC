@@ -245,7 +245,7 @@ def compare_distributions(filename):
     hist_q2prime_E.SetLineColor(ROOT.kBlue)
     hist_q2prime_E.SetMinimum(1e-6)  # Set minimum y-axis value
     hist_q2prime_E.SetMaximum(1e-4)  # Set maximum y-axis value
-    hist_q2prime_E.GetYaxis().SetTitle("d#sigma/dq^{2}_{p} [pb/GeV]")  # Y-axis title
+    hist_q2prime_E.GetYaxis().SetTitle("d#sigma/dq^{2}_{p} [pb/GeV^{2}]")  # Y-axis title
     hist_q2prime_E.GetXaxis().SetTitle("q^{2}_{p} [GeV^{2}]")  # X-axis title
     hist_q2prime_E.Draw()
     hist_q2prime_QE.SetLineColor(ROOT.kRed)
@@ -291,7 +291,7 @@ def compare_distributions(filename):
     hist_q2_E.SetLineColor(ROOT.kBlue)
     hist_q2_E.SetMinimum(1e-6)  # Set minimum y-axis value
     hist_q2_E.SetMaximum(1e-3)  # Set maximum y-axis value
-    hist_q2_E.GetYaxis().SetTitle("d#sigma/dq^{2}_{e} [pb/GeV]")
+    hist_q2_E.GetYaxis().SetTitle("d#sigma/dq^{2}_{e} [pb/GeV^{2}]")
     hist_q2_E.GetXaxis().SetTitle("q^{2}_{e} [GeV^{2}]")
     hist_q2_E.Draw()
     hist_q2_QE.SetLineColor(ROOT.kRed)

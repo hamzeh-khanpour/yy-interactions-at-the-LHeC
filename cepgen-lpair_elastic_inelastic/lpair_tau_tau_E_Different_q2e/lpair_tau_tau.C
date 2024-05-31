@@ -126,7 +126,7 @@ void lpair_tau_tau::Loop()
 
       Float_t  integrated_luminosity = 1.0; // fb^{-1}
 
-//      Float_t  integrated_cross_section_value_BH  = 4.55272144e+01;   //   pb    q2 = 10 GeV^2
+//      Float_t  integrated_cross_section_value_BH  = 4.55272144e+01;   //   pb  q2 = 10 GeV^2
 //      Float_t  integrated_cross_section_value_BH  = 4.88223395e+01;   //   pb  q2 = 100 GeV^2
 //      Float_t  integrated_cross_section_value_BH  = 4.96239207e+01;   //   pb  q2 = 1000 GeV^2
 //      Float_t  integrated_cross_section_value_BH  = 4.95740596e+01;   //   pb  q2 = 10000 GeV^2
@@ -553,7 +553,7 @@ histq2->GetXaxis()->SetTitle("q^{2}_{e} [GeV^{2}]");
 //histq2->GetXaxis()->SetTitleOffset(1.25);
 histq2->GetXaxis()->SetLabelFont(22);
 histq2->GetXaxis()->SetTitleFont(22);
-histq2->GetYaxis()->SetTitle("d#sigma/dq^{2}_{e} [pb/GeV]");
+histq2->GetYaxis()->SetTitle("d#sigma/dq^{2}_{e} [pb/GeV^{2}]");
 histq2->GetYaxis()->SetTitleOffset(1.40);
 histq2->GetYaxis()->SetLabelFont(22);
 histq2->GetYaxis()->SetTitleFont(22);

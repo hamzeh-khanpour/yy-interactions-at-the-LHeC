@@ -564,7 +564,7 @@ histq2->GetXaxis()->SetTitle("q^{2}_{e} [GeV^{2}]");
 //histq2->GetXaxis()->SetTitleOffset(1.25);
 histq2->GetXaxis()->SetLabelFont(22);
 histq2->GetXaxis()->SetTitleFont(22);
-histq2->GetYaxis()->SetTitle("d#sigma/dq^{2}_{e} [pb/GeV]");
+histq2->GetYaxis()->SetTitle("d#sigma/dq^{2}_{e} [pb/GeV^{2}]");
 histq2->GetYaxis()->SetTitleOffset(1.40);
 histq2->GetYaxis()->SetLabelFont(22);
 histq2->GetYaxis()->SetTitleFont(22);
