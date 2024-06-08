@@ -12,21 +12,15 @@ void CalculateAndPlot() {
     // Set the bin width correction
     double binWidthCorrection = 1.0;
 
+    // Integrated luminosity in fb^{-1}
+    Float_t integrated_luminosity = 1.0; // fb^{-1}
 
-      Float_t  integrated_luminosity = 1.0; // fb^{-1}
-
-//      Float_t  integrated_cross_section_value_BH  = 4.55272144e+01;   //   pb  q2 = 10 GeV^2
-//      Float_t  integrated_cross_section_value_BH  = 4.88223395e+01;   //   pb  q2 = 100 GeV^2
-      Float_t  integrated_cross_section_value_BH  = 4.96239207e+01;   //   pb  q2 = 1000 GeV^2
-//      Float_t  integrated_cross_section_value_BH  = 4.95740596e+01;   //   pb  q2 = 10000 GeV^2
-//      Float_t  integrated_cross_section_value_BH  = 4.96574771e+01;   //   pb  q2 = 100000 GeV^2
-
-
-
+    // Integrated cross-section value in pb
+    Float_t integrated_cross_section_value_BH = 4.96239207e+01; // pb
 
     // Open the input file
     TFile *inputFile = new TFile("LHeC_E_1000_1000.root", "READ");
-    if (!inputFile) {
+    if (!inputFile || !inputFile->IsOpen()) {
         std::cerr << "Error: Unable to open input file!" << std::endl;
         return;
     }
@@ -35,6 +29,7 @@ void CalculateAndPlot() {
     TTree *tree = (TTree*)inputFile->Get("LHeC_E");
     if (!tree) {
         std::cerr << "Error: Unable to retrieve TTree from input file!" << std::endl;
+        inputFile->Close();
         return;
     }
 
@@ -58,61 +53,63 @@ void CalculateAndPlot() {
     TH1F *histq2 = new TH1F("histq2", "", nBinsq2, minq2, maxq2);
     TH2F *hist2D = new TH2F("hist2D", "", nBinsq2, minq2, maxq2, nBinsMll, minMll, maxMll);
 
+    // Create histograms to store the single differential cross-sections
+    TH1F *histSingleMll = new TH1F("histSingleMll", "", nBinsMll, minMll, maxMll);
+    TH1F *histSingleq2 = new TH1F("histSingleq2", "", nBinsq2, minq2, maxq2);
+
     // Loop over the entries in the TTree
     Long64_t nEntries = tree->GetEntries();
     for (Long64_t i = 0; i < nEntries; ++i) {
         tree->GetEntry(i);
 
-
-      Float_t  event_weight_BH  = integrated_cross_section_value_BH  * integrated_luminosity / nEntries;
-
-
+        // Calculate the event weight
+        Float_t event_weight_BH = integrated_cross_section_value_BH * integrated_luminosity / nEntries;
 
         // Fill the histograms with the calculated double differential cross-section
-        histMll->Fill(Mll, binWidthCorrection*event_weight_BH);
-        histq2->Fill(q2, binWidthCorrection*event_weight_BH);
-        hist2D->Fill(q2, Mll, binWidthCorrection);
+        histMll->Fill(Mll, binWidthCorrection * event_weight_BH);
+        histq2->Fill(q2, binWidthCorrection * event_weight_BH);
+        hist2D->Fill(q2, Mll, binWidthCorrection * event_weight_BH);
+
+        // Fill the histograms with the calculated single differential cross-sections
+        histSingleMll->Fill(Mll, event_weight_BH);
+        histSingleq2->Fill(q2, event_weight_BH);
     }
 
     // Save the histograms to a file
     TFile *outputFile = new TFile("double_differential_cross_section.root", "RECREATE");
-    if (!outputFile) {
+    if (!outputFile || !outputFile->IsOpen()) {
         std::cerr << "Error: Unable to create output file!" << std::endl;
         return;
     }
     histMll->Write();
     histq2->Write();
     hist2D->Write();
+    histSingleMll->Write();
+    histSingleq2->Write();
     outputFile->Close();
 
     // Plot the double differential cross-section vs. Mll
     TCanvas *canvasMll = new TCanvas("canvasMll", "Double Differential Cross-Section vs M_{#tau^{+}#tau^{-}}", 800, 600);
     histMll->GetXaxis()->SetTitle("M_{#tau^{+}#tau^{-}} [GeV]");
     histMll->GetYaxis()->SetTitle("d^{2}#sigma/ dq^{2}_{e} dM_{#tau^{+}#tau^{-}} [pb/GeV]");
-    histMll->GetYaxis()->SetMoreLogLabels(); // Set logarithmic scale for y-axis
     histMll->Draw("hist");
     canvasMll->SaveAs("double_differential_cross_section_vs_Mll.png");
 
     // Calculate area under the Mll histogram
     double areaMll = histMll->Integral();
-
-    cout << " areaMll = "  <<  areaMll  << endl;
-
+    std::cout << "areaMll = " << areaMll << " pb" << std::endl;
 
     // Plot the double differential cross-section vs. q2
     TCanvas *canvasq2 = new TCanvas("canvasq2", "Double Differential Cross-Section vs q^{2}_{e}", 800, 600);
     histq2->GetXaxis()->SetTitle("q^{2}_{e} [GeV^{2}]");
     histq2->GetYaxis()->SetTitle("d^{2}#sigma/ dq^{2}_{e} dM_{#tau^{+}#tau^{-}} [pb/GeV^{2}]");
-    histq2->GetYaxis()->SetMoreLogLabels(); // Set logarithmic scale for y-axis
+    histq2->GetXaxis()->SetRangeUser(0, 1000); // Explicitly set the range
     histq2->Draw("hist");
     canvasq2->SaveAs("double_differential_cross_section_vs_q2.png");
 
-
     // Calculate area under the q2 histogram
     double areaq2 = histq2->Integral();
-
-    cout << " areaq2 = "  <<  areaq2  << endl;
-
+    std::cout << "areaq2 = " << areaq2 << " pb" << std::endl;
 
     // Plot the 2D histogram
     TCanvas *canvas2D = new TCanvas("canvas2D", "Double Differential Cross-Section 2D", 800, 600);
@@ -124,19 +121,46 @@ void CalculateAndPlot() {
 
     // Calculate area under the 2D histogram
     double area2D = hist2D->Integral();
+    std::cout << "area2D = " << area2D << " pb" << std::endl;
 
-    cout << " area2D = "  <<  area2D  << endl;
 
+    // Plot the single differential cross-section vs. Mll
+    TCanvas *canvasSingleMll = new TCanvas("canvasSingleMll", "Single Differential Cross-Section vs M_{#tau^{+}#tau^{-}}", 800, 600);
+    histSingleMll->GetXaxis()->SetTitle("M_{#tau^{+}#tau^{-}} [GeV]");
+    histSingleMll->GetYaxis()->SetTitle("d#sigma/ dM_{#tau^{+}#tau^{-}} [pb/GeV]");
+    histSingleMll->Draw("hist");
+    canvasSingleMll->SaveAs("single_differential_cross_section_vs_Mll.png");
+
+    // Calculate area under the single differential Mll histogram
+    double areaSingleMll = histSingleMll->Integral();
+    std::cout << "areaSingleMll = " << areaSingleMll << " pb" << std::endl;
+
+
+    // Plot the single differential cross-section vs. q2
+    TCanvas *canvasSingleq2 = new TCanvas("canvasSingleq2", "Single Differential Cross-Section vs q^{2}_{e}", 800, 600);
+    histSingleq2->GetXaxis()->SetTitle("q^{2}_{e} [GeV^{2}]");
+    histSingleq2->GetYaxis()->SetTitle("d#sigma/ dq^{2}_{e} [pb/GeV^{2}]");
+    histSingleq2->GetXaxis()->SetRangeUser(0, 1000); // Explicitly set the range
+    histSingleq2->Draw("hist");
+    canvasSingleq2->SaveAs("single_differential_cross_section_vs_q2.png");
+
+    // Calculate area under the single differential q2 histogram
+    double areaSingleq2 = histSingleq2->Integral();
+    std::cout << "areaSingleq2 = " << areaSingleq2 << " pb" << std::endl;
 
     // Clean up
     delete histMll;
     delete histq2;
     delete hist2D;
+    delete histSingleMll;
+    delete histSingleq2;
     delete inputFile;
     delete outputFile;
     delete canvasMll;
     delete canvasq2;
     delete canvas2D;
+    delete canvasSingleMll;
+    delete canvasSingleq2;
 }
 
 int main() {
