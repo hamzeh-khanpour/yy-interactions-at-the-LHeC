@@ -5,6 +5,8 @@
 #include <TH2.h>
 #include <TCanvas.h>
 #include <TStyle.h>
+#include <TLegend.h>
+#include <TLatex.h>
 
 void CalculateAndPlot() {
     gStyle->SetOptStat(0);
@@ -88,11 +90,43 @@ void CalculateAndPlot() {
     histSingleq2->Write();
     outputFile->Close();
 
+    // Define legend and text
+    TLegend *leg = new TLegend(0.70, 0.70, 0.90, 0.85);
+    leg->SetBorderSize(0);
+    leg->SetTextSize(0.04);
+    leg->SetTextFont(12);
+    leg->SetFillStyle(0);
+
+    TLatex *t2a = new TLatex(0.5, 0.9, "#bf{LHeC}");
+    t2a->SetNDC();
+    t2a->SetTextFont(42);
+    t2a->SetTextSize(0.04);
+    t2a->SetTextAlign(20);
+
+    TLatex *t3a = new TLatex(0.40, 0.80, "Q^{2}_{e,max}<10^{3} GeV^{2};  Q^{2}_{p,max}<10^{3} GeV^{2}; #color[4]{W > 10 GeV}");
+    t3a->SetNDC();
+    t3a->SetTextFont(42);
+    t3a->SetTextSize(0.04);
+    t3a->SetTextAlign(20);
+    t3a->SetTextColor(2);
+
     // Plot the double differential cross-section vs. Mll
-    TCanvas *canvasMll = new TCanvas("canvasMll", "Double Differential Cross-Section vs M_{#tau^{+}#tau^{-}}", 800, 600);
+    TCanvas *canvasMll = new TCanvas("canvasMll", "Double Differential Cross-Section vs M_{#tau^{+}#tau^{-}}", 900, 700);
     histMll->GetXaxis()->SetTitle("M_{#tau^{+}#tau^{-}} [GeV]");
+    histMll->GetXaxis()->SetLabelFont(22);
+    histMll->GetXaxis()->SetTitleFont(22);
     histMll->GetYaxis()->SetTitle("d^{2}#sigma/ dq^{2}_{e} dM_{#tau^{+}#tau^{-}} [pb/GeV]");
-    histMll->Draw("hist");
+    histMll->GetYaxis()->SetLabelFont(22);
+    histMll->GetYaxis()->SetTitleFont(22);
+    histMll->SetLineWidth(3.0);
+    histMll->SetLineColor(kBlue + 1);
+    histMll->Draw("HIST E");
+    canvasMll->SetLogy(1);
+    canvasMll->SetLogx(0);
+    leg->AddEntry(histMll, "Elastic (#tau^{+}#tau^{-}) cepgen", "L")->SetTextColor(kBlue + 1);
+    leg->Draw("same");
+    t2a->Draw("same");
+    t3a->Draw("same");
     canvasMll->SaveAs("double_differential_cross_section_vs_Mll.png");
 
     // Calculate area under the Mll histogram
@@ -100,11 +134,21 @@ void CalculateAndPlot() {
     std::cout << "areaMll = " << areaMll << " pb" << std::endl;
 
     // Plot the double differential cross-section vs. q2
-    TCanvas *canvasq2 = new TCanvas("canvasq2", "Double Differential Cross-Section vs q^{2}_{e}", 800, 600);
+    TCanvas *canvasq2 = new TCanvas("canvasq2", "Double Differential Cross-Section vs q^{2}_{e}", 900, 700);
     histq2->GetXaxis()->SetTitle("q^{2}_{e} [GeV^{2}]");
+    histq2->GetXaxis()->SetLabelFont(22);
+    histq2->GetXaxis()->SetTitleFont(22);
     histq2->GetYaxis()->SetTitle("d^{2}#sigma/ dq^{2}_{e} dM_{#tau^{+}#tau^{-}} [pb/GeV^{2}]");
-    histq2->GetXaxis()->SetRangeUser(0, 1000); // Explicitly set the range
-    histq2->Draw("hist");
+    histq2->GetYaxis()->SetLabelFont(22);
+    histq2->GetYaxis()->SetTitleFont(22);
+    histq2->SetLineWidth(3.0);
+    histq2->SetLineColor(kBlue + 1);
+    histq2->Draw("HIST E");
+    canvasq2->SetLogy(1);
+    canvasq2->SetLogx(0);
+    leg->Draw("same");
+    t2a->Draw("same");
+    t3a->Draw("same");
     canvasq2->SaveAs("double_differential_cross_section_vs_q2.png");
 
     // Calculate area under the q2 histogram
@@ -112,63 +156,39 @@ void CalculateAndPlot() {
     std::cout << "areaq2 = " << areaq2 << " pb" << std::endl;
 
     // Plot the 2D histogram
-    TCanvas *canvas2D = new TCanvas("canvas2D", "Double Differential Cross-Section 2D", 800, 600);
+    TCanvas *canvas2D = new TCanvas("canvas2D", "Double Differential Cross-Section vs q^{2}_{e} and M_{#tau^{+}#tau^{-}}", 900, 700);
     hist2D->GetXaxis()->SetTitle("q^{2}_{e} [GeV^{2}]");
+    hist2D->GetXaxis()->SetLabelFont(22);
+    hist2D->GetXaxis()->SetTitleFont(22);
     hist2D->GetYaxis()->SetTitle("M_{#tau^{+}#tau^{-}} [GeV]");
+    hist2D->GetYaxis()->SetLabelFont(22);
+    hist2D->GetYaxis()->SetTitleFont(22);
     hist2D->GetZaxis()->SetTitle("d^{2}#sigma/ dq^{2}_{e} dM_{#tau^{+}#tau^{-}} [pb/GeV^{2}]");
-    hist2D->Draw("colz");
+    hist2D->GetZaxis()->SetLabelFont(22);
+    hist2D->GetZaxis()->SetTitleFont(22);
+    hist2D->Draw("COLZ");
+    canvas2D->SetLogy(1);
+    canvas2D->SetLogx(0);
+    t2a->Draw("same");
+    t3a->Draw("same");
     canvas2D->SaveAs("double_differential_cross_section_2D.png");
 
     // Calculate area under the 2D histogram
     double area2D = hist2D->Integral();
     std::cout << "area2D = " << area2D << " pb" << std::endl;
 
-
-    // Plot the single differential cross-section vs. Mll
-    TCanvas *canvasSingleMll = new TCanvas("canvasSingleMll", "Single Differential Cross-Section vs M_{#tau^{+}#tau^{-}}", 800, 600);
-    histSingleMll->GetXaxis()->SetTitle("M_{#tau^{+}#tau^{-}} [GeV]");
-    histSingleMll->GetYaxis()->SetTitle("d#sigma/ dM_{#tau^{+}#tau^{-}} [pb/GeV]");
-    histSingleMll->Draw("hist");
-    canvasSingleMll->SaveAs("single_differential_cross_section_vs_Mll.png");
-
-    // Calculate area under the single differential Mll histogram
-    double areaSingleMll = histSingleMll->Integral();
-    std::cout << "areaSingleMll = " << areaSingleMll << " pb" << std::endl;
-
-
-    // Plot the single differential cross-section vs. q2
-    TCanvas *canvasSingleq2 = new TCanvas("canvasSingleq2", "Single Differential Cross-Section vs q^{2}_{e}", 800, 600);
-    histSingleq2->GetXaxis()->SetTitle("q^{2}_{e} [GeV^{2}]");
-    histSingleq2->GetYaxis()->SetTitle("d#sigma/ dq^{2}_{e} [pb/GeV^{2}]");
-    histSingleq2->GetXaxis()->SetRangeUser(0, 1000); // Explicitly set the range
-    histSingleq2->Draw("hist");
-    canvasSingleq2->SaveAs("single_differential_cross_section_vs_q2.png");
-
-    // Calculate area under the single differential q2 histogram
-    double areaSingleq2 = histSingleq2->Integral();
-    std::cout << "areaSingleq2 = " << areaSingleq2 << " pb" << std::endl;
-
-    // Clean up
+    // Cleanup
+    delete leg;
+    delete t2a;
+    delete t3a;
+    delete canvasMll;
+    delete canvasq2;
+    delete canvas2D;
     delete histMll;
     delete histq2;
     delete hist2D;
     delete histSingleMll;
     delete histSingleq2;
+    inputFile->Close();
     delete inputFile;
-    delete outputFile;
-    delete canvasMll;
-    delete canvasq2;
-    delete canvas2D;
-    delete canvasSingleMll;
-    delete canvasSingleq2;
-}
-
-int main() {
-    // Set the global style
-    gStyle->SetOptStat(1);
-
-    // Calculate and plot the double differential cross-section
-    CalculateAndPlot();
-
-    return 0;
 }
