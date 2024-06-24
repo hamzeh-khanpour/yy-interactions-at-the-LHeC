@@ -1,13 +1,9 @@
-
-
 import ROOT
 import numpy as np
 import matplotlib.pyplot as plt
 
-
 # Import data from the custom module
 from dSigmadY_10_100_100_higgsinos_MN100 import wvalues, elas, inel
-
 
 # Matplotlib configuration for publication-quality plots
 plt.rcParams["axes.linewidth"] = 1.8
@@ -22,12 +18,10 @@ plt.rcParams["ytick.labelsize"] = 15
 plt.rcParams["legend.fontsize"] = 15
 plt.rcParams['legend.title_fontsize'] = 'x-large'
 
-
 # Constants
 integrated_cross_section_value_E = 1.01516903e-03  # pb
 integrated_cross_section_value_QE = 9.35686193e-04  # pb
 bin_width_correction = 10.0
-
 
 def compare_distributions(filename):
     """
@@ -50,18 +44,15 @@ def compare_distributions(filename):
         file.Close()
         return
 
-
     # Create arrays to hold Yll values
     Yll_E = []
     Yll_QE = []
-
 
     # Fill arrays with Yll values
     for event in tree_E:
         Yll_E.append(event.Yll)
     for event in tree_QE:
         Yll_QE.append(event.Yll)
-
 
     # Close the ROOT file
     file.Close()
@@ -73,21 +64,15 @@ def compare_distributions(filename):
     bin_centers = 0.5 * (bins[:-1] + bins[1:])
     DX = abs(bins[:-1] - bins[1:])
 
-
-
     # Load Yll data from Matplotlib
     Yll_MPL = wvalues[3][:303]
     elas_MPL = elas[3][:303]
     inel_MPL = inel[3][:303]
 
-
-
     # Plotting with Matplotlib
     fig, ax = plt.subplots(figsize=(9.0, 8.0))
     ax.set_xlim(0.0, 5.0)
     ax.set_ylim(1.e-6, 1.e-3)
-
-
 
     plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
 
@@ -95,25 +80,19 @@ def compare_distributions(filename):
     ax.plot(Yll_MPL, elas_MPL, linestyle='solid', linewidth=2, color='blue', label='elastic (EPA)')
     ax.plot(Yll_MPL, inel_MPL, linestyle='dashed', linewidth=2, color='red', label='inelastic (EPA)')
 
-    # Plot histograms
-    ax.plot(bin_centers, hist_Yll_E, marker='.', linestyle='None', linewidth=2, color='magenta', label='elastic (cepgen)')
-    ax.plot(bin_centers, hist_Yll_QE, marker='.', linestyle='None', linewidth=2, color='green', label='inelastic (cepgen)')
-
-
+    # Plot histograms with histtype='step'
+    ax.hist(Yll_E, bins=bins, weights=[bin_width_correction * integrated_cross_section_value_E / len(Yll_E)] * len(Yll_E), histtype='step', linewidth=2, color='magenta', label='elastic (cepgen)')
+    ax.hist(Yll_QE, bins=bins, weights=[bin_width_correction * integrated_cross_section_value_QE / len(Yll_QE)] * len(Yll_QE), histtype='step', linewidth=2, color='green', label='inelastic (cepgen)')
 
     # Set labels and title
     font2 = {'family':'serif', 'color':'black', 'size':24}
     ax.set_xlabel(r'$Y_{higgsinos}$', fontdict=font2)
     ax.set_ylabel(r'$d\sigma/dY_{higgsinos} \, [pb]$', fontdict=font2)
 
-
-
     # Add legend
     inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
     title_label = ('$Q^2_e<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$').format(10, np.log10(inel[1]))
     ax.legend(title=title_label, loc='upper right', fontsize=15)
-
-
 
     # Add text annotations
     info_text_1 = r"LHeC ($E_{e}=50$ GeV; $E_{p}=7000$ GeV)"
@@ -123,13 +102,9 @@ def compare_distributions(filename):
     info_text_3 = r"$M_{higgsinos}$ = 100 GeV"
     ax.text(0.05, 0.78, info_text_3, transform=ax.transAxes, fontsize=15, verticalalignment='top', bbox=dict(facecolor='white', alpha=0.0))
 
-
-# $Q^2_e<10^2$ GeV$^2$;
-
     # Save the plot as a PDF and JPG file
-    plt.savefig("Yll_Comparison_higgsinos_DIS2024_New.pdf")
-#    plt.savefig("Yll_Comparison_higgsinos_DIS2024_New.jpg")
-
+    plt.savefig("Yll_Comparison_higgsinos_DIS2024_New_New.pdf")
+#    plt.savefig("Yll_Comparison_higgsinos_DIS2024_New_New.jpg")
 
     # Show the plot
     plt.show()
@@ -140,15 +115,10 @@ def compare_distributions(filename):
     area_Yll_MPL_elastic = np.trapz(elas_MPL, Yll_MPL)
     area_Yll_MPL_inelastic = np.trapz(inel_MPL, Yll_MPL)
 
-
-
     print("Area under the curve for Yll (elastic (cepgen)):", area_Yll_E)
     print("Area under the curve for Yll (inelastic (cepgen)):", area_Yll_QE)
     print("Area under the curve for Yll (elastic (EPA)):", area_Yll_MPL_elastic)
     print("Area under the curve for Yll (inelastic (EPA)):", area_Yll_MPL_inelastic)
 
-
 # Call the function with the filename of the ROOT file
 compare_distributions("LHeC_higgsino_Compare.root")
-
-

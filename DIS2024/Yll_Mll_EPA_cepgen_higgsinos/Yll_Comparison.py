@@ -59,7 +59,7 @@ def compare_distributions(filename):
 # Plot histograms and graphs for Yll
     canvas_Yll = ROOT.TCanvas("canvas_Yll", "Yll Comparison", 900, 800)
     hist_Yll_E.SetLineColor(ROOT.kMagenta)
-    hist_Yll_E.GetYaxis().SetTitle("d#sigma/dY_{higgsinos} [pb/GeV]")  # Y-axis title
+    hist_Yll_E.GetYaxis().SetTitle("d#sigma/dY_{higgsinos} [pb]")  # Y-axis title
     hist_Yll_E.GetXaxis().SetTitle("Y_{higgsinos}")  # X-axis title
     hist_Yll_E.SetMinimum(0)  # Set y-axis minimum to 0
     hist_Yll_E.SetMaximum(0.001)  # Set y-axis maximum to 0.001
