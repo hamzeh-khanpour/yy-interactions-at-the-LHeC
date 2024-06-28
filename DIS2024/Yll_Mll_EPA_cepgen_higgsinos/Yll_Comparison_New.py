@@ -120,7 +120,7 @@ def compare_distributions(filename):
     ax.text(0.05, 0.95, info_text_1, transform=ax.transAxes, fontsize=15, verticalalignment='top', bbox=dict(facecolor='white', alpha=0.0))
     info_text_2 = r"$Q^2_p<10^2$ GeV$^2$; $M_N<10$ GeV"
     ax.text(0.05, 0.88, info_text_2, transform=ax.transAxes, fontsize=15, verticalalignment='top', bbox=dict(facecolor='white', alpha=0.0))
-    info_text_3 = r"$M_{higgsinos}$ = 100 GeV"
+    info_text_3 = r"$M_{higgsino}$ = 100 GeV"
     ax.text(0.05, 0.78, info_text_3, transform=ax.transAxes, fontsize=15, verticalalignment='top', bbox=dict(facecolor='white', alpha=0.0))
 
 
