@@ -158,14 +158,14 @@ def compare_Mll_distributions(filename_root):
     plt.text(0.58, 0.70, info_text, transform=ax.transAxes, ha='center', va='center', fontsize=15, color='black')
     info_text = r"$Q^2_e<10^2$ GeV$^2$; $Q^2_p<10^2$ GeV$^2$; $M_N<10$ GeV"
     plt.text(0.65, 0.63, info_text, transform=ax.transAxes, ha='center', va='center', fontsize=15, color='black')
-    info_text_2 = "$M_{higgsino}$ = 100 GeV"
+    info_text_2 = r"$M_{\tilde{H}}$ = 100 GeV"
     plt.text(0.65, 0.56, info_text_2, transform=ax.transAxes, ha='center', va='center', fontsize=15, color='black')
 
 
     # Set labels and legend
     ax.set_xlabel("W [GeV]", fontdict={'family': 'serif', 'color': 'black', 'size': 24})
-    ax.set_ylabel("$d\sigma/dW (e\, p \\rightarrow e\, p\, higgsinos)$ [pb/GeV]",
-                  fontdict={'family': 'serif', 'color': 'black', 'size': 24})
+    ax.set_ylabel(r"$d\sigma/dW (e\, p \rightarrow e\, \tilde{H} \, p)$ [pb/GeV]",
+              fontdict={'family': 'serif', 'color': 'black', 'size': 24})
     ax.legend(fontsize=15)
 
 

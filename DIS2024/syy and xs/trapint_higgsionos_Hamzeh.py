@@ -168,7 +168,7 @@ plt.legend(title = title_label)
 info_text = r"LHeC ($E_{e}=50$ GeV; $E_{p}=7000$ GeV)"
 plt.text(0.35, 0.15, info_text, transform=ax.transAxes, ha='center', va='center', fontsize=18, color='black')
 
-info_text_2 = "$M_{higgsino}$ = 100 GeV"
+info_text_2 = r"$M_{\tilde{H}}$ = 100 GeV"
 plt.text(0.35, 0.07, info_text_2, transform=ax.transAxes, ha='center', va='center', fontsize=18, color='black')
 
 
@@ -183,7 +183,7 @@ font1 = {'family':'serif','color':'black','size':24}
 font2 = {'family':'serif','color':'black','size':24}
 
 plt.xlabel("W$_0$ [GeV]",  fontdict = font2)
-plt.ylabel("$\sigma_{higgsionos}$ (W > W$_0$) [pb]", fontdict = font2)
+plt.ylabel(r"$\sigma_{\tilde{H}}$ (W > W$_0$) [pb]", fontdict = font2)
 
 
 plt.savefig("cs_higgsionos_MN2_mMin2_q2min_Final_25April_DIS2024.pdf")
