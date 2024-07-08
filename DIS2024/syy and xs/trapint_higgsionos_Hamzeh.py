@@ -183,7 +183,7 @@ font1 = {'family':'serif','color':'black','size':24}
 font2 = {'family':'serif','color':'black','size':24}
 
 plt.xlabel("W$_0$ [GeV]",  fontdict = font2)
-plt.ylabel(r"$\sigma_{\tilde{H}}$ (W > W$_0$) [pb]", fontdict = font2)
+plt.ylabel(r"$\sigma_{{\rm ep}\to {\rm e}(\gamma\gamma\to\tilde{H}^+\tilde{H}^-){\rm p}^{(\ast)}}$ (W > W$_0$) [pb]", fontdict = font2)
 
 
 plt.savefig("cs_higgsionos_MN2_mMin2_q2min_Final_25April_DIS2024.pdf")

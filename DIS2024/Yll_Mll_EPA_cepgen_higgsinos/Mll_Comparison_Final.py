@@ -164,7 +164,7 @@ def compare_Mll_distributions(filename_root):
 
     # Set labels and legend
     ax.set_xlabel("W [GeV]", fontdict={'family': 'serif', 'color': 'black', 'size': 24})
-    ax.set_ylabel(r"$d\sigma/dW (e\, p \rightarrow e\, \tilde{H} \, p)$ [pb/GeV]",
+    ax.set_ylabel(r"$d\sigma/dW ({\rm ep}\to {\rm e}(\gamma\gamma\to\tilde{H}^+\tilde{H}^-){\rm p}^{(\ast)})$ [pb/GeV]",
               fontdict={'family': 'serif', 'color': 'black', 'size': 24})
     ax.legend(fontsize=15)
 

@@ -103,8 +103,8 @@ def compare_distributions(filename):
 
     # Set labels and title
     font2 = {'family':'serif', 'color':'black', 'size':24}
-    ax.set_xlabel(r'$Y_{\tilde{H}}$', fontdict=font2)
-    ax.set_ylabel(r'$d\sigma/dY_{\tilde{H}} \, [pb]$', fontdict=font2)
+    ax.set_xlabel(r'$Y_{\tilde{H}^+\tilde{H}^-}$', fontdict=font2)
+    ax.set_ylabel(r'$d\sigma/dY_{\tilde{H}^+\tilde{H}^-} \, [pb]$', fontdict=font2)
 
 
 
@@ -123,6 +123,8 @@ def compare_distributions(filename):
     info_text_3 = r"$M_{\tilde{H}}$ = 100 GeV"
     ax.text(0.05, 0.78, info_text_3, transform=ax.transAxes, fontsize=15, verticalalignment='top', bbox=dict(facecolor='white', alpha=0.0))
 
+
+# {\rm ep}\to {\rm e}(\gamma\gamma\to\tilde{H}^+\tilde{H}^-){\rm p}^{(\ast)}
 
 # $Q^2_e<10^2$ GeV$^2$;
 
