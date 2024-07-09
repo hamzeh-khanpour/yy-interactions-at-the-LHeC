@@ -103,11 +103,11 @@ def compare_distributions(filename):
 
     # Set labels and title
     font2 = {'family':'serif', 'color':'black', 'size':24}
-    ax.set_xlabel(r'$Y_{\tilde{H}}$', fontdict=font2)
-    ax.set_ylabel(r'$d\sigma/dY_{\tilde{H}} \, [pb]$', fontdict=font2)
+#    ax.set_xlabel(r'$Y_{\tilde{H}}$', fontdict=font2)
+#    ax.set_ylabel(r'$d\sigma/dY_{\tilde{H}} \, [pb]$', fontdict=font2)
 
-#    ax.set_xlabel(r'$Y_{\tilde{H}^+\tilde{H}^-}$', fontdict=font2)
-#    ax.set_ylabel(r'$d\sigma/dY_{\tilde{H}^+\tilde{H}^-} \, [pb]$', fontdict=font2)
+    ax.set_xlabel(r'$Y_{\tilde{H}^+\tilde{H}^-}$', fontdict=font2)
+    ax.set_ylabel(r'$d\sigma/dY_{\tilde{H}^+\tilde{H}^-} \, [pb]$', fontdict=font2)
 
     # Add legend
     inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
