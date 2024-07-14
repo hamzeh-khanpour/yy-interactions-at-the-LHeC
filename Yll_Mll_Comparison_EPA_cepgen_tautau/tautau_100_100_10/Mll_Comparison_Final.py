@@ -138,7 +138,7 @@ def compare_Mll_distributions(filename_root):
 
     # Set labels and legend
     ax.set_xlabel("W [GeV]", fontdict={'family': 'serif', 'color': 'black', 'size': 24})
-    ax.set_ylabel("$d\sigma/dW (ep \\rightarrow e p \\tau^+\\tau^-)$ [pb]",
+    ax.set_ylabel("$d\sigma/dW (ep \\rightarrow e p \\tau^+\\tau^-)$ [pb/GeV]",
                   fontdict={'family': 'serif', 'color': 'black', 'size': 24})
     ax.legend(title='Inelastic: $M_N<10$ GeV ($Q^2_p<10^2$ GeV$^2$)', fontsize=15)
 
