@@ -76,7 +76,7 @@ def compare_distributions(filename):
     # Plotting with Matplotlib
     fig, ax = plt.subplots(figsize=(9.0, 8.0))
     ax.set_xlim(-10.0, 10.0)
-    ax.set_ylim(0.0, 10.0)
+    ax.set_ylim(0.0, 12.0)
 
 #    plt.ticklabel_format(style='sci', axis='y', scilimits=(0, 0))
 
@@ -102,7 +102,7 @@ def compare_distributions(filename):
 
     # Add legend
     inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
-    title_label = ('$Q^2_e<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$').format(10, np.log10(inel[1]))
+    title_label = ('$Q^2_e<$ ${{{:g}}}$ GeV$^2$').format(10, np.log10(inel[1]))
     ax.legend(title=title_label, loc='upper right', fontsize=15)
 
     # Add text annotations

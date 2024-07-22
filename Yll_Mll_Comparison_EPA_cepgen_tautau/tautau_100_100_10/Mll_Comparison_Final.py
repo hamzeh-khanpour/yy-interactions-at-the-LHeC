@@ -121,9 +121,11 @@ def compare_Mll_distributions(filename_root):
     ax.set_xlim(10.0, 500.0)
     ax.set_ylim(1.0e-4, 1.0e2)
 
+
     # Plot elastic and inelastic cross-sections
-    ax.loglog(wv2, int_el, linestyle='solid', linewidth=2, label='EPA elastic')
-    ax.loglog(wv1, int_inel, linestyle='dotted', linewidth=2, label='EPA inelastic')
+    ax.loglog(wv2, int_el, linestyle='solid', color='blue', linewidth=2, label='elastic (EPA)')
+    ax.loglog(wv1, int_inel, linestyle='dashed', color='red', linewidth=2, label='inelastic (EPA)') 
+    
 
     # Convert ROOT histograms to numpy arrays
     Mll_E_array = np.array([hist_Mll_E.GetBinContent(i) for i in range(1, hist_Mll_E.GetNbinsX() + 1)])
@@ -131,16 +133,16 @@ def compare_Mll_distributions(filename_root):
     bin_edges = np.linspace(10, 500, 501)
 
     # Plot ROOT histograms on the matplotlib plot
-    ax.hist(bin_edges[:-1], bin_edges, weights=Mll_E_array, histtype='step', color='blue', linestyle='-',
-            label='cepgen elastic')
-    ax.hist(bin_edges[:-1], bin_edges, weights=Mll_QE_array, histtype='step', color='red', linestyle='-',
-            label='cepgen quasi-elastic')
+    ax.hist(bin_edges[:-1], bin_edges, weights=Mll_E_array, histtype='step', color='magenta', linestyle='-',
+            label='elastic (cepgen)')
+    ax.hist(bin_edges[:-1], bin_edges, weights=Mll_QE_array, histtype='step', color='green', linestyle='-',
+            label='inelastic (cepgen)')
 
     # Set labels and legend
     ax.set_xlabel("W [GeV]", fontdict={'family': 'serif', 'color': 'black', 'size': 24})
-    ax.set_ylabel("$d\sigma/dW (ep \\rightarrow e p \\tau^+\\tau^-)$ [pb/GeV]",
+    ax.set_ylabel("$d\sigma/dW_{ep \\rightarrow e (\gamma \gamma \\to \\tau^+\\tau^-) p^{(*)}}$ [pb/GeV]",
                   fontdict={'family': 'serif', 'color': 'black', 'size': 24})
-    ax.legend(title='Inelastic: $M_N<10$ GeV ($Q^2_p<10^2$ GeV$^2$)', fontsize=15)
+    ax.legend(title='$M_N<10$ GeV, ($Q^2_e<10^2$ GeV$^2$; $Q^2_p<10^2$ GeV$^2$)', fontsize=15, title_fontsize=15)
 
     # Save the plot
     plt.savefig("Mll_Comparison_matplotlib_Final_tautau_100_100_10.pdf")
