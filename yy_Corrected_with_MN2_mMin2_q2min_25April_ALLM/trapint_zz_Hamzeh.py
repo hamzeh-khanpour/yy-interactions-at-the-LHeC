@@ -143,8 +143,9 @@ font1 = {'family':'serif','color':'black','size':24}
 font2 = {'family':'serif','color':'black','size':24}
 
 plt.xlabel("W$_0$ [GeV]",  fontdict = font2)
-plt.ylabel("$\sigma_{ZZ}$ (W > W$_0$) [pb]", fontdict = font2)
+#plt.ylabel("$\sigma_{ZZ}$ (W > W$_0$) [pb]", fontdict = font2)
 
+plt.ylabel(r"$\sigma_{{\rm ep}\to {\rm e}(\gamma\gamma \to ZZ){\rm p}^{(\ast)}}$ (W > W$_0$) [pb]", fontdict = font2)
 
 
 plt.savefig("cs_zz_MN2_mMin2_q2min_Final_20April.pdf")
