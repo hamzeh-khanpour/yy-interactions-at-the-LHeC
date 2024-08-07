@@ -37,8 +37,8 @@ ax.set_ylim(0.0005, 0.01)
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
 title_label = ('$Q^2_e<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$').format(10,np.log10(inel[1]))
-plt.plot(wvalues[3][:202], elas[3][:202], linestyle = 'dashed',  linewidth=2, color='blue', label = 'tagged elastic')
-plt.plot(wvalues[3][:202], inel[3][:202], linestyle = 'dashdot', linewidth=2, color='red', label = inel_label)
+plt.plot(wvalues[3][:202], elas[3][:202], linestyle = 'dashed',  linewidth=3, color='blue', label = 'tagged elastic')
+plt.plot(wvalues[3][:202], inel[3][:202], linestyle = 'dashdot', linewidth=3, color='red', label = inel_label)
 #plt.grid()
 plt.legend(title = title_label)
 
