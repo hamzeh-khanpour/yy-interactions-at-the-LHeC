@@ -223,7 +223,10 @@ font1 = {'family':'serif','color':'black','size':24}
 font2 = {'family':'serif','color':'black','size':24}
 
 plt.xlabel("W$_0$ [GeV]",  fontdict = font2)
-plt.ylabel("$\sigma_{\widetilde{\ell}^+\widetilde{\ell}^-}$ (W > W$_0$) [pb]", fontdict = font2)
+#plt.ylabel("$\sigma_{\widetilde{\ell}^+\widetilde{\ell}^-}$ (W > W$_0$) [pb]", fontdict = font2)
+
+plt.ylabel(r"$\sigma_{{\rm ep}\to {\rm e}(\gamma\gamma \to \widetilde{\ell}^+\widetilde{\ell}^-){\rm p}^{(\ast)}}$ (W > W$_0$) [pb]", fontdict = font2)
+
 
 
 
