@@ -47,7 +47,7 @@ plt.legend(title = title_label)
 
 
 # Add additional information
-info_text = "$ep \\rightarrow e p b \\bar{b}$"
+info_text = "$ep \\rightarrow e (\gamma\gamma \\to b \\bar{b}) p^*$"
 plt.text(0.2, 0.90, info_text, transform=ax.transAxes, ha='center', va='center', fontsize=25, color='black')
 
 #info_text_2 = "$M_{higgsinos}$ = 100 GeV"
@@ -73,8 +73,8 @@ font2 = {'family':'serif','color':'black','size':24}
 
 
 
-plt.xlabel("$Y$",  fontdict = font2)
-plt.ylabel("$d\sigma/dY " " (ep \\rightarrow e p b \\bar{b})$ [pb]", fontdict = font2)
+plt.xlabel("$Y_{b \\bar{b}}$",  fontdict = font2)
+plt.ylabel("$d\sigma/dY_{b \\bar{b}}$ [pb]", fontdict = font2)
 
 
 plt.savefig("dSigmadY_ep_bbbar_25April.pdf")

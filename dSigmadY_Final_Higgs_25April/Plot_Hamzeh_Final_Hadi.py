@@ -45,11 +45,11 @@ plt.legend(title = title_label)
 
 
 # Add additional information
-info_text = "LHeC"
+info_text = "$ep \\rightarrow e (\gamma\gamma \\to H) p^*$"
 plt.text(0.2, 0.90, info_text, transform=ax.transAxes, ha='center', va='center', fontsize=20, color='black')
 
 info_text_2 = "$M_{H}$ = 125 GeV"
-plt.text(0.2, 0.85, info_text_2, transform=ax.transAxes, ha='center', va='center', fontsize=20, color='black')
+plt.text(0.2, 0.82, info_text_2, transform=ax.transAxes, ha='center', va='center', fontsize=20, color='black')
 
 
 
