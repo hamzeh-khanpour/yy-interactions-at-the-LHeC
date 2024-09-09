@@ -30,11 +30,11 @@ sys.path.append('./values')
 # from syy_1_3_4_0805 import *
 # from syy_1_4_4_0907 import *
 
-from dSigmadY_sleptons_10_100000_10_tagged_elastic_m100GeV import *
+from dSigmadY_ZZ_10_100000_10_tagged_elastic import *
 
 fig, ax = plt.subplots(figsize = (11.0, 9.0))
 ax.set_xlim(0.0, 5.0)
-ax.set_ylim(0.00002, 0.0002)
+ax.set_ylim(0.00001, 0.00005)  
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
 title_label = ('$Q^2_e<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$').format(10,np.log10(inel[1]))
@@ -46,11 +46,11 @@ plt.legend(title = title_label)
 
 
 # Add additional information
-info_text = "$ep \\rightarrow e (\gamma\gamma \\to \widetilde{\ell}^+ \widetilde{\ell}^-) p^*$"
+info_text = "$ep \\rightarrow e (\gamma\gamma \\to ZZ) p^*$" 
 plt.text(0.2, 0.94, info_text, transform=ax.transAxes, ha='center', va='center', fontsize=20, color='black')
 
-info_text_2 = "$M_{\widetilde{\ell}}$ = 100 GeV"
-plt.text(0.2, 0.85, info_text_2, transform=ax.transAxes, ha='center', va='center', fontsize=20, color='black')
+#info_text_2 = "$M_{\widetilde{\ell}}$ = 100 GeV"
+#plt.text(0.2, 0.85, info_text_2, transform=ax.transAxes, ha='center', va='center', fontsize=20, color='black')
 
 
 
@@ -76,12 +76,12 @@ font2 = {'family':'serif','color':'black','size':24}
 
 
 
-plt.xlabel("$Y_{\widetilde{\ell}^+ \widetilde{\ell}^-}$",  fontdict = font2)
-plt.ylabel("$d\sigma/dY_{\widetilde{\ell}^+ \widetilde{\ell}^-}$ [pb]", fontdict = font2)
+plt.xlabel("$Y_{ZZ}$",  fontdict = font2)
+plt.ylabel("$d\sigma/dY_{ZZ}$ [pb]", fontdict = font2) 
 
 
-plt.savefig("dSigmadY_sleptons100GeV_MN100_25April_m100GeV.pdf")
-plt.savefig("dSigmadY_sleptons100GeV_MN100_25April_m100GeV.jpg")
+plt.savefig("dSigmadY_ZZ_25April.pdf")
+plt.savefig("dSigmadY_ZZ_25April.jpg") 
 
 plt.show()
 
