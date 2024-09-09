@@ -148,22 +148,26 @@ def flux_y_q2_inel_mN2(lnq2, yp, mMin2, nMmax, qmin2v, pout=False):
 
 ##################################################################
 
-# Sigma_{gamma_gamma} for sleptons
+# Sigma_{gamma_gamma} for ZZ
 
-def cs_sleptons_w_Draft(wvalue):
+def cs_zz_w(wvalue):
 
-    msleptons = 200.0
+    re = 2.8179403262e-15 * 137.0 / 128.0
+    me = 0.510998950e-3
+    mZ = 91.186
 
+    alpha = 1.0/137.0
+    hbarc =  197.327
     hbarc2 =  0.389
-    alpha2 = (1.0/137.0)*(1.0/137.0)
+    convert =  1.0 # hbarc2 * alpha * alpha * 1000000000.0
 
-    # Element-wise calculation of beta using np.where
-    beta = np.sqrt(np.where(1.0 - 4.0 * msleptons * msleptons / wvalue**2.0 >= 0, 1.0 - 4.0 * msleptons * msleptons / wvalue**2.0, np.nan))
-
-    # Element-wise calculation of cs using np.where
-    cs = np.where(wvalue > msleptons, (2.0 * np.pi * alpha2 * hbarc2 ) / wvalue**2.0 * (beta) * \
-             (2.0 - beta**2.0 - (1.0 - beta**4.0)/(2.0 * beta) * np.log( (1.0 + beta)/(1.0 - beta) )), 0.0) * 1e9
-
+    if wvalue > 2.0 * mZ:
+ #       cs = re * re * me * me * 0.279061 * ( 1.0 - 8315.07/(wvalue*wvalue) )**12.9722
+        cs = convert * 0.25786903395035327/ \
+            (1.0 + 5.749069613832837e11/wvalue**6.0 + 6.914037195922673e7/wvalue**4.0 +
+            23.264122861948383/wvalue**2.0)**44.05927999125431
+    else:
+        cs = 0.0
     return cs
 
 
@@ -188,7 +192,7 @@ def flux_yy_atye(w, Y, qmax2e, qmax2p, s_cms, eEbeam, pEbeam, pout=False):
 
     if pout:
         print(emass, pmass, w, Y, qmax2e, s_cms)
-    flux_prod = cs_sleptons_w_Draft(w) * flux_y_dipole(yp, pmass, qmax2p) \
+    flux_prod = cs_zz_w(w) * flux_y_dipole(yp, pmass, qmax2p) \
                 * w * flux_y_pl(ye, emass, qmax2e)
 
 
@@ -222,7 +226,7 @@ def flux_yyinel_atye(w, Y, qmax2e, qmax2p, mNmax, s_cms, eEbeam, pEbeam, pout=Fa
     #   and: minimum mass M_N, to pass
     # point-like on the electron side
     # according to Eq.(A.1)
-    flux_prod = cs_sleptons_w_Draft(w) * flux_y_inel(yp, minM2, qmax2p, mNmax) \
+    flux_prod = cs_zz_w(w) * flux_y_inel(yp, minM2, qmax2p, mNmax) \
                 * w * flux_y_pl(ye, emass, qmax2e)
     if pout:
         print(emass, pmass, w, Y, qmax2e, s_cms, flux_prod)
@@ -241,7 +245,7 @@ def flux_el_yy_atW(Y, eEbeam, pEbeam, qmax2e, qmax2p):
     s_cms = 4.0 * eEbeam * pEbeam
     sqrt_cms = math.sqrt(4.0 * eEbeam * pEbeam)
 
-    w0 = 400.0000001
+    w0 = 183.0000001
 
 #    ymin = w * w / s_cms
 
@@ -262,7 +266,7 @@ def flux_inel_yy_atW(Y, eEbeam, pEbeam, qmax2e, mNmax, qmax2p):
     s_cms = 4.0 * eEbeam * pEbeam
     sqrt_cms = math.sqrt(4.0 * eEbeam * pEbeam)
 
-    w0 = 400.0000001
+    w0 = 183.0000001
 
 #    ymin = w * w / s_cms
 
