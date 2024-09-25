@@ -40,12 +40,19 @@ ax.set_ylim(1.e-7, 1.e-1)
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
 title_label = ('$Q^2_e<$ ${{{:g}}}$ GeV$^2$').format(10,np.log10(inel[1]))
 plt.loglog(wvalues[3][:303], elas[3][:303], linestyle = 'solid',  linewidth=2, label = 'elastic')
-plt.loglog(wvalues[3][:303], inel[3][:303], linestyle = 'dotted', linewidth=2, label = inel_label)
+plt.loglog(wvalues[3][:303], inel[3][:303], linestyle = 'dashed', linewidth=2, label = inel_label)
 #plt.grid()
 
 
 plt.legend(title = title_label)
 
+
+# Add additional information
+info_text = "LHeC"
+plt.text(0.70, 0.75, info_text, transform=ax.transAxes, ha='center', va='center', fontsize=16, color='black')
+
+info_text_2 = r"$E_e$ = 50  GeV; $E_p$ = 7000 GeV"
+plt.text(0.70, 0.67, info_text_2, transform=ax.transAxes, ha='center', va='center', fontsize=16, color='black')
 
 
 # Save the output values in a text file
