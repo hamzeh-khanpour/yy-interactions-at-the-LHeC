@@ -1,5 +1,5 @@
 
-# Hamzeh & Laurent  --- 1 October 2024
+#      Hamzeh & Laurent  --- 1 October 2024
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -7,8 +7,8 @@ import sys
 
 
 import ggMatrixElements
-
 print(ggMatrixElements.sqme_sm(0.1, -0.1, False))  # s, t, exclude_SM_loops
+
 
 
 plt.rcParams["axes.linewidth"] = 1.8
