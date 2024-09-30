@@ -1,0 +1,7 @@
+/home/hamzeh-khanpour/Documents/GitHub/yy-interactions-at-the-LHeC/JHEP/yy_to_yy/ggMatrixElements-main/CMakeFiles/ggMatrixElements.dir
+/home/hamzeh-khanpour/Documents/GitHub/yy-interactions-at-the-LHeC/JHEP/yy_to_yy/ggMatrixElements-main/CMakeFiles/edit_cache.dir
+/home/hamzeh-khanpour/Documents/GitHub/yy-interactions-at-the-LHeC/JHEP/yy_to_yy/ggMatrixElements-main/CMakeFiles/rebuild_cache.dir
+/home/hamzeh-khanpour/Documents/GitHub/yy-interactions-at-the-LHeC/JHEP/yy_to_yy/ggMatrixElements-main/CMakeFiles/list_install_components.dir
+/home/hamzeh-khanpour/Documents/GitHub/yy-interactions-at-the-LHeC/JHEP/yy_to_yy/ggMatrixElements-main/CMakeFiles/install.dir
+/home/hamzeh-khanpour/Documents/GitHub/yy-interactions-at-the-LHeC/JHEP/yy_to_yy/ggMatrixElements-main/CMakeFiles/install/local.dir
+/home/hamzeh-khanpour/Documents/GitHub/yy-interactions-at-the-LHeC/JHEP/yy_to_yy/ggMatrixElements-main/CMakeFiles/install/strip.dir
