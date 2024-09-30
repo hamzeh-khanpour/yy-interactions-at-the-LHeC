@@ -156,6 +156,11 @@ plt.legend(title = title_label)
 
 
 
+plt.grid()
+
+
+
+
 # Add additional information
 info_text = "LHeC@750"
 plt.text(0.67, 0.61, info_text, transform=ax.transAxes, ha='center', va='center', fontsize=16, color='blue', fontweight='bold')
