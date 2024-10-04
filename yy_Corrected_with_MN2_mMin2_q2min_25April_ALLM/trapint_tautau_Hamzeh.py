@@ -40,7 +40,7 @@ plt.rcParams['legend.title_fontsize'] = 'x-large'
          #* ( (1.0 + 4.0*mtau*mtau/wvalue/wvalue)*np.log(wvalue * wvalue / mtau / mtau) - beta* (1.0 + 4.0 * mtau * mtau / wvalue**2.0) )  * 1e9
 
     #return cs
-    
+
 
 
 ##################################################################
