@@ -1,10 +1,16 @@
-#      Hamzeh & Laurent  --- 1 October 2024
+
+#   ep -> e (\gamma\gamma) p [pb]
+#   Hamzeh Khanpour --- October 2024
+#   Light by light scattering at the LHeC using the matrix element by Laurent
+
 
 import matplotlib.pyplot as plt
 import numpy as np
 import sys
 from scipy.integrate import quad  # Import quad for numerical integration
+
 import ggMatrixElements  # Import your photon-photon matrix element module
+
 
 plt.rcParams["axes.linewidth"] = 1.8
 plt.rcParams["xtick.major.width"] = 1.8
@@ -23,23 +29,47 @@ plt.rcParams['legend.title_fontsize'] = 'x-large'
 
 
 ##################################################################
+
 # Photon-photon cross-section σ(γγ→γγ) using the matrix element
-def cs_gg_to_gg_w(wvalue):
-    alpha = 1 / 137  # Fine-structure constant
-    t_min = -wvalue**2  # Define integration limits for t (Mandelstam variable)
-    t_max = 0
 
-    # Photon-photon cross-section integrand (using squared matrix element)
+# Constants
+alpha  = 1 / 137  # Fine-structure constant
+hbarc2 = 0.389  # Conversion factor to pb
+
+# Mandelstam variables
+def t_min(W):
+    return -W**2
+
+def t_max(W):
+    return 0
+
+
+# Differential cross-section for gamma-gamma -> gamma-gamma using ggMatrixElements
+def diff_cs_gg_to_gg(s, t):
+    # Calculate the squared matrix element using ggMatrixElements
+    sqme = ggMatrixElements.sqme_sm(s, t, False)  # s, t, exclude loops = False
+    return sqme / (16. * np.pi * s**2.)  # The prefactor for 2-to-2 scattering
+
+
+
+# Total cross-section for gamma-gamma -> gamma-gamma as a function of W
+def cs_gg_to_gg_w(W):
+    s = W**2.                # s = W^2
+    t_min_value = t_min(W)
+    t_max_value = t_max(W)
+
+
+
+# Numerical integration over t
     def integrand(t, s):
-        return ggMatrixElements.sqme_sm(s, t, False)  # Call SM matrix element
+        return diff_cs_gg_to_gg(s, t)
 
-    # Perform numerical integration over t to get the total cross-section
-    s = wvalue**2  # Mandelstam variable s = W^2
-    result, _ = quad(lambda t: integrand(t, s), t_min, t_max)  # Pass s as a fixed argument using lambda
-    return result / (16 * np.pi * s**2) * 1e9  # Convert to picobarns (pb)
+    result, _ = quad(integrand, t_min_value, t_max_value, args=(s,))
+    return result * hbarc2 * 1e9  # Convert to pb
 
 
 ##################################################################
+
 
 def trap_integ(wv, fluxv):
     wmin = np.zeros(len(wv) - 1)
@@ -62,6 +92,7 @@ def trap_integ(wv, fluxv):
 
 ##################################################################
 
+
 sys.path.append('./values')
 
 from wgrid_10_100000_10 import *  # Importing W grid and photon flux values
@@ -75,7 +106,20 @@ wv2, int_el = trap_integ(wv, el)
 
 fig, ax = plt.subplots(figsize = (9.0, 8.0))
 ax.set_xlim(10.0, 1000.0)
-ax.set_ylim(1.e-3, 10.e2)
+ax.set_ylim(1.e-8, 1.e-1)
+
+
+
+# Set formatters to ensure no scientific notation for ticks
+ax.get_yaxis().set_major_formatter(plt.ScalarFormatter())
+ax.get_xaxis().set_major_formatter(plt.ScalarFormatter())
+
+
+# Enable minor ticks
+ax.minorticks_on()
+ax.tick_params(which='both', direction='in', right=True, top=True)
+
+
 
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
@@ -96,7 +140,6 @@ np.savetxt('output_values_gg.txt', output_data, header=header, fmt='%0.8e', deli
 
 
 
-
 font1 = {'family':'serif','color':'black','size':24}
 font2 = {'family':'serif','color':'black','size':24}
 
@@ -104,7 +147,10 @@ plt.xlabel("W$_0$ [GeV]", fontdict=font2)
 plt.ylabel(r"$\sigma_{{\rm ep}\to {\rm e}(\gamma\gamma\to\gamma\gamma){\rm p}^{(\ast)}}$ (W > W$_0$) [pb]", fontdict = font2)
 
 
+plt.savefig("cs_ep_yy_yy.pdf")
 
-
-plt.savefig("cs_yy_yy.pdf")
 plt.show()
+
+
+##################################################################
+
