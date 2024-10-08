@@ -8,8 +8,8 @@
 
 namespace sm_aaaa {
   const double prefac_W = 1. / (4 * constants::mW * constants::mW);
-  const std::array<double, 9> SM_weight = {1, 1, 1, 16. / 27., 16. / 27., 16. / 27., 1. / 27., 1. / 27., 1. / 27.};
-  const std::array<double, 9> SM_masses = {0.5e-3, 0.105, 1.77, 0.0023, 1.28, 173.07, 0.0048, 0.095, 4.18};
+  const std::array<double, 10> SM_weight = {1, 1, 1, 16. / 27., 16. / 27., 16. / 27., 1. / 27., 1. / 27., 1. / 27., 1.};
+  const std::array<double, 10> SM_masses = {0.5e-3, 0.105, 1.77, 0.0023, 1.28, 173.07, 0.0048, 0.095, 4.18, constants::mW};
 
   void me_SM(void (*me)(double, double, double *, double *, int),
              double s,
@@ -30,7 +30,7 @@ namespace sm_aaaa {
     *re = 0;
     *im = 0;
 
-    for (int i = 0; i <= 8; i++) {
+    for (size_t i = 0; i < SM_weight.size(); i++) {
       const auto prefac_f = 1. / (4 * SM_masses.at(i) * SM_masses.at(i));
       me(s * prefac_f, t * prefac_f, &d_re, &d_im, exclude_loops);
       *re += d_re * SM_weight.at(i);
