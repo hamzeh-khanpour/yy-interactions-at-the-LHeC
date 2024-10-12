@@ -184,7 +184,7 @@ plt.xlabel("W$_0$ [GeV]", fontdict=font2)
 plt.ylabel(r"$\sigma_{{\rm ep}\to {\rm e}(\gamma\gamma\to\gamma\gamma){\rm p}^{(\ast)}}$ (W > W$_0$) [pb]", fontdict = font2)
 
 
-plt.savefig("cs_ep_yy_yy.pdf")
+plt.savefig("cs_ep_yy_yy.pdf")     # Light by light scattering at the LHeC
 
 plt.show()
 
