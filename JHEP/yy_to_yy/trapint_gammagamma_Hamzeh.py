@@ -164,7 +164,7 @@ plt.legend(title = title_label)
 
 
 
-plt.grid()
+#plt.grid()
 
 plt.legend(title = title_label)
 

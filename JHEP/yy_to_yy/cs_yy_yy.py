@@ -103,12 +103,12 @@ font1 = {'family':'serif','color':'black','size':24}
 font2 = {'family':'serif','color':'black','size':24}
 
 
-plt.plot(W_values, cross_sections, 'b-', label=r'$\sigma(\gamma\gamma \to \gamma\gamma) [W]$')
+plt.plot(W_values, cross_sections, 'b-', label=r'$\sigma(\gamma\gamma \to \gamma\gamma) (W)$')
 plt.xscale('log')
 plt.yscale('log')
-plt.xlabel(r'$\sqrt{s}=W_{\gamma\gamma}$ (GeV)', fontdict=font2)
+plt.xlabel(r'$W_{\gamma\gamma}$ (GeV)', fontdict=font2)
 plt.ylabel(r'$\sigma_{\gamma\gamma \to \gamma\gamma} (W)$ (pb)', fontdict=font2)
-plt.title(r'$\sigma_{\gamma\gamma \to \gamma\gamma}$ as a function of $\sqrt{s}=W_{\gamma\gamma}$', fontdict=font2)
+#plt.title(r'$\sigma_{\gamma\gamma \to \gamma\gamma}$ as a function of $\sqrt{s}=W_{\gamma\gamma}$', fontdict=font2)
 
 plt.grid(True)
 plt.legend()
