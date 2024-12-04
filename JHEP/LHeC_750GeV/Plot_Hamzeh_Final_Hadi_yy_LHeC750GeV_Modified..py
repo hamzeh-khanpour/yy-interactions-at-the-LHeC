@@ -83,7 +83,7 @@ ie = np.array(inel[3])
 wv1, int_inel = trap_integ(wv, ie)
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$)').format(10,np.log10(inel[2]))
-plt.loglog(wv2[:303], int_inel[:303], linestyle = 'dashdot',  linewidth=3, label = inel_label)
+plt.loglog(wv2[:303], int_inel[:303], linestyle = 'dashed',  linewidth=3, label = inel_label)
 plt.legend(title = title_label)
 
 
@@ -102,7 +102,7 @@ inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}^
 plt.loglog(wv2[:303], int_inel[:303], linestyle = 'dashdot',  linewidth=3, label = inel_label)
 plt.legend(title = title_label)
 
-plt.grid()
+#plt.grid()
 
 # Add additional information
 info_text = "LHeC@750 GeV"

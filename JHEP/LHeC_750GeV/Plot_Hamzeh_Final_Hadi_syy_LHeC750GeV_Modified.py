@@ -54,7 +54,7 @@ plt.loglog(wvalues[3][:303], inel[3][:303], linestyle = 'dotted', linewidth=3, l
 from wgrid_50_100000_1000_LHeC750 import *
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$)').format(10,np.log10(inel[2]))
-plt.loglog(wvalues[3][:303], inel[3][:303], linestyle = 'dashdot', linewidth=3, label = inel_label)
+plt.loglog(wvalues[3][:303], inel[3][:303], linestyle = 'dashed', linewidth=3, label = inel_label)
 plt.legend(title = title_label)
 
 
@@ -68,7 +68,7 @@ inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}^
 plt.loglog(wvalues[3][:303], inel[3][:303], linestyle = 'dashdot', linewidth=3, label = inel_label)
 plt.legend(title = title_label)
 
-plt.grid()
+#plt.grid()
 
 
 # Add additional information
