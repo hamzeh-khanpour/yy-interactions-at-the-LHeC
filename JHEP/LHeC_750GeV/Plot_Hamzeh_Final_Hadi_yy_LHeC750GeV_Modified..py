@@ -48,7 +48,7 @@ sys.path.append('./values')
 
 
 
-from wgrid_10_100000_10_FCC import *
+from wgrid_10_100000_10_LHeC750 import *
 
 wv = np.array(wvalues[3])
 ie = np.array(inel[3])
@@ -57,13 +57,10 @@ el = np.array(elas[3])
 wv1, int_inel = trap_integ(wv, ie)
 wv2, int_el = trap_integ(wv, el)
 
-
-fig, ax = plt.subplots(figsize = (8, 8))
+fig, ax = plt.subplots(figsize = (8., 8.))
 plt.subplots_adjust(left=0.15, right=0.95, bottom=0.12, top=0.95)
-
-
 ax.set_xlim(10., 750.)
-ax.set_ylim(1.e-4, 1.0e1)
+ax.set_ylim(1.e-5, 1.0e1)
 
 
 
@@ -79,23 +76,7 @@ plt.loglog(wv1[:303], int_inel[:303], linestyle = 'dotted',  linewidth=3, label 
 
 
 
-from wgrid_50_100000_1000_FCC import *
-
-wv = np.array(wvalues[3])
-ie = np.array(inel[3])
-wv1, int_inel = trap_integ(wv, ie)
-
-inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$)').format(10,np.log10(inel[2]))
-plt.loglog(wv2[:303], int_inel[:303], linestyle = 'dashed',  linewidth=3, label = inel_label)
-plt.legend(title = title_label)
-
-
-
-
-
-
-
-from wgrid_300_100000_100000_FCC import *
+from wgrid_50_100000_1000_LHeC750 import *
 
 wv = np.array(wvalues[3])
 ie = np.array(inel[3])
@@ -105,17 +86,32 @@ inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}^
 plt.loglog(wv2[:303], int_inel[:303], linestyle = 'dashdot',  linewidth=3, label = inel_label)
 plt.legend(title = title_label)
 
-# plt.grid()
 
 
 
+
+
+
+from wgrid_300_100000_100000_LHeC750 import *
+
+wv = np.array(wvalues[3])
+ie = np.array(inel[3])
+wv1, int_inel = trap_integ(wv, ie)
+
+inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$)').format(10,np.log10(inel[2]))
+plt.loglog(wv2[:303], int_inel[:303], linestyle = 'dashdot',  linewidth=3, label = inel_label)
+plt.legend(title = title_label)
+
+plt.grid()
 
 # Add additional information
-info_text = "FCC-he"
-plt.text(0.35, 0.11, info_text, transform=ax.transAxes, ha='center', va='center', fontsize=25, color='blue', fontweight='bold')
+info_text = "LHeC@750 GeV"
+plt.text(0.32, 0.18, info_text, transform=ax.transAxes, ha='center', va='center', fontsize=22, color='blue', fontweight='bold')
 
-info_text_2 = r"$E_e$=60 GeV; $E_p$=50000 GeV"
-plt.text(0.35, 0.05, info_text_2, transform=ax.transAxes, ha='center', va='center', fontsize=25, color='blue', fontweight='bold')
+info_text_2 = r"$E_e$=20 GeV; $E_p$=7000 GeV"
+plt.text(0.32, 0.12, info_text_2, transform=ax.transAxes, ha='center', va='center', fontsize=22, color='blue', fontweight='bold')
+
+
 
 
 
@@ -123,6 +119,7 @@ plt.text(0.35, 0.05, info_text_2, transform=ax.transAxes, ha='center', va='cente
 output_data = np.column_stack((wv2[:303], int_el[:303], int_inel[:303]))
 header = 'W_Value Elastic Inelastic'
 np.savetxt('output_values_ntegrated_Syy.txt', output_data, header=header, fmt='%0.8e', delimiter='\t')
+
 
 
 
@@ -135,12 +132,14 @@ plt.ylabel("Integrated S$_{\gamma \gamma}$ (W > W$_0$)")
 
 
 
-plt.savefig("yy_FCC.pdf")
-plt.savefig("yy_FCC.jpg")
+plt.savefig("yy_LHeC_750GeV_Modified.pdf")
+plt.savefig("yy_LHeC_750GeV_Modified.jpg")
+
 
 
 
 plt.show()
+
 
 
 #===========================================================================

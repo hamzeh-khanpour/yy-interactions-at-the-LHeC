@@ -1,9 +1,19 @@
-import matplotlib.pyplot as plt
+
+# Final Version -- December 2024 -- Hamzeh Khanpour
+
+# ================================================================================
+
+
+import mplhep as hep
 import numpy as np
+import matplotlib.pyplot as plt
 import sys
 
+hep.style.use("CMS")
+#plt.style.use(hep.style.ROOT)
 
-plt.rcParams["axes.linewidth"] = 1.8
+
+'''plt.rcParams["axes.linewidth"] = 1.8
 plt.rcParams["xtick.major.width"] = 1.8
 plt.rcParams["xtick.minor.width"] = 1.8
 plt.rcParams["ytick.major.width"] = 1.8
@@ -17,7 +27,7 @@ plt.rcParams["ytick.labelsize"] = 15
 
 plt.rcParams["legend.fontsize"] = 15
 
-plt.rcParams['legend.title_fontsize'] = 'x-large'
+plt.rcParams['legend.title_fontsize'] = 'x-large' '''
 
 
 
@@ -81,15 +91,17 @@ el = np.array(elas[3])
 wv1, int_inel = trap_integ(wv, ie)
 wv2, int_el = trap_integ(wv, el)
 
-fig, ax = plt.subplots(figsize = (9.0, 8.0))
+
+fig, ax = plt.subplots(figsize = (8, 8))
+plt.subplots_adjust(left=0.15, right=0.95, bottom=0.12, top=0.95)
 ax.set_xlim(350.0, 1000.0)
-ax.set_ylim(1.e-7, 1.e-3)
+ax.set_ylim(1.e-7, 1.e-2)
 
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
 title_label = ('$Q^2_e<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$').format(10,np.log10(inel[1]))
-plt.loglog(wv2[:303], int_el[:303], linestyle = 'solid',  linewidth=2,  label = 'tagged elastic')
-plt.loglog(wv1[:303], int_inel[:303], linestyle = 'dotted',  linewidth=2, label = inel_label)
+plt.loglog(wv2[:303], int_el[:303], linestyle = 'solid',  linewidth=3,  label = 'tagged elastic')
+plt.loglog(wv1[:303], int_inel[:303], linestyle = 'dotted',  linewidth=3, label = inel_label)
 
 #plt.grid()
 
@@ -110,7 +122,7 @@ ie = np.array(inel[3])
 wv1, int_inel = trap_integ(wv, ie)
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$)').format(10,np.log10(inel[2]))
-plt.loglog(wv2[:303], int_inel[:303], linestyle = 'dashdot',  linewidth=2, label = inel_label)
+plt.loglog(wv2[:303], int_inel[:303], linestyle = 'dashdot',  linewidth=3, label = inel_label)
 plt.legend(title = title_label)
 
 
@@ -129,7 +141,7 @@ ie = np.array(inel[3])
 wv1, int_inel = trap_integ(wv, ie)
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$)').format(10,np.log10(inel[2]))
-plt.loglog(wv2[:303], int_inel[:303], linestyle = 'dashdot',  linewidth=2, label = inel_label)
+plt.loglog(wv2[:303], int_inel[:303], linestyle = 'dashdot',  linewidth=3, label = inel_label)
 plt.legend(title = title_label)
 
 
@@ -152,8 +164,8 @@ np.savetxt('output_values_ttbar.txt', output_data, header=header, fmt='%0.8e', d
 font1 = {'family':'serif','color':'black','size':24}
 font2 = {'family':'serif','color':'black','size':24}
 
-plt.xlabel("W$_0$ [GeV]", fontdict=font2)
-plt.ylabel(r"$\sigma_{{\rm ep}\to {\rm e}(\gamma\gamma\to t \bar{t}){\rm p}^{(\ast)}}$ (W > W$_0$) [pb]", fontdict = font2)
+plt.xlabel("W$_0$ [GeV]")
+plt.ylabel(r"$\sigma_{{\rm ep}\to {\rm e}(\gamma\gamma\to t \bar{t}){\rm p}^{(\ast)}}$ (W > W$_0$) [pb]")
 
 
 
