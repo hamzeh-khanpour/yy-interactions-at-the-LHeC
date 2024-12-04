@@ -111,6 +111,8 @@ wv2, int_el = trap_integ(wv, el)
 
 fig, ax = plt.subplots(figsize = (8.0, 8.0))
 plt.subplots_adjust(left=0.15, right=0.95, bottom=0.12, top=0.95)
+
+
 ax.set_xlim(10.0, 1000.0)
 ax.set_ylim(1.e-3, 10.e2)
 

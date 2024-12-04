@@ -3,16 +3,25 @@
 #   Hamzeh Khanpour --- October 2024
 #   Photon-photon cross-section σ(γγ→γγ) using the matrix element by Laurent
 
+
+import mplhep as hep
+
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import quad
+
+
+hep.style.use("CMS")
+#plt.style.use(hep.style.ROOT)
+
+
 
 import matplotlib.ticker as ticker
 
 import ggMatrixElements  # Import the photon-photon matrix element module
 
 
-plt.rcParams["axes.linewidth"] = 1.8
+''' plt.rcParams["axes.linewidth"] = 1.8
 plt.rcParams["xtick.major.width"] = 1.8
 plt.rcParams["xtick.minor.width"] = 1.8
 plt.rcParams["ytick.major.width"] = 1.8
@@ -25,7 +34,7 @@ plt.rcParams["xtick.labelsize"] = 15
 plt.rcParams["ytick.labelsize"] = 15
 
 plt.rcParams["legend.fontsize"] = 15
-plt.rcParams['legend.title_fontsize'] = 'x-large'
+plt.rcParams['legend.title_fontsize'] = 'x-large' '''
 
 
 # Constants
@@ -73,7 +82,12 @@ cross_sections = [cs_gg_to_gg_w(W) for W in W_values]
 
 
 # Plotting the results
-fig, ax = plt.subplots(figsize = (9.0, 8.0))
+
+
+fig, ax = plt.subplots(figsize = (8.0, 8.0))
+plt.subplots_adjust(left=0.15, right=0.95, bottom=0.12, top=0.95)
+
+
 ax.set_xlim(1.0e-4, 1000.0)
 #ax.set_ylim(1.0e-3, 1.0e7)
 
@@ -104,10 +118,12 @@ font2 = {'family':'serif','color':'black','size':24}
 
 
 plt.plot(W_values, cross_sections, 'b-', label=r'$\sigma(\gamma\gamma \to \gamma\gamma) (W)$')
+
 plt.xscale('log')
 plt.yscale('log')
-plt.xlabel(r'$W_{\gamma\gamma}$ (GeV)', fontdict=font2)
-plt.ylabel(r'$\sigma_{\gamma\gamma \to \gamma\gamma} (W)$ (pb)', fontdict=font2)
+
+plt.xlabel(r'$W_{\gamma\gamma}$ (GeV)')
+plt.ylabel(r'$\sigma_{\gamma\gamma \to \gamma\gamma} (W)$ (pb)')
 #plt.title(r'$\sigma_{\gamma\gamma \to \gamma\gamma}$ as a function of $\sqrt{s}=W_{\gamma\gamma}$', fontdict=font2)
 
 plt.grid(True)
