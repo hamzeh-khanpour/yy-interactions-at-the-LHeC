@@ -5,18 +5,28 @@ import numpy as np
 import sys
 import math
 
-# Matplotlib configuration
-plt.rcParams["axes.linewidth"] = 1.8
+import mplhep as hep
+
+hep.style.use("CMS")
+#plt.style.use(hep.style.ROOT)
+
+'''plt.rcParams["axes.linewidth"] = 1.8
 plt.rcParams["xtick.major.width"] = 1.8
 plt.rcParams["xtick.minor.width"] = 1.8
 plt.rcParams["ytick.major.width"] = 1.8
 plt.rcParams["ytick.minor.width"] = 1.8
+
 plt.rcParams["xtick.direction"] = "in"
 plt.rcParams["ytick.direction"] = "in"
+
 plt.rcParams["xtick.labelsize"] = 15
 plt.rcParams["ytick.labelsize"] = 15
+
 plt.rcParams["legend.fontsize"] = 15
-plt.rcParams['legend.title_fontsize'] = 'x-large'
+
+plt.rcParams['legend.title_fontsize'] = 'x-large' '''
+
+
 
 # Import data for cross-section calculation
 from wgrid_10_1000_1000 import *
@@ -131,9 +141,14 @@ def compare_Mll_distributions(filename_root):
     wv2, int_el = trap_integ(wv, el)
 
     # Matplotlib plot for elastic and inelastic cross-sections
-    fig, ax = plt.subplots(figsize=(9.0, 8.0))
+
+
+    fig, ax = plt.subplots(figsize = (8.0, 8.0))
+    plt.subplots_adjust(left=0.15, right=0.95, bottom=0.12, top=0.95)
+
+
     ax.set_xlim(200.0, 500.0)
-    ax.set_ylim(1.0e-6, 1.0e-4)
+    ax.set_ylim(1.0e-6, 5.0e-5)
     ax.set_xscale("log")
     ax.set_yscale("log")
 
@@ -147,26 +162,26 @@ def compare_Mll_distributions(filename_root):
     bin_edges = np.linspace(200, 500, 301)
 
     # Plot ROOT histograms on the matplotlib plot
-    ax.hist(bin_edges[:-1], bin_edges, weights=Mll_E_array, histtype='step', linewidth=1, color='magenta', linestyle='-',
+    ax.hist(bin_edges[:-1], bin_edges, weights=Mll_E_array, histtype='step', linewidth=2, color='magenta', linestyle='-',
             label='elastic (cepgen)')
-    ax.hist(bin_edges[:-1], bin_edges, weights=Mll_QE_array, histtype='step', linewidth=1, color='green', linestyle='-',
+    ax.hist(bin_edges[:-1], bin_edges, weights=Mll_QE_array, histtype='step', linewidth=2, color='green', linestyle='-',
             label='inelastic (cepgen)')
 
 
     # Add additional information
-    info_text = r"LHeC ($E_{e}=50$ GeV; $E_{p}=7000$ GeV)"
-    plt.text(0.58, 0.70, info_text, transform=ax.transAxes, ha='center', va='center', fontsize=15, color='black')
+#    info_text = r"LHeC ($E_{e}=50$ GeV; $E_{p}=7000$ GeV)"
+#    plt.text(0.50, 0.70, info_text, transform=ax.transAxes, ha='center', va='center', fontsize=20, color='black')
     info_text = r"$Q^2_e<10^3$ GeV$^2$; $Q^2_p<10^3$ GeV$^2$; $M_N<10$ GeV"
-    plt.text(0.65, 0.63, info_text, transform=ax.transAxes, ha='center', va='center', fontsize=15, color='black')
+    plt.text(0.50, 0.69, info_text, transform=ax.transAxes, ha='center', va='center', fontsize=20, color='black')
     info_text_2 = r"$M_{\tilde{H}}$ = 100 GeV"
-    plt.text(0.65, 0.56, info_text_2, transform=ax.transAxes, ha='center', va='center', fontsize=15, color='black')
+    plt.text(0.50, 0.62, info_text_2, transform=ax.transAxes, ha='center', va='center', fontsize=20, color='black')
 
 
     # Set labels and legend
     ax.set_xlabel("W [GeV]", fontdict={'family': 'serif', 'color': 'black', 'size': 24})
     ax.set_ylabel(r"$d\sigma/dW ({\rm ep}\to {\rm e}(\gamma\gamma\to\tilde{H}^+\tilde{H}^-){\rm p}^{(\ast)})$ [pb/GeV]",
               fontdict={'family': 'serif', 'color': 'black', 'size': 24})
-    ax.legend(fontsize=15)
+    ax.legend(fontsize=20)
 
 
     # Save the plot

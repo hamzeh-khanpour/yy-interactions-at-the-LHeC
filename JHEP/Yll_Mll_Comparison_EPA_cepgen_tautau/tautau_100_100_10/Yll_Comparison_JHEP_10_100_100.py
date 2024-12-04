@@ -6,17 +6,27 @@ import matplotlib.pyplot as plt
 from dSigmadY_ep_tautau_10_100_100 import wvalues, elas, inel
 
 # Matplotlib configuration for publication-quality plots
-plt.rcParams["axes.linewidth"] = 1.8
+
+import mplhep as hep
+
+hep.style.use("CMS")
+#plt.style.use(hep.style.ROOT)
+
+'''plt.rcParams["axes.linewidth"] = 1.8
 plt.rcParams["xtick.major.width"] = 1.8
 plt.rcParams["xtick.minor.width"] = 1.8
 plt.rcParams["ytick.major.width"] = 1.8
 plt.rcParams["ytick.minor.width"] = 1.8
+
 plt.rcParams["xtick.direction"] = "in"
 plt.rcParams["ytick.direction"] = "in"
+
 plt.rcParams["xtick.labelsize"] = 15
 plt.rcParams["ytick.labelsize"] = 15
+
 plt.rcParams["legend.fontsize"] = 15
-plt.rcParams['legend.title_fontsize'] = 'x-large'
+
+plt.rcParams['legend.title_fontsize'] = 'x-large' '''
 
 
 # Constants
@@ -79,15 +89,21 @@ def compare_distributions(filename):
     inel_MPL = inel[3][:303]
 
     # Plotting with Matplotlib
-    fig, ax = plt.subplots(figsize=(9.0, 8.0))
+
+
+
+    fig, ax = plt.subplots(figsize = (8.0, 8.0))
+    plt.subplots_adjust(left=0.15, right=0.95, bottom=0.12, top=0.95)
+
+
     ax.set_xlim(-10.0, 10.0)
-    ax.set_ylim(0.0, 12.0)
+    ax.set_ylim(0.1, 16.0)
 
 #    plt.ticklabel_format(style='sci', axis='y', scilimits=(0, 0))
 
     # Plot graphs from Matplotlib data
-    ax.plot(Yll_MPL, elas_MPL, linestyle='solid', linewidth=2, color='blue', label='elastic (EPA)')
-    ax.plot(Yll_MPL, inel_MPL, linestyle='dashed', linewidth=2, color='red', label='inelastic (EPA)')
+    ax.plot(Yll_MPL, elas_MPL, linestyle='solid', linewidth=3, color='blue', label='elastic (EPA)')
+    ax.plot(Yll_MPL, inel_MPL, linestyle='dashed', linewidth=3, color='red', label='inelastic (EPA)')
 
     # Plot histograms with error bars using ax.errorbar
 #    ax.errorbar(bin_centers, hist_Yll_E, xerr=DX, yerr=hist_Yll_E_errors,  marker='.', linestyle='None', linewidth=2, color='magenta', label='elastic (cepgen)')
@@ -95,8 +111,8 @@ def compare_distributions(filename):
 
 
     # Plot histograms
-    ax.plot(bin_centers, hist_Yll_E, marker='.', linestyle='None', linewidth=2, color='magenta', label='elastic (cepgen)')
-    ax.plot(bin_centers, hist_Yll_QE, marker='.', linestyle='None', linewidth=2, color='green', label='inelastic (cepgen)')
+    ax.plot(bin_centers, hist_Yll_E, marker='*', linestyle='None', linewidth=2, color='magenta', label='elastic (cepgen)')
+    ax.plot(bin_centers, hist_Yll_QE, marker='+', linestyle='None', linewidth=2, color='green', label='inelastic (cepgen)')
 
 
 
@@ -108,13 +124,13 @@ def compare_distributions(filename):
     # Add legend
     inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
     title_label = ('$Q^2_e<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$').format(10, np.log10(inel[1]))
-    ax.legend(title=title_label, loc='upper right', fontsize=15)
+    ax.legend(title=title_label, loc='upper right', fontsize=20)
 
     # Add text annotations
-    info_text_1 = r"LHeC ($E_{e}=50$ GeV; $E_{p}=7000$ GeV)"
-    ax.text(0.05, 0.95, info_text_1, transform=ax.transAxes, fontsize=15, verticalalignment='top', bbox=dict(facecolor='white', alpha=0.0))
-    info_text_2 = r"$Q^2_p<10^2$ GeV$^2$; $M_N<10$ GeV"
-    ax.text(0.05, 0.88, info_text_2, transform=ax.transAxes, fontsize=15, verticalalignment='top', bbox=dict(facecolor='white', alpha=0.0))
+    info_text_1 = r"$Q^2_p<10^2$ GeV$^2$"
+    ax.text(0.05, 0.95, info_text_1, transform=ax.transAxes, fontsize=20, verticalalignment='top', bbox=dict(facecolor='white', alpha=0.0))
+    info_text_2 = r"$M_N<10$ GeV"
+    ax.text(0.05, 0.88, info_text_2, transform=ax.transAxes, fontsize=20, verticalalignment='top', bbox=dict(facecolor='white', alpha=0.0))
 
     # Save the plot as a PDF and JPG file
     plt.savefig("Yll_Comparison_tautau_100_100_10_JHEP.pdf")

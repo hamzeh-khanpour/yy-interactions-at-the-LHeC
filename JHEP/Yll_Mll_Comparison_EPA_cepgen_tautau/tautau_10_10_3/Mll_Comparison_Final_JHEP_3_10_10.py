@@ -5,15 +5,39 @@ import numpy as np
 import sys
 import math
 
+
+import mplhep as hep
+
+hep.style.use("CMS")
+#plt.style.use(hep.style.ROOT)
+
+'''plt.rcParams["axes.linewidth"] = 1.8
+plt.rcParams["xtick.major.width"] = 1.8
+plt.rcParams["xtick.minor.width"] = 1.8
+plt.rcParams["ytick.major.width"] = 1.8
+plt.rcParams["ytick.minor.width"] = 1.8
+
+plt.rcParams["xtick.direction"] = "in"
+plt.rcParams["ytick.direction"] = "in"
+
+plt.rcParams["xtick.labelsize"] = 15
+plt.rcParams["ytick.labelsize"] = 15
+
+plt.rcParams["legend.fontsize"] = 15
+
+plt.rcParams['legend.title_fontsize'] = 'x-large' '''
+
+
+
 # Import data for cross-section calculation
-from wgrid_10_100_100 import *
+from wgrid_3_10_10 import *
 
 # ROOT settings
 ROOT.gStyle.SetOptStat(0)  # Remove the statistics box from the plots
 
 # Integrated cross-section values
-integrated_cross_section_value_E = 48.8223395  # pb
-integrated_cross_section_value_QE = 28.167   #  24.703  # pb
+integrated_cross_section_value_E  = 45.5272144  # pb
+integrated_cross_section_value_QE = 12.741      # pb
 
 bin_width_correction = 1.0
 
@@ -88,10 +112,10 @@ def compare_Mll_distributions(filename_root):
     latex_Mll.SetTextFont(42)
     latex_Mll.SetTextSize(0.035)
     latex_Mll.DrawLatex(0.15, 0.8,
-                        "Q^{2}_{e,max}<10^{2} GeV^{2};  Q^{2}_{p,max}<10^{2} GeV^{2}; #color[2]{(#tau^{+}#tau^{-}) cepgen}")
+                        "Q^{2}_{e,max}<10  GeV^{2};  Q^{2}_{p,max}<10  GeV^{2}; #color[2]{(#tau^{+}#tau^{-}) cepgen}")
 
     # Save the plot for Mll as a PDF file
-    canvas_Mll.SaveAs("Mll_Comparison_root_mathplotlib_Final_tautau_100_100_10.pdf")
+    canvas_Mll.SaveAs("Mll_Comparison_root_mathplotlib_Final_tautau_10_10_3.pdf")
 
     # Draw the canvas
     canvas_Mll.Draw()
@@ -117,15 +141,21 @@ def compare_Mll_distributions(filename_root):
     wv2, int_el = trap_integ(wv, el)
 
     # Matplotlib plot for elastic and inelastic cross-sections
-    fig, ax = plt.subplots(figsize=(9.0, 8.0))
+
+
+    fig, ax = plt.subplots(figsize = (8.0, 8.0))
+    plt.subplots_adjust(left=0.15, right=0.95, bottom=0.12, top=0.95)
+
+
+
     ax.set_xlim(10.0, 500.0)
     ax.set_ylim(1.0e-4, 1.0e2)
 
 
     # Plot elastic and inelastic cross-sections
-    ax.loglog(wv2, int_el, linestyle='solid', color='blue', linewidth=2, label='elastic (EPA)')
-    ax.loglog(wv1, int_inel, linestyle='dashed', color='red', linewidth=2, label='inelastic (EPA)') 
-    
+    ax.loglog(wv2, int_el, linestyle='solid', color='blue', linewidth=3, label='elastic (EPA)')
+    ax.loglog(wv1, int_inel, linestyle='dashed', color='red', linewidth=3, label='inelastic (EPA)')
+
 
     # Convert ROOT histograms to numpy arrays
     Mll_E_array = np.array([hist_Mll_E.GetBinContent(i) for i in range(1, hist_Mll_E.GetNbinsX() + 1)])
@@ -133,19 +163,25 @@ def compare_Mll_distributions(filename_root):
     bin_edges = np.linspace(10, 500, 501)
 
     # Plot ROOT histograms on the matplotlib plot
-    ax.hist(bin_edges[:-1], bin_edges, weights=Mll_E_array, histtype='step', color='magenta', linestyle='-',
+    ax.hist(bin_edges[:-1], bin_edges, weights=Mll_E_array, histtype='step', color='magenta', linewidth=2, linestyle='-',
             label='elastic (cepgen)')
-    ax.hist(bin_edges[:-1], bin_edges, weights=Mll_QE_array, histtype='step', color='green', linestyle='-',
+    ax.hist(bin_edges[:-1], bin_edges, weights=Mll_QE_array, histtype='step', color='green', linewidth=2, linestyle='-',
             label='inelastic (cepgen)')
 
     # Set labels and legend
     ax.set_xlabel("W [GeV]", fontdict={'family': 'serif', 'color': 'black', 'size': 24})
     ax.set_ylabel("$d\sigma/dW_{ep \\rightarrow e (\gamma \gamma \\to \\tau^+\\tau^-) p^{(*)}}$ [pb/GeV]",
                   fontdict={'family': 'serif', 'color': 'black', 'size': 24})
-    ax.legend(title='$M_N<10$ GeV, ($Q^2_e<10^2$ GeV$^2$; $Q^2_p<10^2$ GeV$^2$)', fontsize=15, title_fontsize=15)
+    ax.legend(title='$M_N<3$ GeV, ($Q^2_e<10$ GeV$^2$; $Q^2_p<10$ GeV$^2$)', fontsize=20, title_fontsize=20)
+
+
+
+
+#    ax.legend(fontsize=20)
+
 
     # Save the plot
-    plt.savefig("Mll_Comparison_matplotlib_Final_tautau_100_100_10.pdf")
+    plt.savefig("Mll_Comparison_matplotlib_Final_tautau_10_10_3.pdf")
 
     # Show the plot
     plt.show()
