@@ -172,16 +172,27 @@ def compare_Mll_distributions(filename_root):
 #    info_text = r"LHeC ($E_{e}=50$ GeV; $E_{p}=7000$ GeV)"
 #    plt.text(0.50, 0.70, info_text, transform=ax.transAxes, ha='center', va='center', fontsize=20, color='black')
     info_text = r"$Q^2_e<10^3$ GeV$^2$; $Q^2_p<10^3$ GeV$^2$; $M_N<10$ GeV"
-    plt.text(0.50, 0.69, info_text, transform=ax.transAxes, ha='center', va='center', fontsize=20, color='black')
+    plt.text(0.50, 0.67, info_text, transform=ax.transAxes, ha='center', va='center', fontsize=20, color='black')
     info_text_2 = r"$M_{\tilde{H}}$ = 100 GeV"
-    plt.text(0.50, 0.62, info_text_2, transform=ax.transAxes, ha='center', va='center', fontsize=20, color='black')
+    plt.text(0.50, 0.60, info_text_2, transform=ax.transAxes, ha='center', va='center', fontsize=20, color='black')
+
+
+
+
+
+    ## Set labels and legend
+    #ax.set_xlabel("W [GeV]", fontdict={'family': 'serif', 'color': 'black', 'size': 24})
+    #ax.set_ylabel(r"$d\sigma/dW ({\rm ep}\to {\rm e}(\gamma\gamma\to\tilde{H}^+\tilde{H}^-){\rm p}^{(\ast)})$ [pb/GeV]",
+              #fontdict={'family': 'serif', 'color': 'black', 'size': 24})
+    #ax.legend(fontsize=20)
+
 
 
     # Set labels and legend
-    ax.set_xlabel("W [GeV]", fontdict={'family': 'serif', 'color': 'black', 'size': 24})
-    ax.set_ylabel(r"$d\sigma/dW ({\rm ep}\to {\rm e}(\gamma\gamma\to\tilde{H}^+\tilde{H}^-){\rm p}^{(\ast)})$ [pb/GeV]",
-              fontdict={'family': 'serif', 'color': 'black', 'size': 24})
-    ax.legend(fontsize=20)
+    ax.set_xlabel("W [GeV]")
+    ax.set_ylabel(r"$d\sigma/dW ({\rm ep}\to {\rm e}(\gamma\gamma\to\tilde{H}^+\tilde{H}^-){\rm p}^{(\ast)})$ [pb/GeV]")
+    ax.legend()
+
 
 
     # Save the plot

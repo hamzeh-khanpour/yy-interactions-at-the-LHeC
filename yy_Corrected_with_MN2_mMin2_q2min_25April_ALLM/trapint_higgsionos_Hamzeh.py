@@ -179,7 +179,7 @@ wv2, int_el = trap_integ(wv, el)
 fig, ax = plt.subplots(figsize = (8, 8))
 plt.subplots_adjust(left=0.15, right=0.95, bottom=0.12, top=0.95)
 ax.set_xlim(200.0, 1000.0)
-ax.set_ylim(1.0e-8, 1.0e0)
+ax.set_ylim(1.0e-7, 1.0e0)
 
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])

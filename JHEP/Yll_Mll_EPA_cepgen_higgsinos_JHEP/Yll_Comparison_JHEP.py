@@ -91,7 +91,6 @@ def compare_distributions(filename):
     inel_MPL = inel[3][:303]
 
 
-
     # Plotting with Matplotlib
 
     fig, ax = plt.subplots(figsize = (8.0, 8.0))
@@ -102,44 +101,50 @@ def compare_distributions(filename):
     ax.set_ylim(1.e-6, 1.e-3)
 
 
-
     plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
-
     # Plot graphs from Matplotlib data
     ax.plot(Yll_MPL, elas_MPL, linestyle='solid', linewidth=2, color='blue', label='elastic (EPA)')
     ax.plot(Yll_MPL, inel_MPL, linestyle='dashed', linewidth=2, color='red', label='inelastic (EPA)')
-
     # Plot histograms
     ax.plot(bin_centers, hist_Yll_E, marker='*', linestyle='None', linewidth=2, color='magenta', label='elastic (cepgen)')
     ax.plot(bin_centers, hist_Yll_QE, marker='+', linestyle='None', linewidth=2, color='green', label='inelastic (cepgen)')
 
 
 
-    # Set labels and title
+## Set labels and title
+    #font2 = {'family':'serif', 'color':'black', 'size':24}
+##    ax.set_xlabel(r'$Y_{\tilde{H}}$', fontdict=font2)
+##    ax.set_ylabel(r'$d\sigma/dY_{\tilde{H}} \, [pb]$', fontdict=font2)
+
+    #ax.set_xlabel(r'$Y_{\tilde{H}^+\tilde{H}^-}$', fontdict=font2)
+    #ax.set_ylabel(r'$d\sigma/dY_{\tilde{H}^+\tilde{H}^-} \, [pb]$', fontdict=font2)
+
+
+
+
+# Set labels and title
     font2 = {'family':'serif', 'color':'black', 'size':24}
 #    ax.set_xlabel(r'$Y_{\tilde{H}}$', fontdict=font2)
 #    ax.set_ylabel(r'$d\sigma/dY_{\tilde{H}} \, [pb]$', fontdict=font2)
+    ax.set_xlabel(r'$Y_{\tilde{H}^+\tilde{H}^-}$')
+    ax.set_ylabel(r'$d\sigma/dY_{\tilde{H}^+\tilde{H}^-} \, [pb]$')
 
-    ax.set_xlabel(r'$Y_{\tilde{H}^+\tilde{H}^-}$', fontdict=font2)
-    ax.set_ylabel(r'$d\sigma/dY_{\tilde{H}^+\tilde{H}^-} \, [pb]$', fontdict=font2)
 
-    # Add legend
+
+
+# Add legend
     inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
     title_label = ('$Q^2_e<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$').format(10, np.log10(inel[1]))
-    ax.legend(title=title_label, loc='upper right', fontsize=15)
+    ax.legend(title=title_label, loc='upper right')
+    ax.legend()
 
 
-
-    ax.legend(fontsize=20)
-
-
-    # Add text annotations
+# Add text annotations
 #    info_text_1 = r"LHeC ($E_{e}=50$ GeV; $E_{p}=7000$ GeV)"
 #    ax.text(0.05, 0.95, info_text_1, transform=ax.transAxes, fontsize=20, verticalalignment='top', bbox=dict(facecolor='white', alpha=0.0))
 
     info_text_1 = r"$Q^2_p<10^3$ GeV$^2$"
     ax.text(0.05, 0.95, info_text_1, transform=ax.transAxes, fontsize=20, verticalalignment='top', bbox=dict(facecolor='white', alpha=0.0))
-
     info_text_2 = r"$M_N<10$ GeV"
     ax.text(0.05, 0.88, info_text_2, transform=ax.transAxes, fontsize=20, verticalalignment='top', bbox=dict(facecolor='white', alpha=0.0))
     info_text_3 = r"$M_{\tilde{H}}$ = 100 GeV"
