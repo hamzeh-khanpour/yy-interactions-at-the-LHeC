@@ -11,6 +11,11 @@ import sys
 hep.style.use("CMS")
 #plt.style.use(hep.style.ROOT)
 
+
+import matplotlib.ticker as mticker
+
+
+
 '''plt.rcParams["axes.linewidth"] = 1.8
 plt.rcParams["xtick.major.width"] = 1.8
 plt.rcParams["xtick.minor.width"] = 1.8
@@ -42,12 +47,24 @@ plt.subplots_adjust(left=0.15, right=0.95, bottom=0.12, top=0.95)
 
 
 ax.set_xlim(0.0, 5.0)
-ax.set_ylim(0.00002, 0.0002)
+ax.set_ylim(0.02, 0.2)
+
+
+
+
+
+# Set y-axis to scientific format
+formatter = mticker.ScalarFormatter(useMathText=True)
+formatter.set_powerlimits((-2, 2))
+ax.yaxis.set_major_formatter(formatter)
+
+
+
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
 title_label = ('$Q^2_e<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$').format(10,np.log10(inel[1]))
-plt.plot(wvalues[3][:202], elas[3][:202], linestyle = 'dashed',  linewidth=3, color='blue', label = 'tagged elastic')
-plt.plot(wvalues[3][:202], inel[3][:202], linestyle = 'dashdot', linewidth=3, color='red', label = inel_label)
+plt.plot(wvalues[3][:202], [value * 1000 for value in elas[3][:202]], linestyle = 'dashed',  linewidth=3, color='blue', label = 'tagged elastic')
+plt.plot(wvalues[3][:202], [value * 1000 for value in inel[3][:202]], linestyle = 'dashdot', linewidth=3, color='red', label = inel_label)
 #plt.grid()
 plt.legend(title = title_label)
 
@@ -85,7 +102,7 @@ font2 = {'family':'serif','color':'black','size':24}
 
 
 plt.xlabel("$Y_{\widetilde{\ell}^+ \widetilde{\ell}^-}$")
-plt.ylabel("$d\sigma/dY_{\widetilde{\ell}^+ \widetilde{\ell}^-}$ [pb]")
+plt.ylabel("$d\sigma/dY_{\widetilde{\ell}^+ \widetilde{\ell}^-}$ [fb]")
 
 
 plt.savefig("dSigmadY_sleptons100GeV_MN100_25April_m100GeV_Modified.pdf")

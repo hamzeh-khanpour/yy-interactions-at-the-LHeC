@@ -11,6 +11,10 @@ import sys
 hep.style.use("CMS")
 #plt.style.use(hep.style.ROOT)
 
+
+import matplotlib.ticker as mticker
+
+
 '''plt.rcParams["axes.linewidth"] = 1.8
 plt.rcParams["xtick.major.width"] = 1.8
 plt.rcParams["xtick.minor.width"] = 1.8
@@ -42,6 +46,15 @@ plt.subplots_adjust(left=0.15, right=0.95, bottom=0.12, top=0.95)
 
 ax.set_xlim(0.0, 5.0)
 ax.set_ylim(0.0005, 0.01)
+
+
+
+
+# Set y-axis to scientific format
+formatter = mticker.ScalarFormatter(useMathText=True)
+formatter.set_powerlimits((-2, 2))
+ax.yaxis.set_major_formatter(formatter)
+
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
 title_label = ('$Q^2_e<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$').format(10,np.log10(inel[1]))

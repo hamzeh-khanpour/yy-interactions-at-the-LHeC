@@ -15,6 +15,11 @@ import mplhep as hep
 hep.style.use("CMS")
 #plt.style.use(hep.style.ROOT)
 
+
+
+import matplotlib.ticker as mticker
+
+
 '''plt.rcParams["axes.linewidth"] = 1.8
 plt.rcParams["xtick.major.width"] = 1.8
 plt.rcParams["xtick.minor.width"] = 1.8
@@ -99,6 +104,15 @@ def compare_distributions(filename):
 
     ax.set_xlim(0.0, 5.0)
     ax.set_ylim(1.e-6, 1.e-3)
+
+
+
+
+    # Set y-axis to scientific format
+    formatter = mticker.ScalarFormatter(useMathText=True)
+    formatter.set_powerlimits((-2, 2))
+    ax.yaxis.set_major_formatter(formatter)
+
 
 
     plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
