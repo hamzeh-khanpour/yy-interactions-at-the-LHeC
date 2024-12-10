@@ -1,9 +1,16 @@
-import matplotlib.pyplot as plt
+# Final Version -- December 2024 -- Hamzeh Khanpour
+
+# ================================================================================
+
+import mplhep as hep
 import numpy as np
+import matplotlib.pyplot as plt
 import sys
 
+hep.style.use("CMS")
+#plt.style.use(hep.style.ROOT)
 
-plt.rcParams["axes.linewidth"] = 1.8
+'''plt.rcParams["axes.linewidth"] = 1.8
 plt.rcParams["xtick.major.width"] = 1.8
 plt.rcParams["xtick.minor.width"] = 1.8
 plt.rcParams["ytick.major.width"] = 1.8
@@ -17,7 +24,7 @@ plt.rcParams["ytick.labelsize"] = 15
 
 plt.rcParams["legend.fontsize"] = 15
 
-plt.rcParams['legend.title_fontsize'] = 'x-large'
+plt.rcParams['legend.title_fontsize'] = 'x-large' '''
 
 
 
@@ -103,15 +110,16 @@ el = np.array(elas[3])
 wv1, int_inel = trap_integ(wv, ie)
 wv2, int_el = trap_integ(wv, el)
 
-fig, ax = plt.subplots(figsize = (9.0, 8.0))
+fig, ax = plt.subplots(figsize = (8.0, 8.0))
+plt.subplots_adjust(left=0.15, right=0.95, bottom=0.12, top=0.95)
 ax.set_xlim(10.0, 1000.0)
 ax.set_ylim(1.e-3, 10.e2)
 
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
 title_label = ('$Q^2_e<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$').format(10,np.log10(inel[1]))
-plt.loglog(wv2[:303], int_el[:303], linestyle = 'solid',  linewidth=2,  label = 'Elastic')
-plt.loglog(wv1[:303], int_inel[:303], linestyle = 'dotted',  linewidth=2, label = inel_label)
+plt.loglog(wv2[:303], int_el[:303], linestyle = 'solid',  linewidth=4,  label = 'Elastic')
+plt.loglog(wv1[:303], int_inel[:303], linestyle = 'dotted',  linewidth=4, label = inel_label)
 
 #plt.grid()
 
@@ -128,7 +136,7 @@ plt.legend(title = title_label)
 # Save the output values in a text file
 output_data = np.column_stack((wv2[:303], int_el[:303], int_inel[:303]))
 header = 'W_Value Elastic Inelastic'
-np.savetxt('output_values_tau_10_100000_10.txt', output_data, header=header, fmt='%0.8e', delimiter='\t')
+np.savetxt('output_values_tau.txt', output_data, header=header, fmt='%0.8e', delimiter='\t')
 
 
 
@@ -139,9 +147,9 @@ np.savetxt('output_values_tau_10_100000_10.txt', output_data, header=header, fmt
 font1 = {'family':'serif','color':'black','size':24}
 font2 = {'family':'serif','color':'black','size':24}
 
-plt.xlabel("W$_0$ [GeV]", fontdict=font2)
+plt.xlabel("W$_0$ [GeV]")
 #plt.ylabel("$\sigma_{\\tau^+\\tau^-}$ (W > W$_0$) [pb]", fontdict=font2)
-plt.ylabel(r"$\sigma_{{\rm ep}\to {\rm e}(\gamma\gamma\to\tau^+\tau^-){\rm p}^{(\ast)}}$ (W > W$_0$) [pb]", fontdict = font2)
+plt.ylabel(r"$\sigma_{{\rm ep}\to {\rm e}(\gamma\gamma\to\tau^+\tau^-){\rm p}^{(\ast)}}$ (W > W$_0$) [pb]")
 
 
 

@@ -199,8 +199,8 @@ plt.ylabel(r"$\sigma_{{\rm ep}\to {\rm e}(\gamma\gamma \to W^+W^-){\rm p}^{(\ast
 
 
 
-plt.savefig("cs_LHeC_750GeV.pdf")
-plt.savefig("cs_LHeC_750GeV.jpg")
+plt.savefig("cs_WW_LHeC_750GeV.pdf")
+plt.savefig("cs_WW_LHeC_750GeV.jpg")
 
 
 plt.show()
