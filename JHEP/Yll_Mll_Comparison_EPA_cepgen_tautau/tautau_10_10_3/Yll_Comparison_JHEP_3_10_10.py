@@ -109,15 +109,24 @@ def compare_distributions(filename):
 
 
 
+    ## Set labels and title
+    #font2 = {'family': 'serif', 'color': 'black', 'size': 24}
+    #ax.set_xlabel(r'$Y_{\tau^{+}\tau^{-}}$', fontdict=font2)
+    #ax.set_ylabel(r'$d\sigma/dY_{\tau^{+}\tau^{-}} \, [pb]$', fontdict=font2)
+
+
+
     # Set labels and title
-    font2 = {'family': 'serif', 'color': 'black', 'size': 24}
-    ax.set_xlabel(r'$Y_{\tau^{+}\tau^{-}}$', fontdict=font2)
-    ax.set_ylabel(r'$d\sigma/dY_{\tau^{+}\tau^{-}} \, [pb]$', fontdict=font2)
+    ax.set_xlabel(r'$Y_{\tau^{+}\tau^{-}}$')
+    ax.set_ylabel(r'$d\sigma/dY_{\tau^{+}\tau^{-}} \, [pb]$')
+
 
     # Add legend
     inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
     title_label = ('$Q^2_e<$ ${{{:g}}}$ GeV$^2$').format(10, np.log10(inel[1]))
     ax.legend(title=title_label, loc='upper right', fontsize=20)
+
+
 
     # Add text annotations
     info_text_1 = r"$Q^2_p<10$ GeV$^2$"

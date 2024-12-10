@@ -116,21 +116,32 @@ def compare_distributions(filename):
 
 
 
+    ## Set labels and title
+    #font2 = {'family': 'serif', 'color': 'black', 'size': 24}
+    #ax.set_xlabel(r'$Y_{\tau^{+}\tau^{-}}$', fontdict=font2)
+    #ax.set_ylabel(r'$d\sigma/dY_{\tau^{+}\tau^{-}} \, [pb]$', fontdict=font2)
+
+
     # Set labels and title
-    font2 = {'family': 'serif', 'color': 'black', 'size': 24}
-    ax.set_xlabel(r'$Y_{\tau^{+}\tau^{-}}$', fontdict=font2)
-    ax.set_ylabel(r'$d\sigma/dY_{\tau^{+}\tau^{-}} \, [pb]$', fontdict=font2)
+    ax.set_xlabel(r'$Y_{\tau^{+}\tau^{-}}$')
+    ax.set_ylabel(r'$d\sigma/dY_{\tau^{+}\tau^{-}} \, [pb]$')
+
+
 
     # Add legend
     inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
     title_label = ('$Q^2_e<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$').format(10, np.log10(inel[1]))
     ax.legend(title=title_label, loc='upper right', fontsize=20)
 
+
+
     # Add text annotations
     info_text_1 = r"$Q^2_p<10^2$ GeV$^2$"
     ax.text(0.05, 0.95, info_text_1, transform=ax.transAxes, fontsize=20, verticalalignment='top', bbox=dict(facecolor='white', alpha=0.0))
     info_text_2 = r"$M_N<10$ GeV"
     ax.text(0.05, 0.88, info_text_2, transform=ax.transAxes, fontsize=20, verticalalignment='top', bbox=dict(facecolor='white', alpha=0.0))
+
+
 
     # Save the plot as a PDF and JPG file
     plt.savefig("Yll_Comparison_tautau_100_100_10_JHEP.pdf")

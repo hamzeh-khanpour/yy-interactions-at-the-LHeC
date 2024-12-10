@@ -168,13 +168,27 @@ def compare_Mll_distributions(filename_root):
     ax.hist(bin_edges[:-1], bin_edges, weights=Mll_QE_array, histtype='step', color='green', linewidth=2, linestyle='-',
             label='inelastic (cepgen)')
 
+
+
+
+
+
+
+
+    ## Set labels and legend
+    #ax.set_xlabel("W [GeV]", fontdict={'family': 'serif', 'color': 'black', 'size': 24})
+    #ax.set_ylabel("$d\sigma/dW_{ep \\rightarrow e (\gamma \gamma \\to \\tau^+\\tau^-) p^{(*)}}$ [pb/GeV]",
+                  #fontdict={'family': 'serif', 'color': 'black', 'size': 24})
+    #ax.legend(title='$M_N<3$ GeV, ($Q^2_e<10$ GeV$^2$; $Q^2_p<10$ GeV$^2$)', fontsize=20, title_fontsize=20)
+
+
+
+
+
     # Set labels and legend
-    ax.set_xlabel("W [GeV]", fontdict={'family': 'serif', 'color': 'black', 'size': 24})
-    ax.set_ylabel("$d\sigma/dW_{ep \\rightarrow e (\gamma \gamma \\to \\tau^+\\tau^-) p^{(*)}}$ [pb/GeV]",
-                  fontdict={'family': 'serif', 'color': 'black', 'size': 24})
+    ax.set_xlabel("W [GeV]")
+    ax.set_ylabel("$d\sigma/dW_{ep \\rightarrow e (\gamma \gamma \\to \\tau^+\\tau^-) p^{(*)}}$ [pb/GeV]")
     ax.legend(title='$M_N<3$ GeV, ($Q^2_e<10$ GeV$^2$; $Q^2_p<10$ GeV$^2$)', fontsize=20, title_fontsize=20)
-
-
 
 
 #    ax.legend(fontsize=20)
