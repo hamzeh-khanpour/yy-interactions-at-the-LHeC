@@ -47,7 +47,7 @@ for wv in wlist:
 
 
 
-with open('100_100000_100000_ALPHA2PI_MN_Q2_Q2_mMin2_q2min.dat', 'w') as f:
+with open('100_100000_100000_elastic_tagged_Newyp.dat', 'w') as f:
     print(res_param, file = f)     
     print(res_inel, file = f)
     print(res_el, file = f)
