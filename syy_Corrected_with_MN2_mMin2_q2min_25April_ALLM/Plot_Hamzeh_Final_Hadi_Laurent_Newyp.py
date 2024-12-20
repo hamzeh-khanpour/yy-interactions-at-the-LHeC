@@ -35,7 +35,7 @@ sys.path.append('./values')
 # from syy_1_4_4_0907 import *
 from wgrid_10_100000_10_elastic_tagged_Newyp import *
 
-fig, ax = plt.subplots(figsize = (8, 8))
+fig, ax = plt.subplots(figsize = (8, 9))
 plt.subplots_adjust(left=0.15, right=0.95, bottom=0.12, top=0.95)
 ax.set_xlim(10.0, 1000.0)
 ax.set_ylim(1.e-7, 1.0)
@@ -44,6 +44,10 @@ inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$
 title_label = ('$Q^2_e<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$').format(10,np.log10(inel[1]))
 plt.loglog(wvalues[3][:303], elas1[3][:303], linestyle = 'solid',  linewidth=3, label = 'tagged elastic (LHeC@1.2TeV)')
 plt.loglog(wvalues[3][:303], elas2[3][:303], linestyle = 'dashdot',  linewidth=3, label = 'tagged elastic (LHeC@0.75TeV)')
+plt.loglog(wvalues[3][:303], elas3[3][:303],
+           linestyle=(0, (5, 2, 1, 2, 1, 2)),  # Custom dash-dot-dot pattern
+           linewidth=3,  # Line thickness
+           label='untagged elastic (LHeC@1.2TeV)')
 plt.loglog(wvalues[3][:303], inel[3][:303], linestyle = 'dotted', linewidth=3, label = inel_label)
 #plt.grid()
 

@@ -56,12 +56,15 @@ wv = np.array(wvalues[3])
 ie = np.array(inel[3])
 el1 = np.array(elas1[3])
 el2 = np.array(elas2[3])
+el3 = np.array(elas3[3])
 
 wv1, int_inel = trap_integ(wv, ie)
 wv2, int_el1 = trap_integ(wv, el1)
 wv2, int_el2 = trap_integ(wv, el2)
+wv2, int_el3 = trap_integ(wv, el3)
 
-fig, ax = plt.subplots(figsize = (8, 8))
+
+fig, ax = plt.subplots(figsize = (8, 9))
 plt.subplots_adjust(left=0.15, right=0.95, bottom=0.12, top=0.95)
 ax.set_xlim(10.0, 1000.0)
 ax.set_ylim(1.e-5, 1.0e1)
@@ -74,6 +77,12 @@ title_label = ('$Q^2_e<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$').format(10,np.log10(inel[1
 
 plt.loglog(wv2[:303], int_el1[:303], linestyle = 'solid',  linewidth=3,  label = 'tagged elastic (LHeC@1.2TeV)')
 plt.loglog(wv2[:303], int_el2[:303], linestyle = 'dashdot',  linewidth=3,  label = 'tagged elastic (LHeC@0.75TeV)')
+
+plt.loglog(wv2[:303], int_el3[:303],
+           linestyle=(0, (5, 2, 1, 2, 1, 2)),  # Custom dash-dot-dot pattern
+           linewidth=3,  # Line thickness
+           label='untagged elastic (LHeC@1.2TeV)')
+
 
 plt.loglog(wv1[:303], int_inel[:303], linestyle = 'dotted',  linewidth=3, label = inel_label)
 #plt.grid()
