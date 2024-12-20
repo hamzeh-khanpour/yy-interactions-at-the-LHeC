@@ -143,7 +143,7 @@ def compare_Mll_distributions(filename_root):
     # Matplotlib plot for elastic and inelastic cross-sections
 
 
-    fig, ax = plt.subplots(figsize = (8.0, 8.0))
+    fig, ax = plt.subplots(figsize = (8.0, 7.0))
     plt.subplots_adjust(left=0.15, right=0.95, bottom=0.12, top=0.95)
 
 
