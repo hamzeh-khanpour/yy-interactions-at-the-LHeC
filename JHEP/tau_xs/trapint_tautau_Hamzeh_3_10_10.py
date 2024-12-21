@@ -100,7 +100,7 @@ def trap_integ(wv, fluxv):
 
 sys.path.append('./values')
 
-from wgrid_3_10_10 import *
+from exact_wgrid_3_10_10 import *
 
 wv = np.array(wvalues[3])
 ie = np.array(inel[3])
@@ -119,21 +119,25 @@ ax.set_ylim(1.e-3, 10.e2)
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
 title_label = ('$Q^2_e<$ ${{{:g}}}$ GeV$^2$').format(10,np.log10(inel[1]))
-plt.loglog(wv2[:303], int_el[:303], linestyle = 'solid',  linewidth=4,  label = 'Elastic')
-plt.loglog(wv1[:303], int_inel[:303], linestyle = 'dotted',  linewidth=4, label = inel_label)
+
+# Adjust `303` dynamically based on the size of `wvalues[3]`
+n_points = len(wvalues[3])
+
+plt.loglog(wv2[:n_points], int_el[:n_points], linestyle = 'solid',  linewidth=4,  label = 'Elastic')
+plt.loglog(wv1[:n_points], int_inel[:n_points], linestyle = 'dotted',  linewidth=4, label = inel_label)
 
 #plt.grid()
 
 plt.legend(title = title_label)
 
-#plt.grid()  
+#plt.grid()
 
 
 
 
 
 # Save the output values in a text file
-output_data = np.column_stack((wv2[:303], int_el[:303], int_inel[:303]))
+output_data = np.column_stack((wv2[:n_points], int_el[:n_points], int_inel[:n_points]))
 header = 'W_Value Elastic Inelastic'
 np.savetxt('output_values_tau.txt', output_data, header=header, fmt='%0.8e', delimiter='\t')
 
