@@ -21,6 +21,8 @@ plt.rcParams["legend.fontsize"] = 15
 plt.rcParams['legend.title_fontsize'] = 'x-large'
 
 
+#plt.rcParams['legend.title_fontsize'] = 'x-large'
+
 
 ##################################################################
 
