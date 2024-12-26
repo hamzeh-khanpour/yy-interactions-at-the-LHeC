@@ -28,7 +28,6 @@ plt.rcParams['legend.title_fontsize'] = 'x-large' '''
 
 
 
-
 ##################################################################
 
 def cs_tautau_w_condition_Hamzeh(wvalue):  # Eq.62 of Physics Reports 364 (2002) 359-450
@@ -101,7 +100,7 @@ def trap_integ(wv, fluxv):
 
 sys.path.append('./values')
 
-from wgrid_10_100_100 import *
+from exact_wgrid_3_10_10 import *
 
 wv = np.array(wvalues[3])
 ie = np.array(inel[3])
@@ -112,14 +111,20 @@ wv2, int_el = trap_integ(wv, el)
 
 fig, ax = plt.subplots(figsize = (8.0, 8.0))
 plt.subplots_adjust(left=0.15, right=0.95, bottom=0.12, top=0.95)
+
+
 ax.set_xlim(10.0, 1000.0)
 ax.set_ylim(1.e-3, 10.e2)
 
 
 inel_label = ('$M_N<$ ${{{:g}}}$ GeV').format(inel[0]) + (' ($Q^2_p<$ ${{{:g}}}$ GeV$^2$)').format(inel[2])
-title_label = ('$Q^2_e<$ ${{{:g}}}^{{{:g}}}$ GeV$^2$').format(10,np.log10(inel[1]))
-plt.loglog(wv2[:303], int_el[:303], linestyle = 'solid',  linewidth=4,  label = 'Elastic')
-plt.loglog(wv1[:303], int_inel[:303], linestyle = 'dotted',  linewidth=4, label = inel_label)
+title_label = ('$Q^2_e<$ ${{{:g}}}$ GeV$^2$').format(10,np.log10(inel[1]))
+
+# Adjust `303` dynamically based on the size of `wvalues[3]`
+n_points = len(wvalues[3])
+
+plt.loglog(wv2[:n_points], int_el[:n_points], linestyle = 'solid',  linewidth=4,  label = 'Elastic')
+plt.loglog(wv1[:n_points], int_inel[:n_points], linestyle = 'dotted',  linewidth=4, label = inel_label)
 
 #plt.grid()
 
@@ -131,10 +136,8 @@ plt.legend(title = title_label)
 
 
 
-
-
 # Save the output values in a text file
-output_data = np.column_stack((wv2[:303], int_el[:303], int_inel[:303]))
+output_data = np.column_stack((wv2[:n_points], int_el[:n_points], int_inel[:n_points]))
 header = 'W_Value Elastic Inelastic'
 np.savetxt('output_values_tau.txt', output_data, header=header, fmt='%0.8e', delimiter='\t')
 
@@ -150,8 +153,6 @@ font2 = {'family':'serif','color':'black','size':24}
 plt.xlabel("W$_0$ [GeV]")
 #plt.ylabel("$\sigma_{\\tau^+\\tau^-}$ (W > W$_0$) [pb]", fontdict=font2)
 plt.ylabel(r"$\sigma_{{\rm ep}\to {\rm e}(\gamma\gamma\to\tau^+\tau^-){\rm p}^{(\ast)}}$ (W > W$_0$) [pb]")
-
-
 
 
 plt.savefig("cs_tautau_MN2_mMin2_q2min_Final_25April_3_10_10.pdf")
