@@ -84,7 +84,7 @@ cross_sections = [cs_gg_to_gg_w(W) for W in W_values]
 # Plotting the results
 
 
-fig, ax = plt.subplots(figsize = (8.0, 8.0))
+fig, ax = plt.subplots(figsize = (8.0, 9.0))
 plt.subplots_adjust(left=0.15, right=0.95, bottom=0.12, top=0.95)
 
 
