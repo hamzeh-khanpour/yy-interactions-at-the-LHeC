@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Import data from the custom module
-from dSigmadY_ep_mumu_3_10_10_W100GeV import wvalues, elas, inel
+from dSigmadY_ep_tautau_3_10_10_W100GeV import wvalues, elas, inel
 
 # Matplotlib configuration for publication-quality plots
 import mplhep as hep
@@ -28,8 +28,8 @@ plt.rcParams["legend.fontsize"] = 15
 plt.rcParams['legend.title_fontsize'] = 'x-large' '''
 
 # Constants
-integrated_cross_section_value_E  = 1.90946957e-01  # pb
-integrated_cross_section_value_QE = 8.30547341e-02  # pb
+integrated_cross_section_value_E  = 1.09658671e-01  # pb
+integrated_cross_section_value_QE = 4.79046352e-02  # pb
 bin_width_correction = 5.0
 
 def compare_distributions(filename):
@@ -90,7 +90,7 @@ def compare_distributions(filename):
 
 
     ax.set_xlim(-10.0, 10.0)
-    ax.set_ylim(0.00015, 0.14)
+    ax.set_ylim(0.00015, 0.080)
 
 #    plt.ticklabel_format(style='sci', axis='y', scilimits=(0, 0))
 
@@ -117,8 +117,8 @@ def compare_distributions(filename):
 
 
     # Set labels and title
-    ax.set_xlabel(r'$Y_{\mu^{+}\mu^{-}}$')
-    ax.set_ylabel(r'$d\sigma/dY_{\mu^{+}\mu^{-}} \, [pb]$')
+    ax.set_xlabel(r'$Y_{\tau^{+}\tau^{-}}$')
+    ax.set_ylabel(r'$d\sigma/dY_{\tau^{+}\tau^{-}} \, [pb]$')
 
 
     # Add legend
@@ -140,8 +140,8 @@ def compare_distributions(filename):
 
 
     # Save the plot as a PDF and JPG file
-    plt.savefig("Yll_Comparison_mumu_10_10_3_JHEP_W100GeV.pdf")
-    plt.savefig("Yll_Comparison_mumu_10_10_3_JHEP_W100GeV.jpg")
+    plt.savefig("Yll_Comparison_tautau_10_10_3_JHEP_W100GeV.pdf")
+    plt.savefig("Yll_Comparison_tautau_10_10_3_JHEP_W100GeV.jpg")
 
     # Show the plot
     plt.show()
@@ -158,4 +158,4 @@ def compare_distributions(filename):
     print("Area under the curve for Yll (inelastic (EPA)):", area_Yll_MPL_inelastic)
 
 # Call the function with the filename of the ROOT file
-compare_distributions("LHeC_Compare_mumu_3_10_10_W100GeV.root")
+compare_distributions("LHeC_Compare_tautau_3_10_10_W100GeV.root")
